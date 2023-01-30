@@ -1,0 +1,1 @@
+enum EnvModes { developmentMode, productMode }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1033088590781",
+    "project_id": "taboo-word-maze",
+    "storage_bucket": "taboo-word-maze.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033088590781:android:bcac7ef139a2df1857a8d4",
+        "android_client_info": {
+          "package_name": "com.example.taboo_word_maze"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033088590781-5hm8kbrhq46fhslfetkaqt4fhh23svh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEirdVTAvxzAH0WUkNhB95sR1kCMgO5gg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033088590781-5hm8kbrhq46fhslfetkaqt4fhh23svh0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

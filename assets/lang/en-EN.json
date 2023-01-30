@@ -1,0 +1,9 @@
+{
+    "splash": "Taboo Word Maze",
+    "welcome": {
+        "play" : "Play !",
+        "edit" : "Edit Taboos",
+        "settings" : "Settings",
+        "rate":"Rate Me"
+    }
+}

@@ -35,6 +35,8 @@ migrate_working_dir/
 /macos/
 /web/
 /windows/
+.env
+.env.development
 
 # Symbolication related
 app.*.symbols
