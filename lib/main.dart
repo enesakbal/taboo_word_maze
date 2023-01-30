@@ -20,7 +20,7 @@ void main() async {
 
   runApp(
     EasyLocalization(
-      supportedLocales:lang.supportedLocales,
+      supportedLocales: lang.supportedLocales,
       startLocale: lang.trLocale,
       path: ApplicationConstants.LANG_ASSET_PATH,
       child: Sizer(
