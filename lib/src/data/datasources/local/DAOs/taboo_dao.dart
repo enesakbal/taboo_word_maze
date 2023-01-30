@@ -5,7 +5,7 @@ import '../../../../domain/entities/taboo.dart';
 
 @dao
 abstract class TabooDao {
-  @Query('SELECT * FROM ${LocalDBConstants.tabooTable} ORDER BY id DESC')
+  @Query('SELECT * FROM ${LocalDBConstants.tabooTable}')
   Future<List<Taboo>> getAllTaboo();
 
   @insert
@@ -16,4 +16,7 @@ abstract class TabooDao {
 
   @update
   Future<void> updateATaboo(Taboo newTaboo);
+
+  @Query('DROP TABLE IF EXISTS ${LocalDBConstants.tabooTable} ')
+  Future<void> dropTabooTable();
 }

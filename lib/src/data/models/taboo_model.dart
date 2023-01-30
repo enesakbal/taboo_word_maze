@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 import '../../domain/entities/taboo.dart';
 
 part 'taboo_model.g.dart';
@@ -22,9 +23,16 @@ class TabooModel extends Equatable {
   Taboo toEntity() {
     var customForbiddenWords = '';
 
-    forbiddenWords?.map((e) {
-      return customForbiddenWords += '$e,';
-    });
+    // forbiddenWords?.map((e) {
+    //   print(e);
+    //   return customForbiddenWords += '$e,';
+    // });
+
+    for (final e in forbiddenWords!) {
+      print(e);
+      customForbiddenWords += '$e,';
+    }
+    print(customForbiddenWords);
 
     return Taboo(word: word, forbiddenWords: customForbiddenWords);
   }

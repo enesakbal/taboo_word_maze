@@ -1,10 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:floor/floor.dart';
+import 'package:flutter/foundation.dart';
 
 @entity
 class Taboo extends Equatable {
   @PrimaryKey(autoGenerate: false)
+  @ColumnInfo()
   final String? word;
+  @ColumnInfo()
   final String? forbiddenWords;
 
   const Taboo({required this.word, required this.forbiddenWords});

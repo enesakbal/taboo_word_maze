@@ -1,0 +1,18 @@
+{
+    "splash": {
+        "title":"Taboo",
+        "subtitle" : "Word Maze",
+        "loading":"Loading"
+    },
+    "welcome": {
+        "play" : "Play !",
+        "edit" : "Edit Taboos",
+        "settings" : "Settings",
+        "rate":"Rate Me"
+    },
+
+    "errors":{
+        "an_error":"An unknown error has occurred. Please try again.",
+        "no_data":"Error occurred while retrieving data. Please try again."
+    }
+}

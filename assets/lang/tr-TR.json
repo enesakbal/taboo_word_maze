@@ -1,9 +1,18 @@
 {
-    "splash": "Tabu Kelime Labirenti",
+    "splash": {
+        "title":"Tabu",
+        "subtitle" : "Kelime Labirenti",
+        "loading":"Yükleniyor"
+    },    
     "welcome": {
         "play" : "Oyna !",
         "edit" : "Tabuları Düzenle",
         "settings" : "Ayarlar",
         "rate":"Uygulamayı Değerlendirin"
+    },
+
+    "errors":{
+        "an_error":"Bilinmeyen bir hata oluştu. Lütfen tekrar deneyiniz.",
+        "no_data":"Verileri alırken bir hata oluştu. Lütfen tekrar deneyiniz."
     }
 }

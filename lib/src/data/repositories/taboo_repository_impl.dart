@@ -21,6 +21,8 @@ class TabooRepositoryImpl extends TabooRepository {
         return Left(Exception('There is no data'));
       }
 
+      print(result[0].forbiddenWords);
+
       final convertedEntites = result.map((e) => e.toEntity()).toList();
       return Right(convertedEntites);
     } on Exception catch (e) {
@@ -46,5 +48,10 @@ class TabooRepositoryImpl extends TabooRepository {
   @override
   Future<void> updateTaboo({required Taboo newTaboo}) {
     return appDatabase.tabo.updateATaboo(newTaboo);
+  }
+
+  @override
+  Future<void> dropTabooTable() {
+    return appDatabase.tabo.dropTabooTable();
   }
 }

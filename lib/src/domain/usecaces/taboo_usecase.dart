@@ -10,4 +10,24 @@ class TabooUsecase {
   Future<Either<Exception, List<Taboo>>> getAllTaboosFromFirebase() {
     return repository.getAllTaboosFromFirebase();
   }
+
+  Future<List<Taboo>> getAllTaboos() {
+    return repository.getAllTaboos();
+  }
+
+  Future<void> insertANewTaboo({required Taboo newTaboo}) {
+    return repository.insertNewTaboo(newTaboo: newTaboo);
+  }
+
+  Future<void> deleteTaboo({required Taboo deleteTaboo}) {
+    return repository.deleteTaboo(deleteTaboo: deleteTaboo);
+  }
+
+  Future<void> updateTaboo({required Taboo newTaboo}) {
+    return repository.updateTaboo(newTaboo: newTaboo);
+  }
+
+  Future<void> dropTabooTable() {
+    return repository.dropTabooTable();
+  }
 }

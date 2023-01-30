@@ -142,10 +142,15 @@ class _$TabooDao extends TabooDao {
 
   @override
   Future<List<Taboo>> getAllTaboo() async {
-    return _queryAdapter.queryList('SELECT * FROM taboo_table ORDER BY id DESC',
+    return _queryAdapter.queryList('SELECT * FROM Taboo',
         mapper: (Map<String, Object?> row) => Taboo(
             word: row['word'] as String?,
             forbiddenWords: row['forbiddenWords'] as String?));
+  }
+
+  @override
+  Future<void> dropTabooTable() async {
+    await _queryAdapter.queryNoReturn('DROP TABLE IF EXISTS Taboo');
   }
 
   @override
