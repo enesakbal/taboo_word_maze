@@ -5,10 +5,10 @@ import '../../../../domain/entities/taboo.dart';
 
 @dao
 abstract class TabooDao {
-  @Query('SELECT * FROM ${LocalDBConstants.tabooTable} ORDER BY id DESC')
+  @Query('SELECT * FROM ${LocalDBConstants.tabooTable}')
   Future<List<Taboo>> getAllTaboo();
 
-  @insert
+  @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> insertANewTaboo(Taboo taboo);
 
   @delete
@@ -16,4 +16,7 @@ abstract class TabooDao {
 
   @update
   Future<void> updateATaboo(Taboo newTaboo);
+
+  @Query('DElETE FROM ${LocalDBConstants.tabooTable} ')
+  Future<void> deleteAllTaboos();
 }

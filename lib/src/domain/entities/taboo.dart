@@ -4,7 +4,9 @@ import 'package:floor/floor.dart';
 @entity
 class Taboo extends Equatable {
   @PrimaryKey(autoGenerate: false)
+  @ColumnInfo()
   final String? word;
+  @ColumnInfo()
   final String? forbiddenWords;
 
   const Taboo({required this.word, required this.forbiddenWords});

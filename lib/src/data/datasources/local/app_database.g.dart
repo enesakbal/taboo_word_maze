@@ -61,7 +61,7 @@ class _$AppDatabase extends AppDatabase {
     changeListener = listener ?? StreamController<String>.broadcast();
   }
 
-  TabooDao? _taboInstance;
+  TabooDao? _tabooDaoInstance;
 
   Future<sqflite.Database> open(
     String path,
@@ -94,8 +94,8 @@ class _$AppDatabase extends AppDatabase {
   }
 
   @override
-  TabooDao get tabo {
-    return _taboInstance ??= _$TabooDao(database, changeListener);
+  TabooDao get tabooDao {
+    return _tabooDaoInstance ??= _$TabooDao(database, changeListener);
   }
 }
 
@@ -142,15 +142,20 @@ class _$TabooDao extends TabooDao {
 
   @override
   Future<List<Taboo>> getAllTaboo() async {
-    return _queryAdapter.queryList('SELECT * FROM taboo_table ORDER BY id DESC',
+    return _queryAdapter.queryList('SELECT * FROM Taboo',
         mapper: (Map<String, Object?> row) => Taboo(
             word: row['word'] as String?,
             forbiddenWords: row['forbiddenWords'] as String?));
   }
 
   @override
+  Future<void> deleteAllTaboos() async {
+    await _queryAdapter.queryNoReturn('DElETE FROM Taboo');
+  }
+
+  @override
   Future<void> insertANewTaboo(Taboo taboo) async {
-    await _tabooInsertionAdapter.insert(taboo, OnConflictStrategy.abort);
+    await _tabooInsertionAdapter.insert(taboo, OnConflictStrategy.replace);
   }
 
   @override

@@ -26,6 +26,13 @@ Future<void> init({required EnvModes mode}) async {
     /* product ve development olmak üzere iki modu var */
   }
 
+  // LOCAL DB
+  final database = await $FloorAppDatabase
+      .databaseBuilder(LocalDBConstants.databaseName)
+      .build();
+
+  injector.registerSingleton<AppDatabase>(database);
+
   //FIREBASE
   await Firebase.initializeApp();
 
@@ -34,13 +41,6 @@ Future<void> init({required EnvModes mode}) async {
 
   injector.registerLazySingleton<FirebaseMessaging>(() => messaging);
   injector.registerLazySingleton<FirebaseFirestore>(() => firestore);
-
-  // LOCAL DB
-  final database = await $FloorAppDatabase
-      .databaseBuilder(LocalDBConstants.tabooTable)
-      .build(); /*Local DB'yi build ediyoruz.*/
-
-  injector.registerSingleton<AppDatabase>(database);
 
   //DATASOURCES
   injector.registerLazySingleton<RemoteDataSource>(RemoteDataSourceImpl.new);

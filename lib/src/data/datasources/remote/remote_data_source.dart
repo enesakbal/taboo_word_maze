@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
+
 import '../../../core/constants/dot_env_manager.dart';
 import '../../models/taboo_model.dart';
 

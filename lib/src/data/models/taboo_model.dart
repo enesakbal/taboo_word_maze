@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 import '../../domain/entities/taboo.dart';
 
 part 'taboo_model.g.dart';
@@ -20,13 +21,20 @@ class TabooModel extends Equatable {
   Map<String, dynamic> toJson() => _$TabooModelToJson(this);
 
   Taboo toEntity() {
-    var customForbiddenWords = '';
+    // var customForbiddenWords = '';
 
-    forbiddenWords?.map((e) {
-      return customForbiddenWords += '$e,';
-    });
+    final buffer = StringBuffer();
 
-    return Taboo(word: word, forbiddenWords: customForbiddenWords);
+    for (final e in forbiddenWords!) {
+      // customForbiddenWords += '$e,';
+
+      buffer.write('$e,');
+
+      //* we  can't store the array in sqlite database, so we can add a comma at the end of each word
+      //* and split it with a comma and use it in future operations.
+    }
+
+    return Taboo(word: word, forbiddenWords: buffer.toString());
   }
 
   @override
