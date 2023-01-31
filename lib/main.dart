@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
-import 'package:taboo_word_maze/src/data/datasources/local/app_database.dart';
 
 import 'src/config/router/app_router.dart';
 import 'src/core/constants/app_constants.dart';
@@ -26,7 +25,6 @@ void main() async {
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  await $FloorAppDatabase.databaseBuilder('app_database.db').build();
 
   await di.init(mode: EnvModes.developmentMode);
 

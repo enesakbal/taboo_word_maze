@@ -31,7 +31,6 @@ Future<void> init({required EnvModes mode}) async {
       .databaseBuilder(LocalDBConstants.databaseName)
       .build();
 
-      
   injector.registerSingleton<AppDatabase>(database);
 
   //FIREBASE

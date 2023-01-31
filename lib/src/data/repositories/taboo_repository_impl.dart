@@ -21,8 +21,6 @@ class TabooRepositoryImpl extends TabooRepository {
         return Left(Exception('There is no data'));
       }
 
-      print(result[0].forbiddenWords);
-
       final convertedEntites = result.map((e) => e.toEntity()).toList();
       return Right(convertedEntites);
     } on Exception catch (e) {
@@ -32,26 +30,26 @@ class TabooRepositoryImpl extends TabooRepository {
 
   @override
   Future<List<Taboo>> getAllTaboos() async {
-    return appDatabase.tabo.getAllTaboo();
+    return appDatabase.tabooDao.getAllTaboo();
   }
 
   @override
   Future<void> insertNewTaboo({required Taboo newTaboo}) {
-    return appDatabase.tabo.insertANewTaboo(newTaboo);
+    return appDatabase.tabooDao.insertANewTaboo(newTaboo);
   }
 
   @override
   Future<void> deleteTaboo({required Taboo deleteTaboo}) {
-    return appDatabase.tabo.deleteATaboo(deleteTaboo);
+    return appDatabase.tabooDao.deleteATaboo(deleteTaboo);
   }
 
   @override
   Future<void> updateTaboo({required Taboo newTaboo}) {
-    return appDatabase.tabo.updateATaboo(newTaboo);
+    return appDatabase.tabooDao.updateATaboo(newTaboo);
   }
 
   @override
-  Future<void> dropTabooTable() {
-    return appDatabase.tabo.dropTabooTable();
+  Future<void> deleteAllTaboos() {
+    return appDatabase.tabooDao.deleteAllTaboos();
   }
 }

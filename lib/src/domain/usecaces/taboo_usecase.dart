@@ -27,7 +27,7 @@ class TabooUsecase {
     return repository.updateTaboo(newTaboo: newTaboo);
   }
 
-  Future<void> dropTabooTable() {
-    return repository.dropTabooTable();
+  Future<void> deleteAllTaboos() {
+    return repository.deleteAllTaboos();
   }
 }

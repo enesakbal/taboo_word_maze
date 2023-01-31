@@ -15,5 +15,5 @@ abstract class TabooRepository {
 
   Future<void> updateTaboo({required Taboo newTaboo});
 
-  Future<void> dropTabooTable();
+  Future<void> deleteAllTaboos();
 }

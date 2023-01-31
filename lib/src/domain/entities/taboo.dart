@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:floor/floor.dart';
-import 'package:flutter/foundation.dart';
 
 @entity
 class Taboo extends Equatable {

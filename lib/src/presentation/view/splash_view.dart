@@ -31,8 +31,6 @@ class _SplashViewState extends State<SplashView> {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) async {
         if (state is SplashHasData) {
-          print(state.data[0].word);
-          print(state.data[0].forbiddenWords);
           await router.replace(const HomeRoute());
         } else if (state is SplashNoData) {
           print('no data');

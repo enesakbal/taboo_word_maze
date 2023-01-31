@@ -20,15 +20,16 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         emit(const SplashLoading());
         /** loading state */
 
-        // final tabooListFromLocalDB = await tabooUsecase.getAllTaboos();
+        final tabooListFromLocalDB = await tabooUsecase.getAllTaboos();
 
-        // if (tabooListFromLocalDB.isNotEmpty) {
-        //   emit(SplashHasData(data: tabooListFromLocalDB));
-        //   /** if local db has taboos so we dont need fetch them from firebase */
-        //   return;
-        // }
+        if (tabooListFromLocalDB.isNotEmpty) {
+          print(tabooListFromLocalDB.length);
+          emit(SplashHasData(data: tabooListFromLocalDB));
+          /** if local db has taboos so we dont need fetch them from firebase */
+          return;
+        }
 
-        // print(tabooListFromLocalDB);
+        print(tabooListFromLocalDB);
 
         final result = await tabooUsecase.getAllTaboosFromFirebase();
         /** trying to fetch data from firebase */

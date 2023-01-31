@@ -21,20 +21,20 @@ class TabooModel extends Equatable {
   Map<String, dynamic> toJson() => _$TabooModelToJson(this);
 
   Taboo toEntity() {
-    var customForbiddenWords = '';
+    // var customForbiddenWords = '';
 
-    // forbiddenWords?.map((e) {
-    //   print(e);
-    //   return customForbiddenWords += '$e,';
-    // });
+    final buffer = StringBuffer();
 
     for (final e in forbiddenWords!) {
-      print(e);
-      customForbiddenWords += '$e,';
-    }
-    print(customForbiddenWords);
+      // customForbiddenWords += '$e,';
 
-    return Taboo(word: word, forbiddenWords: customForbiddenWords);
+      buffer.write('$e,');
+
+      //* we  can't store the array in sqlite database, so we can add a comma at the end of each word
+      //* and split it with a comma and use it in future operations.
+    }
+
+    return Taboo(word: word, forbiddenWords: buffer.toString());
   }
 
   @override
