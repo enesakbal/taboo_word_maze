@@ -1,10 +1,13 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import '../entities/taboo.dart';
 
 abstract class TabooRepository {
   //* FIREBASE
-  Future<Either<Exception, List<Taboo>>> getAllTaboosFromFirebase();
+  Future<Either<FirebaseException, List<Taboo>>> getAllTaboosFromFirebase();
+
+  Future<Either<FirebaseException, bool>> hasAnUpdate();
 
   //*DB
   Future<List<Taboo>> getAllTaboos();

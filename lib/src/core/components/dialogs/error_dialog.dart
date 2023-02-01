@@ -1,23 +1,15 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../lang/locale_keys.g.dart';
 import '../../theme/colors_tones.dart';
 import '../button/custom_button.dart';
 
-class ErrorDialog extends StatefulWidget {
-  const ErrorDialog({super.key});
+class ErrorDialog extends StatelessWidget {
+  final String text;
+  const ErrorDialog({super.key, required this.text});
 
-  @override
-  State<ErrorDialog> createState() => _ErrorDialogState();
-}
-
-class _ErrorDialogState extends State<ErrorDialog> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -56,7 +48,7 @@ class _ErrorDialogState extends State<ErrorDialog> {
             children: [
               Center(
                 child: AutoSizeText(
-                  LocaleKeys.errors_no_data.tr(),
+                  text,
                   textAlign: TextAlign.center,
                 ),
               ),

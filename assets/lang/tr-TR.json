@@ -13,6 +13,9 @@
 
     "errors":{
         "an_error":"Bilinmeyen bir hata oluştu. Lütfen tekrar deneyiniz.",
-        "no_data":"Verileri alırken bir hata oluştu. Lütfen tekrar deneyiniz."
+        "no_data":"Verileri alırken bir hata oluştu. Lütfen tekrar deneyiniz.",
+        "has_update":"Yeni versiyonumuz yayında. Lütfen uygulamayı güncelleyiniz.",
+        "no_internet_first_open":"Uygulamanın ilk kez açılış sırasında internete ihtiyacı var. Lütfen internet bağlantını kontrol et",
+        "no_internet":"Lütfen internet bağlantını kontrol et."
     }
 }

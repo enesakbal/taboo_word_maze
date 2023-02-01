@@ -1,5 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 
+import '../../core/lang/locale_keys.g.dart';
 import '../../domain/entities/taboo.dart';
 import '../../domain/repositories/taboo_repository.dart';
 import '../datasources/local/app_database.dart';
@@ -12,21 +15,49 @@ class TabooRepositoryImpl extends TabooRepository {
   TabooRepositoryImpl(
       {required this.appDatabase, required this.remoteDataSource});
 
+  //* REMOTE
+
   @override
-  Future<Either<Exception, List<Taboo>>> getAllTaboosFromFirebase() async {
+  Future<Either<FirebaseException, List<Taboo>>>
+      getAllTaboosFromFirebase() async {
     try {
       final result = await remoteDataSource.getAllTaboosFromFirebase();
 
       if (result == null) {
-        return Left(Exception('There is no data'));
+        //* result null because response length == 0
+        //* no internet or no data.
+        return Left(
+          FirebaseException(
+            plugin: 'getAllTaboosFromFirebase',
+            message: LocaleKeys.errors_no_internet.tr(),
+          ),
+        );
       }
 
-      final convertedEntites = result.map((e) => e.toEntity()).toList();
-      return Right(convertedEntites);
-    } on Exception catch (e) {
-      return Left(Exception(e));
+      final data = result.map((e) => e.toEntity()).toList();
+
+      return Right(data);
+    } on FirebaseException catch (e) {
+      return Left(e);
     }
   }
+
+  @override
+  Future<Either<FirebaseException, bool>> hasAnUpdate() async {
+    try {
+      final result = await remoteDataSource.hasAnUpdate();
+
+      if (result) {
+        return Right(result);
+      } else {
+        return Right(result);
+      }
+    } on FirebaseException catch (e) {
+      return Left(e);
+    }
+  }
+
+  //* LOCAL
 
   @override
   Future<List<Taboo>> getAllTaboos() async {

@@ -22,7 +22,7 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    context.read<SplashBloc>().add(const FetchData());
+    context.read<SplashBloc>().add(const BusinessDesicion());
     super.initState();
   }
 
@@ -30,11 +30,21 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) async {
-        if (state is SplashHasData) {
+        print(state);
+        if (state is NeedUpdate) {
+          await ErrorDialog(
+            text: state.message,
+          ).show(context);
+        } else if (state is SplashLocalDBHasData) {
+          await router.replace(const HomeRoute());
+        } else if (state is SplashFetchedDataFromFirebase) {
           await router.replace(const HomeRoute());
         } else if (state is SplashNoData) {
           print('no data');
-          await const ErrorDialog().show(context);
+          await ErrorDialog(text: state.message).show(context);
+        } else if (state is SplashError) {
+          print('no data');
+          await ErrorDialog(text: state.message).show(context);
         }
       },
       child: Scaffold(
