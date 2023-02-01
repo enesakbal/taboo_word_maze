@@ -6,4 +6,13 @@ class DotEnvManager {
 
   static String? getBaseFirebaseDataColletionName() =>
       dotenv.env['BASE_FIREBASE_DATA_COLLECTION'];
+
+  static String? getBaseFirebaseConfigColletionName() =>
+      dotenv.env['BASE_FIREBASE_CONFIG_COLLECTION'];
+
+  static String? getBaseFirebaseVersionDocumentName() =>
+      dotenv.env['BASE_FIREBASE_VERSION_DOCUMENT'];
+
+  static String? getBaseFirebaseVersionFieldName() =>
+      dotenv.env['BASE_FIREBASE_VERSION_FIELD_NAME'];
 }

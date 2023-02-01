@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'core/constants/local_db_constants.dart';
 import 'core/enums/env_enums.dart';
@@ -33,11 +34,15 @@ Future<void> init({required EnvModes mode}) async {
 
   injector.registerSingleton<AppDatabase>(database);
 
+  await database.tabooDao.deleteAllTaboos();
+
   //FIREBASE
   await Firebase.initializeApp();
 
   final messaging = FirebaseMessaging.instance;
   final firestore = FirebaseFirestore.instance;
+
+  await firestore.clearPersistence();
 
   injector.registerLazySingleton<FirebaseMessaging>(() => messaging);
   injector.registerLazySingleton<FirebaseFirestore>(() => firestore);
@@ -61,4 +66,10 @@ Future<void> init({required EnvModes mode}) async {
 
   //LANGUAGE MANAGER
   injector.registerLazySingleton(LanguageManager.new);
+
+  //PACKAGE INFO
+  final packageInfo = await PackageInfo.fromPlatform();
+  injector.registerLazySingleton<PackageInfo>(
+    () => packageInfo,
+  );
 }
