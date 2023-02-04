@@ -10,6 +10,7 @@ import 'src/config/router/app_router.dart';
 import 'src/core/constants/app_constants.dart';
 import 'src/core/enums/env_enums.dart';
 import 'src/core/lang/language_manager.dart';
+import 'src/core/theme/app_theme.dart';
 import 'src/injector.dart' as di;
 import 'src/presentation/bloc/splash/splash_bloc.dart';
 
@@ -27,7 +28,6 @@ void main() async {
   ]);
 
   await di.init(mode: EnvModes.developmentMode);
-
 
   final lang = di.injector<LanguageManager>();
 
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
           );
         },
         title: 'Taboo\nWord Maze',
-        theme: ThemeData(primarySwatch: Colors.blue),
+        theme: AppTheme.theme,
         routerDelegate: router.delegate(),
         routeInformationParser: router.defaultRouteParser(),
         debugShowCheckedModeBanner: false,

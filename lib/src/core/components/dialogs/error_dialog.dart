@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../config/router/app_router.dart';
 import '../../theme/colors_tones.dart';
 import '../button/custom_button.dart';
 
@@ -52,7 +53,10 @@ class ErrorDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              CustomElevatedButton()
+              CustomElevatedButton(
+                onPressed: () => router.pop,
+                text: 'data',
+              )
             ],
           ),
         ),

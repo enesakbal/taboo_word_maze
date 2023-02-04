@@ -37,7 +37,6 @@ class StorekedText extends StatelessWidget {
           textAlign: textAlign,
           style: TextStyle(
             fontSize: fontSize ?? 20,
-            fontFamily: 'ChakraPetch',
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = strokeWidth ?? 3
@@ -49,9 +48,9 @@ class StorekedText extends StatelessWidget {
           maxLines: maxLines ?? 1,
           textAlign: textAlign,
           style: TextStyle(
-              fontSize: fontSize ?? 20,
-              color: textColor ?? Colors.white,
-              fontFamily: 'ChakraPetch'),
+            fontSize: fontSize ?? 20,
+            color: textColor ?? Colors.white,
+          ),
         ),
       ],
     );

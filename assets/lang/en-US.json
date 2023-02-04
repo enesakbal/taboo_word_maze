@@ -4,8 +4,8 @@
         "subtitle" : "Word Maze",
         "loading":"Loading"
     },
-    "welcome": {
-        "play" : "Play !",
+    "home": {
+        "play" : "Play",
         "edit" : "Edit Taboos",
         "settings" : "Settings",
         "rate":"Rate Me"

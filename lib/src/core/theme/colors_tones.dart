@@ -10,6 +10,8 @@ class ColorTones {
   static Color get darkGreen => const Color(0XFF006400);
   static Color get darkBlue => const Color(0XFF00008B);
   static Color get slateGrey => const Color(0XFF708090);
+  static Color get flaxYellow => const Color(0XFFEEDC82);
+  static Color get goldenYellow => const Color(0XFFFFD700);
 
   /**
    * #87CEFA (Light Sky Blue)

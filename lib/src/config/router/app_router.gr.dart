@@ -24,9 +24,13 @@ class _$AppRouter extends RootStackRouter {
       );
     },
     HomeRoute.name: (routeData) {
-      return AdaptivePage<dynamic>(
+      return CustomPage<dynamic>(
         routeData: routeData,
         child: const HomeView(),
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+        durationInMilliseconds: 800,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
   };

@@ -70,7 +70,6 @@ class _ScaleAnimatedStorekedTextState extends State<ScaleAnimatedStorekedText>
             textAlign: widget.textAlign,
             style: TextStyle(
               fontSize: widget.fontSize ?? 20,
-              fontFamily: 'ChakraPetch',
               foreground: Paint()
                 ..style = PaintingStyle.stroke
                 ..strokeWidth = widget.strokeWidth ?? 3
@@ -84,7 +83,6 @@ class _ScaleAnimatedStorekedTextState extends State<ScaleAnimatedStorekedText>
             style: TextStyle(
               fontSize: widget.fontSize ?? 20,
               color: widget.textColor ?? Colors.white,
-              fontFamily: 'ChakraPetch',
             ),
           ),
         ],
