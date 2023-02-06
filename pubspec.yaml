@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animate_icons: ^2.0.0
   animated_text_kit: ^4.2.2
   auto_route: ^5.0.4
   auto_size_text: ^3.0.0

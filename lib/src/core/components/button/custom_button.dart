@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:animate_icons/animate_icons.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -82,35 +83,22 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton>
         height: widget.height ?? 5.h,
         child: ElevatedButton(
           onPressed: widget.onPressed,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 3.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.gamepad,
-                  color: Colors.black,
-                ),
-                Expanded(
-                  child: Center(
-                    child: AutoSizeText(
-                      widget.text,
-                      maxLines: widget.maxLines,
-                      style: TextStyle(
-                        fontSize: widget.fontSize,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+          child: Center(
+            child: AutoSizeText(
+              widget.text,
+              maxLines: widget.maxLines,
+              style: TextStyle(
+                fontSize: widget.fontSize,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
             ),
           ),
           style: ButtonStyle(
             elevation: MaterialStatePropertyAll(widget.elevation),
-            padding: MaterialStateProperty.all(EdgeInsets.zero),
+            padding: MaterialStateProperty.all(
+              EdgeInsets.symmetric(horizontal: 5.w),
+            ),
             backgroundColor: MaterialStatePropertyAll(
                 widget.hasAnimation! ? color.value : widget.backgroundColor),
             overlayColor: MaterialStatePropertyAll(widget.overlayColor),
@@ -127,4 +115,3 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton>
         ));
   }
 }
-

@@ -25,6 +25,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.0"
+  animate_icons:
+    dependency: "direct main"
+    description:
+      name: animate_icons
+      sha256: "3201c60f2051997cf3cbde4b2f07d269e01fa53a6a3a2986ef26f614419880fd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   animated_text_kit:
     dependency: "direct main"
     description:

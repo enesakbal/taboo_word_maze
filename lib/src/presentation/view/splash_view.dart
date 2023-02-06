@@ -60,6 +60,7 @@ class _SplashViewState extends State<SplashView> {
       decoration: BoxDecoration(
         color: ColorTones.softBlue,
       ),
+      padding: EdgeInsets.symmetric(horizontal: 5.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,7 +74,6 @@ class _SplashViewState extends State<SplashView> {
 
   Widget _headers() {
     return Container(
-      // color: Colors.red,
       height: 60.h,
       width: 100.w,
       child: Column(
@@ -81,21 +81,27 @@ class _SplashViewState extends State<SplashView> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
-            child: ScaleAnimatedStorekedText(
-              textAlign: TextAlign.center,
-              text: LocaleKeys.splash_title.tr(),
-              strokeColor: Colors.black,
-              strokeWidth: 4,
-              fontSize: 60,
+            child: Hero(
+              tag: 'header-1',
+              child: ScaleAnimatedStorekedText(
+                textAlign: TextAlign.center,
+                text: LocaleKeys.splash_title.tr(),
+                strokeColor: Colors.black,
+                strokeWidth: 4,
+                fontSize: 60,
+              ),
             ),
           ),
           Center(
-            child: ScaleAnimatedStorekedText(
-              textAlign: TextAlign.center,
-              text: LocaleKeys.splash_subtitle.tr(),
-              strokeColor: Colors.black,
-              strokeWidth: 4,
-              fontSize: 60,
+            child: Hero(
+              tag: 'header-2',
+              child: ScaleAnimatedStorekedText(
+                textAlign: TextAlign.center,
+                text: LocaleKeys.splash_subtitle.tr(),
+                strokeColor: Colors.black,
+                strokeWidth: 4,
+                fontSize: 60,
+              ),
             ),
           ),
         ],

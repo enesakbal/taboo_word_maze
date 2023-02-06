@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/components/button/custom_button.dart';
+import '../../core/components/text/scale_animated_stroked_text.dart';
+import '../../core/components/text/stroked_auto_size_text.dart';
+import '../../core/components/text/stroked_text.dart';
 import '../../core/lang/locale_keys.g.dart';
 import '../../core/theme/colors_tones.dart';
 
@@ -25,22 +28,64 @@ class HomeView extends StatelessWidget {
       height: 100.h,
       width: 100.w,
       color: ColorTones.softBlue,
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 7.5.h),
+      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 7.5.h),
       child: Container(
         color: Colors.transparent,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _playButton(),
+            _headers(),
             SizedBox(height: 5.h),
-            _editButton(),
-            SizedBox(height: 5.h),
-            _settingsButton(),
-            SizedBox(height: 5.h),
-            _rateMeButton(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _playButton(),
+                SizedBox(height: 5.h),
+                _editButton(),
+                SizedBox(height: 5.h),
+                // _settingsButton(),
+                // SizedBox(height: 5.h),
+              ],
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _headers() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 5.w),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(
+            child: Hero(
+              tag: 'header-1',
+              child: StorekedText(
+                textAlign: TextAlign.center,
+                text: LocaleKeys.splash_title.tr(),
+                strokeColor: Colors.black,
+                strokeWidth: 4,
+                fontSize: 60,
+              ),
+            ),
+          ),
+          Center(
+            child: Hero(
+              tag: 'header-2',
+              child: StorekedText(
+                textAlign: TextAlign.center,
+                text: LocaleKeys.splash_subtitle.tr(),
+                strokeColor: Colors.black,
+                strokeWidth: 4,
+                fontSize: 45,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -66,24 +111,13 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _settingsButton() {
-    return CustomElevatedButton(
-      onPressed: () {},
-      text: LocaleKeys.home_settings.tr(),
-      height: 7.5.h,
-      width: 55.w,
-      backgroundColor: ColorTones.azure.withOpacity(0.8),
-    );
-  }
+  Widget _notificationButton() {
+    return Container();
+    //TODO buraya 3 adet icon button koy, derinlik koyarak çalış
+    //todo birincisi bildirimleri açıp kapatsın buna uygun iki adet icon koy
+    //todo ikincisi dartk theme geçişi olsun
+    //todo üçünücüsü iki adet bayrak kullan ve bu butona tıklanıldığında dili değiştir
 
-  Widget _rateMeButton() {
-    return CustomElevatedButton(
-      onPressed: () {},
-      text: LocaleKeys.home_rate.tr(),
-      height: 7.5.h,
-      width: 55.w,
-      backgroundColor: ColorTones.azure.withOpacity(0.8),
-      overlayColor: ColorTones.goldenYellow,
-    );
+    //todo dördüncüsü rate me butonu olsun hem icon hem yazı tutan bir widget yaz
   }
 }

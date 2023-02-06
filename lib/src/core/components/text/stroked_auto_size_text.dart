@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 import '../../theme/colors_tones.dart';
 
-class StorekedText extends StatelessWidget {
+class StorekedAutoSizeText extends StatelessWidget {
   final String text;
 
   final Color? strokeColor;
@@ -19,7 +19,7 @@ class StorekedText extends StatelessWidget {
 
   final FontWeight? fontWeight;
 
-  const StorekedText({
+  const StorekedAutoSizeText({
     super.key,
     required this.text,
     this.strokeColor,
@@ -35,7 +35,7 @@ class StorekedText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Text(
+        AutoSizeText(
           text,
           maxLines: maxLines ?? 1,
           textAlign: textAlign,
@@ -50,7 +50,7 @@ class StorekedText extends StatelessWidget {
               ..color = strokeColor ?? ColorTones.softBlue,
           ),
         ),
-        Text(
+        AutoSizeText(
           text,
           maxLines: maxLines ?? 1,
           textAlign: textAlign,

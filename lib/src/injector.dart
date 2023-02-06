@@ -34,7 +34,7 @@ Future<void> init({required EnvModes mode}) async {
 
   injector.registerSingleton<AppDatabase>(database);
 
-  await database.tabooDao.deleteAllTaboos();
+  // await database.tabooDao.deleteAllTaboos();
 
   //FIREBASE
   await Firebase.initializeApp();

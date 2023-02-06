@@ -34,7 +34,7 @@ void main() async {
   runApp(
     EasyLocalization(
       supportedLocales: lang.supportedLocales,
-      startLocale: lang.enLocale,
+      startLocale: lang.trLocale,
       path: ApplicationConstants.LANG_ASSET_PATH,
       child: Sizer(
         builder: (context, orientation, deviceType) {

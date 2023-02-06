@@ -3,6 +3,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/app_constants.dart';
 import '../../theme/colors_tones.dart';
 
 class ScaleAnimatedStorekedText extends StatefulWidget {
@@ -18,6 +19,8 @@ class ScaleAnimatedStorekedText extends StatefulWidget {
 
   final TextAlign? textAlign;
 
+  final FontWeight? fontWeight;
+
   const ScaleAnimatedStorekedText({
     super.key,
     required this.text,
@@ -27,6 +30,7 @@ class ScaleAnimatedStorekedText extends StatefulWidget {
     this.fontSize,
     this.maxLines,
     this.textAlign,
+    this.fontWeight,
   });
 
   @override
@@ -69,7 +73,10 @@ class _ScaleAnimatedStorekedTextState extends State<ScaleAnimatedStorekedText>
             maxLines: widget.maxLines ?? 1,
             textAlign: widget.textAlign,
             style: TextStyle(
+              decoration: TextDecoration.none,
               fontSize: widget.fontSize ?? 20,
+              fontWeight: widget.fontWeight ?? FontWeight.normal,
+              fontFamily: ApplicationConstants.FONT_FAMILY,
               foreground: Paint()
                 ..style = PaintingStyle.stroke
                 ..strokeWidth = widget.strokeWidth ?? 3
@@ -81,7 +88,10 @@ class _ScaleAnimatedStorekedTextState extends State<ScaleAnimatedStorekedText>
             maxLines: widget.maxLines ?? 1,
             textAlign: widget.textAlign,
             style: TextStyle(
+              fontFamily: ApplicationConstants.FONT_FAMILY,
+              decoration: TextDecoration.none,
               fontSize: widget.fontSize ?? 20,
+              fontWeight: widget.fontWeight ?? FontWeight.normal,
               color: widget.textColor ?? Colors.white,
             ),
           ),
