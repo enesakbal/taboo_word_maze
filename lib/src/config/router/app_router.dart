@@ -19,6 +19,7 @@ part 'app_router.gr.dart';
       path: '/home',
       transitionsBuilder: TransitionsBuilders.fadeIn,
       durationInMilliseconds: 800,
+      initial: false,
     )
   ],
 )

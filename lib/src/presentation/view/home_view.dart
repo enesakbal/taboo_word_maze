@@ -1,16 +1,29 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../core/components/button/custom_button.dart';
-import '../../core/components/text/scale_animated_stroked_text.dart';
-import '../../core/components/text/stroked_auto_size_text.dart';
+import '../../core/components/button/custom_icon_button.dart';
+import '../../core/components/button/custom_text_button.dart';
 import '../../core/components/text/stroked_text.dart';
 import '../../core/lang/locale_keys.g.dart';
 import '../../core/theme/colors_tones.dart';
+import '../bloc/home/home_bloc.dart';
+import '../bloc/lang/lang_bloc.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    context.read<HomeBloc>().add(const InitializeAppSettings());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +31,12 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _buildScaffold() {
-    return Scaffold(
-      body: _buildBody(),
+    return BlocBuilder<LangBloc, LangState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: _buildBody(),
+        );
+      },
     );
   }
 
@@ -27,25 +44,24 @@ class HomeView extends StatelessWidget {
     return Container(
       height: 100.h,
       width: 100.w,
-      color: ColorTones.softBlue,
+      color: ColorsTones.softBlue,
       padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 7.5.h),
       child: Container(
         color: Colors.transparent,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _headers(),
-            SizedBox(height: 5.h),
+            SizedBox(height: 15.h),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 _playButton(),
                 SizedBox(height: 5.h),
                 _editButton(),
-                SizedBox(height: 5.h),
-                // _settingsButton(),
-                // SizedBox(height: 5.h),
+                SizedBox(height: 3.h),
+                _iconButtons()
               ],
             ),
           ],
@@ -91,7 +107,7 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _playButton() {
-    return CustomElevatedButton(
+    return CustomTextButton(
       onPressed: () {},
       text: LocaleKeys.home_play.tr(),
       height: 7.5.h,
@@ -101,23 +117,61 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _editButton() {
-    return CustomElevatedButton(
+    return CustomTextButton(
       onPressed: () {},
       text: LocaleKeys.home_edit.tr(),
       height: 7.5.h,
       width: 55.w,
-      backgroundColor: ColorTones.azure.withOpacity(0.8),
       hasAnimation: false,
     );
   }
 
-  Widget _notificationButton() {
-    return Container();
-    //TODO buraya 3 adet icon button koy, derinlik koyarak çalış
-    //todo birincisi bildirimleri açıp kapatsın buna uygun iki adet icon koy
-    //todo ikincisi dartk theme geçişi olsun
-    //todo üçünücüsü iki adet bayrak kullan ve bu butona tıklanıldığında dili değiştir
+  Widget _iconButtons() {
+    return SizedBox(
+      width: 55.w,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _notificationButton(),
+          _themeButton(),
+          _rateMeButton(),
+          _langButton(),
+        ],
+      ),
+    );
+  }
 
-    //todo dördüncüsü rate me butonu olsun hem icon hem yazı tutan bir widget yaz
+  Widget _notificationButton() {
+    return CustomIconButton(
+      onPressed: () async {},
+      icon: Icons.notifications_off,//on
+    );
+  }
+
+  Widget _themeButton() {
+    return CustomIconButton(
+      onPressed: () async {},
+      icon: Icons.light_mode, //dark_mode
+    );
+  }
+
+  Widget _rateMeButton() {
+    return CustomIconButton(
+      onPressed: () async {},
+      icon: Icons.star_border_outlined,
+    );
+  }
+
+  Widget _langButton() {
+    return BlocBuilder<LangBloc, LangState>(
+      builder: (context, state) {
+        return CustomIconButton(
+          onPressed: () async {
+            context.read<LangBloc>().add(ChangeLocale(context: context));
+          },
+          svgData: state.localeAdapter.model.imagePath,
+        );
+      },
+    );
   }
 }

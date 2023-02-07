@@ -80,7 +80,7 @@ class _ScaleAnimatedStorekedTextState extends State<ScaleAnimatedStorekedText>
               foreground: Paint()
                 ..style = PaintingStyle.stroke
                 ..strokeWidth = widget.strokeWidth ?? 3
-                ..color = widget.strokeColor ?? ColorTones.softBlue,
+                ..color = widget.strokeColor ?? ColorsTones.softBlue,
             ),
           ),
           AutoSizeText(

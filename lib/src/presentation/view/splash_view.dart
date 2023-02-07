@@ -58,7 +58,7 @@ class _SplashViewState extends State<SplashView> {
       height: 100.h,
       width: 100.w,
       decoration: BoxDecoration(
-        color: ColorTones.softBlue,
+        color: ColorsTones.softBlue,
       ),
       padding: EdgeInsets.symmetric(horizontal: 5.w),
       child: Column(

@@ -47,7 +47,7 @@ class StorekedAutoSizeText extends StatelessWidget {
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = strokeWidth ?? 3
-              ..color = strokeColor ?? ColorTones.softBlue,
+              ..color = strokeColor ?? ColorsTones.softBlue,
           ),
         ),
         AutoSizeText(

@@ -1,6 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:animate_icons/animate_icons.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -8,7 +5,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../theme/colors_tones.dart';
 
-class CustomElevatedButton extends StatefulWidget {
+class CustomTextButton extends StatefulWidget {
   final void Function() onPressed;
 
   final String text;
@@ -31,14 +28,14 @@ class CustomElevatedButton extends StatefulWidget {
   final Color? firstAnimationColor;
   final Color? secondAnimationColor;
 
-  const CustomElevatedButton({
+  const CustomTextButton({
     required this.onPressed,
     required this.text,
     this.maxLines = 1,
     this.height,
     this.width,
     this.fontSize = 25,
-    this.borderRadius = 10,
+    this.borderRadius = 12,
     this.borderWidth = 1.5,
     this.hasAnimation = false,
     this.elevation = 2,
@@ -51,26 +48,31 @@ class CustomElevatedButton extends StatefulWidget {
   });
 
   @override
-  State<CustomElevatedButton> createState() => _CustomElevatedButtonState();
+  State<CustomTextButton> createState() => _CustomTextButtonState();
 }
 
-class _CustomElevatedButtonState extends State<CustomElevatedButton>
+class _CustomTextButtonState extends State<CustomTextButton>
     with AnimationMixin {
-  late AnimationController colorController;
-  late Animation<Color?> color;
+  late AnimationController _colorController;
+  late Animation<Color?> _colorAnimation;
 
   @override
   void initState() {
-    colorController = createController()
+    //* start of color animation
+    _colorController = createController()
       ..repeat(
-        period: Duration(seconds: 1, milliseconds: 0),
+        period: const Duration(seconds: 1, milliseconds: 0),
         reverse: true,
       );
 
-    color = ColorTween(
-      begin: widget.firstAnimationColor ?? ColorTones.lightBlue,
-      end: widget.secondAnimationColor ?? ColorTones.azure.withOpacity(1),
-    ).animate(colorController);
+    _colorAnimation = ColorTween(
+      begin: widget.firstAnimationColor ?? ColorsTones.lightBlue,
+      end: widget.secondAnimationColor ?? ColorsTones.azure.withOpacity(1),
+    ).animate(_colorController);
+
+    //* end of color animation
+
+    //**************************/
 
     super.initState();
   }
@@ -78,10 +80,10 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton>
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-        duration: Duration(seconds: 1, milliseconds: 0),
+        duration: const Duration(seconds: 1, milliseconds: 0),
         width: widget.width ?? 100.w,
         height: widget.height ?? 5.h,
-        child: ElevatedButton(
+        child: TextButton(
           onPressed: widget.onPressed,
           child: Center(
             child: AutoSizeText(
@@ -99,8 +101,9 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton>
             padding: MaterialStateProperty.all(
               EdgeInsets.symmetric(horizontal: 5.w),
             ),
-            backgroundColor: MaterialStatePropertyAll(
-                widget.hasAnimation! ? color.value : widget.backgroundColor),
+            backgroundColor: MaterialStatePropertyAll(widget.hasAnimation!
+                ? _colorAnimation.value
+                : widget.backgroundColor),
             overlayColor: MaterialStatePropertyAll(widget.overlayColor),
             shape: MaterialStatePropertyAll(
               RoundedRectangleBorder(
@@ -113,5 +116,11 @@ class _CustomElevatedButtonState extends State<CustomElevatedButton>
             ),
           ),
         ));
+  }
+
+  @override
+  void dispose() {
+    _colorController.dispose();
+    super.dispose();
   }
 }
