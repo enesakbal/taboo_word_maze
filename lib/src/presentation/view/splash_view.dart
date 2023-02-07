@@ -8,8 +8,8 @@ import 'package:sizer/sizer.dart';
 import '../../config/router/app_router.dart';
 import '../../core/components/dialogs/error_dialog.dart';
 import '../../core/components/text/scale_animated_stroked_text.dart';
+import '../../core/constants/app_constants.dart';
 import '../../core/lang/locale_keys.g.dart';
-import '../../core/theme/colors_tones.dart';
 import '../bloc/splash/splash_bloc.dart';
 
 class SplashView extends StatefulWidget {
@@ -57,9 +57,10 @@ class _SplashViewState extends State<SplashView> {
     return Container(
       height: 100.h,
       width: 100.w,
-      decoration: BoxDecoration(
-        color: ColorTones.softBlue,
-      ),
+      // decoration: BoxDecoration(
+      //   color: ColorsTones.softBlue,
+      // ),
+      padding: EdgeInsets.symmetric(horizontal: 5.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,7 +74,6 @@ class _SplashViewState extends State<SplashView> {
 
   Widget _headers() {
     return Container(
-      // color: Colors.red,
       height: 60.h,
       width: 100.w,
       child: Column(
@@ -81,21 +81,27 @@ class _SplashViewState extends State<SplashView> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(
-            child: ScaleAnimatedStorekedText(
-              textAlign: TextAlign.center,
-              text: LocaleKeys.splash_title.tr(),
-              strokeColor: Colors.black,
-              strokeWidth: 4,
-              fontSize: 60,
+            child: Hero(
+              tag: 'header-1',
+              child: ScaleAnimatedStorekedText(
+                textAlign: TextAlign.center,
+                text: LocaleKeys.splash_title.tr(),
+                strokeColor: Colors.black,
+                strokeWidth: 4,
+                fontSize: 60,
+              ),
             ),
           ),
           Center(
-            child: ScaleAnimatedStorekedText(
-              textAlign: TextAlign.center,
-              text: LocaleKeys.splash_subtitle.tr(),
-              strokeColor: Colors.black,
-              strokeWidth: 4,
-              fontSize: 60,
+            child: Hero(
+              tag: 'header-2',
+              child: ScaleAnimatedStorekedText(
+                textAlign: TextAlign.center,
+                text: LocaleKeys.splash_subtitle.tr(),
+                strokeColor: Colors.black,
+                strokeWidth: 4,
+                fontSize: 60,
+              ),
             ),
           ),
         ],
@@ -111,9 +117,7 @@ class _SplashViewState extends State<SplashView> {
           width: 100.w,
           child: const Align(
             alignment: Alignment.center,
-            child: RiveAnimation.asset(
-              'assets/animation/loading.riv',
-            ),
+            child: RiveAnimation.asset(ApplicationConstants.LOADING_RIVE),
           ),
         ),
         Container(

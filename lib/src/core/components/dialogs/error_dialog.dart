@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../config/router/app_router.dart';
+import '../../constants/app_constants.dart';
 import '../../theme/colors_tones.dart';
-import '../button/custom_button.dart';
+import '../button/custom_text_button.dart';
 
 class ErrorDialog extends StatelessWidget {
   final String text;
@@ -18,7 +20,7 @@ class ErrorDialog extends StatelessWidget {
         insetPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 25.h),
         titlePadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
         contentPadding: EdgeInsets.only(bottom: 0.h, left: 0.w, right: 0.w),
-        backgroundColor: ColorTones.lightSkyBlue,
+        backgroundColor: ColorsTones.lightSkyBlue,
         actionsPadding: EdgeInsets.only(bottom: 0.h),
         iconPadding: EdgeInsets.zero,
         buttonPadding: EdgeInsets.zero,
@@ -32,8 +34,8 @@ class ErrorDialog extends StatelessWidget {
             height: 15.h,
             // color: Colors.black,
             alignment: Alignment.topCenter,
-            child: RiveAnimation.asset(
-              'assets/animation/error.riv',
+            child: const RiveAnimation.asset(
+              ApplicationConstants.ERROR_RIVE,
               fit: BoxFit.cover,
             ),
           ),
@@ -52,7 +54,10 @@ class ErrorDialog extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              CustomElevatedButton()
+              CustomTextButton(
+                onPressed: () => router.pop,
+                text: 'data',
+              )
             ],
           ),
         ),

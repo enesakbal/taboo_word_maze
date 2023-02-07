@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -28,11 +26,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
       print(tabooIDList.metadata);
       if (tabooIDList.size == 0) {
-        
-          throw FirebaseException(
-              plugin: 'getAllTaboosFromFirebase',
-              message: LocaleKeys.errors_no_internet);
-        
+        throw FirebaseException(
+            plugin: 'getAllTaboosFromFirebase',
+            message: LocaleKeys.errors_no_internet);
       }
       final modelList = <TabooModel>[];
 

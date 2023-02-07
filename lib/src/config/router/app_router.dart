@@ -14,9 +14,12 @@ part 'app_router.gr.dart';
       path: '/splash',
       initial: true,
     ),
-    AutoRoute(
+    CustomRoute(
       page: HomeView,
       path: '/home',
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+      durationInMilliseconds: 800,
+      initial: false,
     )
   ],
 )

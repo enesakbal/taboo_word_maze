@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animate_icons: ^2.0.0
   animated_text_kit: ^4.2.2
   auto_route: ^5.0.4
   auto_size_text: ^3.0.0
@@ -48,8 +49,9 @@ dependencies:
   flutter_countdown_timer: ^4.1.0
   flutter_dotenv: ^5.0.2
   flutter_local_notifications: ^13.0.0
+  flutter_neumorphic: ^3.2.0
   flutter_slidable: ^2.0.0
-  flutter_svg: ^1.1.6
+  flutter_svg: ^2.0.0+1
   get_it: ^7.2.0
   google_fonts: ^4.0.1
   intl: ^0.17.0
@@ -61,6 +63,7 @@ dependencies:
   provider: ^6.0.5
   rive: ^0.10.1
   shared_preferences: ^2.0.17
+  simple_animations: ^5.0.0+3
   sizer: ^2.0.15
   sqflite: ^2.2.4+1
 
@@ -90,6 +93,7 @@ flutter:
     - .env.development
     - assets/lang/
     - assets/animation/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
