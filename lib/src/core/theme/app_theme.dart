@@ -7,13 +7,27 @@ import 'colors_tones.dart';
 class AppTheme {
   static ThemeData get theme => _theme;
 
+  static ThemeData get darkTheme => _darkTheme;
+
   static NeumorphicStyle get neumorphicStyle => _neumorphicStyle();
 
+  static ThemeData get _darkTheme => ThemeData(
+        fontFamily: ApplicationConstants.FONT_FAMILY,
+        primaryColor: ColorsTones.dark,
+        scaffoldBackgroundColor: ColorsTones.dark,
+        elevatedButtonTheme: _elevatedButtonStyle(),
+        textButtonTheme: _textButtonStyle(),
+        brightness: Brightness.dark,
+      );
+
   static ThemeData get _theme => ThemeData(
-      fontFamily: ApplicationConstants.FONT_FAMILY,
-      primaryColor: ColorsTones.lightBlue,
-      elevatedButtonTheme: _elevatedButtonStyle(),
-      textButtonTheme: _textButtonStyle());
+        fontFamily: ApplicationConstants.FONT_FAMILY,
+        primaryColor: ColorsTones.softBlue,
+        scaffoldBackgroundColor: ColorsTones.softBlue,
+        elevatedButtonTheme: _elevatedButtonStyle(),
+        textButtonTheme: _textButtonStyle(),
+        brightness: Brightness.light,
+      );
 
   static ElevatedButtonThemeData _elevatedButtonStyle() {
     return ElevatedButtonThemeData(
@@ -38,6 +52,22 @@ class AppTheme {
   }
 
   static NeumorphicStyle _neumorphicStyle() {
+    return NeumorphicStyle(
+      color: ColorsTones.buttonBackgroundColor,
+      shadowLightColor: ColorsTones.buttonBackgroundColor,
+      shadowDarkColor: Colors.black,
+      depth: 1,
+      boxShape: NeumorphicBoxShape.roundRect(
+        BorderRadius.circular(12),
+      ),
+      border: const NeumorphicBorder(
+        color: Colors.black,
+        width: 1,
+      ),
+    );
+  }
+
+  static NeumorphicStyle _darkNeumorphicStyle() {
     return NeumorphicStyle(
       color: ColorsTones.buttonBackgroundColor,
       shadowLightColor: ColorsTones.buttonBackgroundColor,

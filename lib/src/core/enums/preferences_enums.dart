@@ -1,0 +1,3 @@
+enum PreferencesKeys {
+  THEME,
+}

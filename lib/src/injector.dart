@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/cache/local_manager.dart';
 import 'core/constants/local_db_constants.dart';
 import 'core/enums/env_enums.dart';
 import 'core/lang/adapter/language_adapter.dart';
 import 'core/lang/language_manager.dart';
+import 'core/notifier/theme_notifier.dart';
 import 'data/datasources/local/app_database.dart';
 import 'data/datasources/remote/remote_data_source.dart';
 import 'data/repositories/taboo_repository_impl.dart';
@@ -39,6 +42,21 @@ Future<void> init({required EnvModes mode}) async {
   injector.registerSingleton<AppDatabase>(database);
 
   // await database.tabooDao.deleteAllTaboos();
+
+  //CACHE
+  final preferences = await SharedPreferences.getInstance();
+
+  injector.registerLazySingleton(
+    () => LocalManager(preferences: preferences),
+  );
+
+  //THEME
+  final theme = GetIt.I<LocalManager>().getCurrentThemeMode();
+  final saveTheme = GetIt.I<LocalManager>().changeThemeMode();
+
+  injector.registerLazySingleton(
+    () => ThemeModeNotifier(theme, saveTheme),
+  );
 
   //LANGUAGE MANAGER
   injector.registerLazySingleton(LanguageManager.new);

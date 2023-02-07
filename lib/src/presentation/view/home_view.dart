@@ -1,12 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/components/button/custom_icon_button.dart';
 import '../../core/components/button/custom_text_button.dart';
 import '../../core/components/text/stroked_text.dart';
 import '../../core/lang/locale_keys.g.dart';
+import '../../core/notifier/theme_notifier.dart';
 import '../../core/theme/colors_tones.dart';
 import '../bloc/home/home_bloc.dart';
 import '../bloc/lang/lang_bloc.dart';
@@ -44,7 +47,6 @@ class _HomeViewState extends State<HomeView> {
     return Container(
       height: 100.h,
       width: 100.w,
-      color: ColorsTones.softBlue,
       padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 7.5.h),
       child: Container(
         color: Colors.transparent,
@@ -144,7 +146,7 @@ class _HomeViewState extends State<HomeView> {
   Widget _notificationButton() {
     return CustomIconButton(
       onPressed: () async {},
-      icon: Icons.notifications_off,//on
+      icon: Icons.notifications_off, //on
     );
   }
 
@@ -157,7 +159,9 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _rateMeButton() {
     return CustomIconButton(
-      onPressed: () async {},
+      onPressed: () async {
+        Provider.of<ThemeModeNotifier>(context, listen: false).changeTheme();
+      },
       icon: Icons.star_border_outlined,
     );
   }
