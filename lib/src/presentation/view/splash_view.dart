@@ -8,8 +8,8 @@ import 'package:sizer/sizer.dart';
 import '../../config/router/app_router.dart';
 import '../../core/components/dialogs/error_dialog.dart';
 import '../../core/components/text/scale_animated_stroked_text.dart';
+import '../../core/constants/app_constants.dart';
 import '../../core/lang/locale_keys.g.dart';
-import '../../core/theme/colors_tones.dart';
 import '../bloc/splash/splash_bloc.dart';
 
 class SplashView extends StatefulWidget {
@@ -117,9 +117,7 @@ class _SplashViewState extends State<SplashView> {
           width: 100.w,
           child: const Align(
             alignment: Alignment.center,
-            child: RiveAnimation.asset(
-              'assets/animation/loading.riv',
-            ),
+            child: RiveAnimation.asset(ApplicationConstants.LOADING_RIVE),
           ),
         ),
         Container(

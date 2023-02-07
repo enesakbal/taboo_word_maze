@@ -7,8 +7,16 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class InitializeAppSettings extends HomeEvent {
-  const InitializeAppSettings();
+class ChangeTheme extends HomeEvent {
+  final BuildContext context;
+  const ChangeTheme(this.context);
+
+  @override
+  List<Object> get props => [];
+}
+class ChangeLocale extends HomeEvent {
+  final BuildContext context;
+  const ChangeLocale(this.context);
 
   @override
   List<Object> get props => [];

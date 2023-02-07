@@ -1,19 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/components/button/custom_icon_button.dart';
 import '../../core/components/button/custom_text_button.dart';
 import '../../core/components/text/stroked_text.dart';
 import '../../core/lang/locale_keys.g.dart';
-import '../../core/notifier/theme_notifier.dart';
-import '../../core/theme/colors_tones.dart';
 import '../bloc/home/home_bloc.dart';
-import '../bloc/lang/lang_bloc.dart';
-import '../bloc/theme/theme_bloc.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -25,7 +19,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
-    context.read<HomeBloc>().add(const InitializeAppSettings());
     super.initState();
   }
 
@@ -35,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _buildScaffold() {
-    return BlocBuilder<LangBloc, LangState>(
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Scaffold(
           body: _buildBody(),
@@ -148,16 +141,14 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _themeButton() {
-    return BlocBuilder<ThemeBloc, ThemeState>(
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return CustomIconButton(
-          onPressed: () async {
-            context.read<ThemeBloc>().add(ChangeTheme(context: context));
-          },
-          icon: (state is DarkTheme)
-              ? Icons.dark_mode_outlined
-              : Icons.light_mode_outlined, //dark_mode
-        );
+            onPressed: () async {
+              context.read<HomeBloc>().add(ChangeTheme(context));
+            },
+            icon: state.themeAdapter.model.iconData //dark_mode
+            );
       },
     );
   }
@@ -170,11 +161,11 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _langButton() {
-    return BlocBuilder<LangBloc, LangState>(
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return CustomIconButton(
           onPressed: () async {
-            context.read<LangBloc>().add(ChangeLocale(context: context));
+            context.read<HomeBloc>().add(ChangeLocale(context));
           },
           svgData: state.localeAdapter.model.imagePath,
         );

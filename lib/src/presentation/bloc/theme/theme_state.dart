@@ -1,21 +1,21 @@
-part of 'theme_bloc.dart';
+// part of 'theme_bloc.dart';
 
-abstract class ThemeState extends Equatable {
-  const ThemeState();
+// abstract class ThemeState extends Equatable {
+//   const ThemeState();
 
-  @override
-  List<Object> get props => [];
-}
+//   @override
+//   List<Object> get props => [];
+// }
 
-class ThemeInitial extends ThemeState {
-  final bool isDark;
-  const ThemeInitial({required this.isDark});
-}
+// class ThemeInitial extends ThemeState {
+//   final bool isDark;
+//   const ThemeInitial({required this.isDark});
+// }
 
-class LightTheme extends ThemeState {
-  const LightTheme();
-}
+// class LightTheme extends ThemeState {
+//   const LightTheme();
+// }
 
-class DarkTheme extends ThemeState {
-  const DarkTheme();
-}
+// class DarkTheme extends ThemeState {
+//   const DarkTheme();
+// }

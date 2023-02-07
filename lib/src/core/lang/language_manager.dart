@@ -8,7 +8,8 @@ class LanguageManager {
 
   static Locale? currentLocale;
 
-  static LocaleAdapter getAdapter() {
+  static LocaleAdapter getCurrentAdapter() {
+    print(currentLocale);
     if (currentLocale == const Locale('tr', 'TR')) {
       return TurkishLocale();
     } else {

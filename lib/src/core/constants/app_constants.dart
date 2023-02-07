@@ -7,4 +7,9 @@ class ApplicationConstants {
 
   static const TURKEY_SVG = 'assets/icons/tr.svg';
   static const EU_SVG = 'assets/icons/eu.svg';
+
+
+  static const LOADING_RIVE = 'assets/animation/loading.riv';
+  static const ERROR_RIVE = 'assets/animation/error.riv';
+
 }

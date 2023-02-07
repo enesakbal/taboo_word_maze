@@ -1,11 +1,8 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../theme/app_theme.dart';
-import '../../theme/colors_tones.dart';
 
 class CustomIconButton extends StatelessWidget {
   final IconData? icon;

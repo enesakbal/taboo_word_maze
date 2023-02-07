@@ -4,6 +4,7 @@ import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../config/router/app_router.dart';
+import '../../constants/app_constants.dart';
 import '../../theme/colors_tones.dart';
 import '../button/custom_text_button.dart';
 
@@ -33,8 +34,8 @@ class ErrorDialog extends StatelessWidget {
             height: 15.h,
             // color: Colors.black,
             alignment: Alignment.topCenter,
-            child: RiveAnimation.asset(
-              'assets/animation/error.riv',
+            child: const RiveAnimation.asset(
+              ApplicationConstants.ERROR_RIVE,
               fit: BoxFit.cover,
             ),
           ),

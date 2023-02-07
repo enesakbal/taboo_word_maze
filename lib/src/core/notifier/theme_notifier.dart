@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../theme/adapter/theme_adapter.dart';
+
 class ThemeModeNotifier extends ChangeNotifier {
-  ThemeMode currentTheme;
+  ThemeAdapter currentThemeAdapter;
   final Future<void> Function() saveChanges;
-  ThemeModeNotifier(this.currentTheme,this.saveChanges);
+  ThemeModeNotifier(this.currentThemeAdapter,this.saveChanges);
 
   Future<void> changeTheme() async {
-    if (currentTheme == ThemeMode.light) {
-      currentTheme = ThemeMode.dark;
+    if (currentThemeAdapter.model.themeMode == ThemeMode.light) {
+      currentThemeAdapter = DarkTheme();
     } else {
-      currentTheme = ThemeMode.light;
+      currentThemeAdapter = LightTheme();
     }
     await saveChanges();
     
