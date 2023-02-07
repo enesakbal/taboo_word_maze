@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ThemeModeNotifier extends ChangeNotifier {
   ThemeMode currentTheme;
-  final Future<void> saveChanges;
+  final Future<void> Function() saveChanges;
   ThemeModeNotifier(this.currentTheme,this.saveChanges);
 
   Future<void> changeTheme() async {
@@ -11,8 +11,8 @@ class ThemeModeNotifier extends ChangeNotifier {
     } else {
       currentTheme = ThemeMode.light;
     }
-    await saveChanges;
-
+    await saveChanges();
+    
     notifyListeners();
   }
 }

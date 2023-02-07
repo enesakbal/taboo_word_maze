@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:taboo_word_maze/src/presentation/bloc/theme/theme_bloc.dart';
 
 import 'core/cache/local_manager.dart';
 import 'core/constants/local_db_constants.dart';
@@ -52,10 +53,10 @@ Future<void> init({required EnvModes mode}) async {
 
   //THEME
   final theme = GetIt.I<LocalManager>().getCurrentThemeMode();
-  final saveTheme = GetIt.I<LocalManager>().changeThemeMode();
+  final localManager = GetIt.I<LocalManager>();
 
   injector.registerLazySingleton(
-    () => ThemeModeNotifier(theme, saveTheme),
+    () => ThemeModeNotifier(theme, localManager.changeThemeMode),
   );
 
   //LANGUAGE MANAGER
@@ -90,6 +91,9 @@ Future<void> init({required EnvModes mode}) async {
   injector.registerFactory(() => SplashBloc(injector()));
   injector.registerFactory(HomeBloc.new);
   injector.registerFactory(() => LangBloc());
+  injector.registerFactory(() => ThemeBloc(manager: localManager));
+
+  print(localManager.getCurrentThemeMode());
 
   //PACKAGE INFO
   final packageInfo = await PackageInfo.fromPlatform();

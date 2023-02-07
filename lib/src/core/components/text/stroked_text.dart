@@ -46,8 +46,8 @@ class StorekedText extends StatelessWidget {
             fontWeight: fontWeight ?? FontWeight.normal,
             foreground: Paint()
               ..style = PaintingStyle.stroke
-              ..strokeWidth = strokeWidth ?? 3
-              ..color = strokeColor ?? ColorsTones.softBlue,
+              ..strokeWidth = strokeWidth ?? 4
+              ..color = strokeColor ?? Colors.black,
           ),
         ),
         Text(

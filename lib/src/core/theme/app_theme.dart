@@ -18,6 +18,7 @@ class AppTheme {
         elevatedButtonTheme: _elevatedButtonStyle(),
         textButtonTheme: _textButtonStyle(),
         brightness: Brightness.dark,
+        iconTheme: const IconThemeData(color: Colors.black),
       );
 
   static ThemeData get _theme => ThemeData(
@@ -27,6 +28,7 @@ class AppTheme {
         elevatedButtonTheme: _elevatedButtonStyle(),
         textButtonTheme: _textButtonStyle(),
         brightness: Brightness.light,
+        iconTheme: const IconThemeData(color: Colors.black),
       );
 
   static ElevatedButtonThemeData _elevatedButtonStyle() {
@@ -52,22 +54,6 @@ class AppTheme {
   }
 
   static NeumorphicStyle _neumorphicStyle() {
-    return NeumorphicStyle(
-      color: ColorsTones.buttonBackgroundColor,
-      shadowLightColor: ColorsTones.buttonBackgroundColor,
-      shadowDarkColor: Colors.black,
-      depth: 1,
-      boxShape: NeumorphicBoxShape.roundRect(
-        BorderRadius.circular(12),
-      ),
-      border: const NeumorphicBorder(
-        color: Colors.black,
-        width: 1,
-      ),
-    );
-  }
-
-  static NeumorphicStyle _darkNeumorphicStyle() {
     return NeumorphicStyle(
       color: ColorsTones.buttonBackgroundColor,
       shadowLightColor: ColorsTones.buttonBackgroundColor,

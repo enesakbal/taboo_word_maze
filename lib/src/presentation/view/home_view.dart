@@ -13,6 +13,7 @@ import '../../core/notifier/theme_notifier.dart';
 import '../../core/theme/colors_tones.dart';
 import '../bloc/home/home_bloc.dart';
 import '../bloc/lang/lang_bloc.dart';
+import '../bloc/theme/theme_bloc.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -85,8 +86,6 @@ class _HomeViewState extends State<HomeView> {
               child: StorekedText(
                 textAlign: TextAlign.center,
                 text: LocaleKeys.splash_title.tr(),
-                strokeColor: Colors.black,
-                strokeWidth: 4,
                 fontSize: 60,
               ),
             ),
@@ -97,8 +96,6 @@ class _HomeViewState extends State<HomeView> {
               child: StorekedText(
                 textAlign: TextAlign.center,
                 text: LocaleKeys.splash_subtitle.tr(),
-                strokeColor: Colors.black,
-                strokeWidth: 4,
                 fontSize: 45,
               ),
             ),
@@ -146,22 +143,28 @@ class _HomeViewState extends State<HomeView> {
   Widget _notificationButton() {
     return CustomIconButton(
       onPressed: () async {},
-      icon: Icons.notifications_off, //on
+      icon: Icons.notifications_off_outlined, //on
     );
   }
 
   Widget _themeButton() {
-    return CustomIconButton(
-      onPressed: () async {},
-      icon: Icons.light_mode, //dark_mode
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        return CustomIconButton(
+          onPressed: () async {
+            context.read<ThemeBloc>().add(ChangeTheme(context: context));
+          },
+          icon: (state is DarkTheme)
+              ? Icons.dark_mode_outlined
+              : Icons.light_mode_outlined, //dark_mode
+        );
+      },
     );
   }
 
   Widget _rateMeButton() {
     return CustomIconButton(
-      onPressed: () async {
-        Provider.of<ThemeModeNotifier>(context, listen: false).changeTheme();
-      },
+      onPressed: () async {},
       icon: Icons.star_border_outlined,
     );
   }
