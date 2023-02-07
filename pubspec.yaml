@@ -66,6 +66,7 @@ dependencies:
   simple_animations: ^5.0.0+3
   sizer: ^2.0.15
   sqflite: ^2.2.4+1
+  timezone: ^0.9.1
 
 
 dev_dependencies:

@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../enums/preferences_enums.dart';
+import '../notifications/adapter/notification_adapter.dart';
 import '../theme/adapter/theme_adapter.dart';
 
 class LocalManager {
@@ -35,4 +36,24 @@ class LocalManager {
       await preferences.setBool(PreferencesKeys.THEME.name, true);
     }
   }
+
+  Future<void> setAlertPermission({required bool value}) {
+    return preferences.setBool(
+        PreferencesKeys.NOTIFICATION_STATUS.toString(), value);
+  }
+
+  NotificationAdapter getCurrentAlertAdapter() {
+    final permission =
+        preferences.getBool(PreferencesKeys.NOTIFICATION_STATUS.toString());
+    if (permission == null) {
+      return DeactivetedNotifications();
+    }
+    if (permission) {
+      return ActivetedNotifications();
+    } else {
+      return DeactivetedNotifications();
+    }
+  }
+
+  Future<bool> clearAllValues() async => preferences.clear();
 }

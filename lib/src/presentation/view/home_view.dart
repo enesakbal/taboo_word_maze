@@ -19,6 +19,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
+    context.read<HomeBloc>().add(const ClearAlertsAndSetAgain());
     super.initState();
   }
 
@@ -134,9 +135,15 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _notificationButton() {
-    return CustomIconButton(
-      onPressed: () async {},
-      icon: Icons.notifications_off_outlined, //on
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return CustomIconButton(
+          onPressed: () async {
+            context.read<HomeBloc>().add(ChangeNotification(context));
+          },
+          icon: state.notificationAdapter.model.iconData, //on
+        );
+      },
     );
   }
 
