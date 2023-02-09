@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -11,10 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/cache/local_manager.dart';
 import 'core/constants/local_db_constants.dart';
 import 'core/enums/env_enums.dart';
-import 'core/enums/preferences_enums.dart';
 import 'core/lang/adapter/language_adapter.dart';
 import 'core/lang/language_manager.dart';
-import 'core/lang/locale_keys.g.dart';
 import 'core/notifications/adapter/notification_adapter.dart';
 import 'core/notifications/notifications_manager.dart';
 import 'core/notifier/theme_notifier.dart';

@@ -2,28 +2,28 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/cache/local_manager.dart';
+import '../../../../core/components/toast/toast_manager.dart';
 import '../../../../core/lang/adapter/language_adapter.dart';
-import '../../../../core/lang/language_manager.dart';
+import '../../../../core/lang/locale_keys.g.dart';
 import '../../../../core/notifications/adapter/notification_adapter.dart';
 import '../../../../core/notifications/notifications_manager.dart';
 import '../../../../core/notifier/theme_notifier.dart';
+import '../../../../core/theme/adapter/theme_adapter.dart';
 
-abstract class SettingsAdapter<T> {
+abstract class ISettings<T> {
   T currentAdapter;
 
   Future<void> changeState(BuildContext context);
 
-  SettingsAdapter({
+  ISettings({
     required this.currentAdapter,
   });
 }
 
-class ThemeSetting<ThemeAdapter> extends SettingsAdapter<ThemeAdapter> {
+class ThemeSetting<ThemeAdapter> extends ISettings<ThemeAdapter> {
   ThemeSetting({
     required super.currentAdapter,
   });
@@ -32,12 +32,18 @@ class ThemeSetting<ThemeAdapter> extends SettingsAdapter<ThemeAdapter> {
   Future<void> changeState(BuildContext context) async {
     final provider = Provider.of<ThemeModeNotifier>(context, listen: false);
 
-    await provider.changeTheme();
-    currentAdapter = provider.currentThemeAdapter as ThemeAdapter;
+    await provider.changeTheme().then((value) {
+      currentAdapter = provider.currentThemeAdapter as ThemeAdapter;
+      if (currentAdapter is LightTheme) {
+        log('changed theme to  LightTheme');
+      } else if (currentAdapter is DarkTheme) {
+        log('changed theme to  DarkTheme');
+      }
+    });
   }
 }
 
-class LangSetting<LocaleAdapter> extends SettingsAdapter<LocaleAdapter> {
+class LangSetting<LocaleAdapter> extends ISettings<LocaleAdapter> {
   LangSetting({required super.currentAdapter});
 
   @override
@@ -46,17 +52,21 @@ class LangSetting<LocaleAdapter> extends SettingsAdapter<LocaleAdapter> {
     final english = EnglishLocale().model.locale;
 
     if (currentAdapter is TurkishLocale) {
-      await context.setLocale(english);
-      currentAdapter = EnglishLocale() as LocaleAdapter;
+      await context.setLocale(english).then((value) {
+        currentAdapter = EnglishLocale() as LocaleAdapter;
+        log('changed locale to  English ');
+      });
     } else if (currentAdapter is EnglishLocale) {
-      currentAdapter = TurkishLocale() as LocaleAdapter;
-      await context.setLocale(turkish);
+      await context.setLocale(turkish).then((value) {
+        currentAdapter = TurkishLocale() as LocaleAdapter;
+        log('changed locale to  Turkish ');
+      });
     }
   }
 }
 
 class NotificationSetting<NotificationAdapter>
-    extends SettingsAdapter<NotificationAdapter> {
+    extends ISettings<NotificationAdapter> {
   LocalNotificationManager notificationManager;
   LocalManager localManager;
 
@@ -68,14 +78,26 @@ class NotificationSetting<NotificationAdapter>
 
   @override
   Future<void> changeState(BuildContext context) async {
+    final toastManager = ToastManager(context: context);
+
     if (currentAdapter is ActivetedNotifications) {
-      await notificationManager.cancelAllAlerts();
-      currentAdapter = DeactivetedNotifications() as NotificationAdapter;
-      log('Cancelled all alerts');
+      await notificationManager.cancelAllAlerts().then((value) {
+        log('Cancelled all alerts');
+
+        currentAdapter = DeactivetedNotifications() as NotificationAdapter;
+
+        toastManager.showErrorToastMessage(
+            text: LocaleKeys.toast_messages_notification_deactivated.tr());
+      });
     } else if (currentAdapter is DeactivetedNotifications) {
-      await notificationManager.setAlerts();
-      currentAdapter = ActivetedNotifications() as NotificationAdapter;
-      log('Setted all alerts');
+      await notificationManager.setAlerts().then((value) {
+        log('Setted all alerts');
+
+        currentAdapter = ActivetedNotifications() as NotificationAdapter;
+
+        toastManager.showSuccessToastMessage(
+            text: LocaleKeys.toast_messages_notification_activated.tr());
+      });
     }
   }
 

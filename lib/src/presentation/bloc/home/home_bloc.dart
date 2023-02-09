@@ -23,7 +23,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           localeAdapter: langSetting.currentAdapter,
           notificationAdapter: notificationSetting.currentAdapter,
         )) {
-    on<ClearAlertsAndSetAgain>((event, emit) => notificationSetting.cancelAllAlertsAndSetAlerts());
+    on<ClearAlertsAndSetAgain>(
+        (event, emit) => notificationSetting.cancelAllAlertsAndSetAlerts());
 
     on<ChangeTheme>((event, emit) async {
       await themeSetting.changeState(event.context);
