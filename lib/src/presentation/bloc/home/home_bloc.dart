@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/lang/adapter/language_adapter.dart';
-import '../../../core/notifications/adapter/notification_adapter.dart';
+import '../../../core/notifications/local/adapter/notification_adapter.dart';
 import '../../../core/theme/adapter/theme_adapter.dart';
 import 'adapter/settings_adapter.dart';
 
@@ -23,8 +23,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           localeAdapter: langSetting.currentAdapter,
           notificationAdapter: notificationSetting.currentAdapter,
         )) {
-    on<ClearAlertsAndSetAgain>(
-        (event, emit) => notificationSetting.cancelAllAlertsAndSetAlerts());
+    on<ClearAlertsAndSetAgain>((event, emit) {
+      return notificationSetting.cancelAllAlertsAndSetAlerts();
+    });
 
     on<ChangeTheme>((event, emit) async {
       await themeSetting.changeState(event.context);

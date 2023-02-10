@@ -3,8 +3,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../lang/language_manager.dart';
-import 'notification_config.dart';
+import '../../lang/language_manager.dart';
+import '../config/notfication_config.dart';
 
 class LocalNotificationManager {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
@@ -22,7 +22,6 @@ class LocalNotificationManager {
   }
 
   Future<void> setAlerts() async {
-    print(LanguageManager.currentLocale);
     if (LanguageManager.currentLocale == LanguageManager().trLocale) {
       await _setAlert(channel: turkishChannel0, dayLater: 1);
       await _setAlert(channel: turkishChannel1, dayLater: 3);

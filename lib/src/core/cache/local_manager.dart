@@ -3,7 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../enums/preferences_enums.dart';
-import '../notifications/adapter/notification_adapter.dart';
+import '../notifications/local/adapter/notification_adapter.dart';
 import '../theme/adapter/theme_adapter.dart';
 
 class LocalManager {
@@ -30,15 +30,15 @@ class LocalManager {
 
   Future<void> changeThemeMode() async {
     final current = getCurrentThemeMode();
-    if (current.model.themeMode == ThemeMode.dark) {
+    if (current is DarkTheme) {
       await preferences.setBool(PreferencesKeys.THEME.name, false);
     } else {
       await preferences.setBool(PreferencesKeys.THEME.name, true);
     }
   }
 
-  Future<void> setAlertPermission({required bool value}) {
-    return preferences.setBool(
+  Future<void> setAlertPermission({required bool value}) async {
+    await preferences.setBool(
         PreferencesKeys.NOTIFICATION_STATUS.toString(), value);
   }
 
@@ -46,12 +46,13 @@ class LocalManager {
     final permission =
         preferences.getBool(PreferencesKeys.NOTIFICATION_STATUS.toString());
     if (permission == null) {
-      return DeactivetedNotifications();
+      /** first time  opened the app*/
+      return ActivetedNotifications();
     }
     if (permission) {
       return ActivetedNotifications();
     } else {
-      return DeactivetedNotifications();
+      return DeactivatedNotifications();
     }
   }
 

@@ -12,8 +12,9 @@ import 'core/constants/local_db_constants.dart';
 import 'core/enums/env_enums.dart';
 import 'core/lang/adapter/language_adapter.dart';
 import 'core/lang/language_manager.dart';
-import 'core/notifications/adapter/notification_adapter.dart';
-import 'core/notifications/notifications_manager.dart';
+import 'core/notifications/fcm/notification_handler.dart';
+import 'core/notifications/local/adapter/notification_adapter.dart';
+import 'core/notifications/local/local_notification_manager.dart';
 import 'core/notifier/theme_notifier.dart';
 import 'core/theme/adapter/theme_adapter.dart';
 import 'data/datasources/local/app_database.dart';
@@ -28,50 +29,80 @@ import 'presentation/bloc/splash/splash_bloc.dart';
 final injector = GetIt.instance;
 
 Future<void> init({required EnvModes mode}) async {
-  //*ENVORIMENT
   if (mode == EnvModes.productMode) {
     await dotenv.load(fileName: '.env');
-  } else {
+  } else if (mode == EnvModes.developmentMode) {
     await dotenv.load(fileName: '.env.development');
     /* envorimentları güvenlik nedeniyle ayrı bir dosyada taşıdığımız için burada ön yükeleme yapmamız gerekiyor*/
     /* product ve development olmak üzere iki modu var */
   }
 
-  //*LOCAL DB
+  //***************************- LOCAL DB -*****************************//
+  //*------------------------------------------------------------------*//
+  //*------------------------------------------------------------------*//
   final database = await $FloorAppDatabase
       .databaseBuilder(LocalDBConstants.databaseName)
       .build();
-
   injector.registerSingleton<AppDatabase>(database);
 
   // await FlutterLocalNotificationsPlugin().initialize(InitializationSettings(android: AndroidInitializationSettings('')));
   // await database.tabooDao.deleteAllTaboos();
+  //*------------------------------------------------------------------*//
+  //*------------------------------------------------------------------*//
+  //***************************- LOCAL DB -*****************************//
 
-  //*CACHE
+  //****************************- CACHE -*******************************//
+  //*------------------------------------------------------------------*//
+  //*------------------------------------------------------------------*//
   final preferences = await SharedPreferences.getInstance();
-
   injector.registerLazySingleton(
     () => LocalManager(preferences: preferences),
   );
 
-  //*THEME NOTIFIER
-  final theme = GetIt.I<LocalManager>().getCurrentThemeMode();
   final localManager = GetIt.I<LocalManager>();
+  //*------------------------------------------------------------------*//
+  //*------------------------------------------------------------------*//
+  //****************************- CACHE -*******************************//
+
+  //*************************- THEME NOTIFIER -*************************//
+  //*------------------------------------------------------------------*//
+  //*------------------------------------------------------------------*//
+  final theme = localManager.getCurrentThemeMode();
 
   injector.registerLazySingleton(
     () => ThemeModeNotifier(theme, localManager.changeThemeMode),
   );
+  //*------------------------------------------------------------------*//
+  //*------------------------------------------------------------------*//
+  //************************- THEME NOTIFIER -************************//
 
-  //*LANGUAGE MANAGER
+  //************************- LANGUAGE MANAGER -***********************//
+  //*------------------------------------------------------------------*//
+  //*------------------------------------------------------------------*//
+
   injector.registerLazySingleton(LanguageManager.new);
 
-  //*NOTIFICATION
+  //*------------------------------------------------------------------*//
+  //*------------------------------------------------------------------*//
+  //***********************- LANGUAGE MANAGER -************************//
+
+  //***********************- LOCAL NOTIFICATION -**********************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   injector.registerLazySingleton<LocalNotificationManager>(
       () => LocalNotificationManager(flutterLocalNotificationsPlugin));
   await GetIt.I<LocalNotificationManager>().initialize();
 
-  //*FIREBASE
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //***********************- LOCAL NOTIFICATION -**********************//
+
+  //****************************- FIREBASE -****************************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+
   await Firebase.initializeApp();
 
   final messaging = FirebaseMessaging.instance;
@@ -82,10 +113,35 @@ Future<void> init({required EnvModes mode}) async {
   injector.registerLazySingleton<FirebaseMessaging>(() => messaging);
   injector.registerLazySingleton<FirebaseFirestore>(() => firestore);
 
-  //*DATASOURCES
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //****************************- FIREBASE -****************************//
+
+  //*****************- FIREBASE NOTIFICATION HANDLER -******************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+
+  await NotificationHandler(flutterLocalNotificationsPlugin, localManager)
+      .initialize();
+
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //*****************- FIREBASE NOTIFICATION HANDLER -******************//
+
+  //***************************- DATASOURCES -**************************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+
   injector.registerLazySingleton<RemoteDataSource>(RemoteDataSourceImpl.new);
 
-  //*REPOSITORIES
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //***************************- DATASOURCES -**************************//
+
+  //**************************- REPOSITORIES -**************************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+
   injector.registerLazySingleton<TabooRepository>(
     () => TabooRepositoryImpl(
       remoteDataSource: injector(),
@@ -93,10 +149,34 @@ Future<void> init({required EnvModes mode}) async {
     ),
   );
 
-  //*USECASES
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //**************************- REPOSITORIES -**************************//
+
+  //****************************- USECASES -****************************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+
   injector.registerLazySingleton(() => TabooUsecase(injector()));
 
-  //*ADAPTERS
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //****************************- USECASES -****************************//
+
+  //******************************- BLOC -******************************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+
+  injector.registerFactory(() => SplashBloc(injector()));
+  injector.registerFactory(() => HomeBloc(injector(), injector(), injector()));
+
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //******************************- BLOC -******************************//
+
+  //****************************- ADAPTERS -****************************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
 
   injector
       .registerLazySingleton<LocaleAdapter>(LanguageManager.getCurrentAdapter);
@@ -113,25 +193,62 @@ Future<void> init({required EnvModes mode}) async {
       () => LangSetting(currentAdapter: injector()));
 
   injector.registerLazySingleton<NotificationSetting<NotificationAdapter>>(
-      () => NotificationSetting(
-            currentAdapter: injector(),
-            localManager: injector(),
-            notificationManager: injector(),
-          ));
+    () => NotificationSetting(
+      currentAdapter: injector(),
+      localManager: injector(),
+      notificationManager: injector(),
+    ),
+  );
 
-  //*BLOC
-  injector.registerFactory(() => SplashBloc(injector()));
-  injector.registerFactory(() => HomeBloc(injector(), injector(),injector()));
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //****************************- ADAPTERS -****************************//
 
-  //*PACKAGE INFO
-  final packageInfo = await PackageInfo.fromPlatform();
-  injector.registerLazySingleton<PackageInfo>(() => packageInfo);
+  //**********************- FIREBASE PERMISSION -***********************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
 
   await messaging.requestPermission().then((value) async {
+    //* for android 13 ++
     if (value.authorizationStatus == AuthorizationStatus.authorized) {
-      await localManager.setAlertPermission(value: true);
+      if (localManager.getCurrentAlertAdapter() is DeactivatedNotifications) {
+        await localManager.setAlertPermission(value: false);
+      } else if (localManager.getCurrentAlertAdapter()
+          is ActivetedNotifications) {
+        await localManager.setAlertPermission(value: true);
+      }
     } else {
       await localManager.setAlertPermission(value: false);
     }
   });
+
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //**********************- FIREBASE PERMISSION -***********************//
+
+  //**************************- PACKAGE INFO -**************************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+
+  final packageInfo = await PackageInfo.fromPlatform();
+  injector.registerLazySingleton<PackageInfo>(() => packageInfo);
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //**************************- PACKAGE INFO -**************************//
+
+  print('*****************INITIAL STATES******************');
+
+  final fcmToken = await messaging.getToken();
+  print('FCM TOKEN : $fcmToken');
+
+  final notificationStatus = localManager.getCurrentAlertAdapter();
+  print('NOTIFICATION STATUS : ${notificationStatus.runtimeType}');
+
+  final currentTheme = localManager.getCurrentThemeMode();
+  print('THEME : ${currentTheme.runtimeType}');
+
+  final currentLang = LanguageManager.getCurrentAdapter();
+  print('LANGUAGE : ${currentLang.runtimeType}');
+
+  print('*****************INITIAL STATES******************');
 }

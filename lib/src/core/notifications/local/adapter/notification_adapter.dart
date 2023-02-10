@@ -25,7 +25,7 @@ class ActivetedNotifications implements NotificationAdapter {
   NotificationAdapterModel get model => NotificationAdapterModel.active();
 }
 
-class DeactivetedNotifications implements NotificationAdapter {
+class DeactivatedNotifications implements NotificationAdapter {
   @override
   NotificationAdapterModel get model => NotificationAdapterModel.disable();
 }

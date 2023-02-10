@@ -8,8 +8,8 @@ import '../../../../core/cache/local_manager.dart';
 import '../../../../core/components/toast/toast_manager.dart';
 import '../../../../core/lang/adapter/language_adapter.dart';
 import '../../../../core/lang/locale_keys.g.dart';
-import '../../../../core/notifications/adapter/notification_adapter.dart';
-import '../../../../core/notifications/notifications_manager.dart';
+import '../../../../core/notifications/local/adapter/notification_adapter.dart';
+import '../../../../core/notifications/local/local_notification_manager.dart';
 import '../../../../core/notifier/theme_notifier.dart';
 import '../../../../core/theme/adapter/theme_adapter.dart';
 
@@ -81,19 +81,23 @@ class NotificationSetting<NotificationAdapter>
     final toastManager = ToastManager(context: context);
 
     if (currentAdapter is ActivetedNotifications) {
-      await notificationManager.cancelAllAlerts().then((value) {
+      await notificationManager.cancelAllAlerts().then((value) async {
         log('Cancelled all alerts');
 
-        currentAdapter = DeactivetedNotifications() as NotificationAdapter;
+        currentAdapter = DeactivatedNotifications() as NotificationAdapter;
+
+        await localManager.setAlertPermission(value: false);
 
         toastManager.showErrorToastMessage(
             text: LocaleKeys.toast_messages_notification_deactivated.tr());
       });
-    } else if (currentAdapter is DeactivetedNotifications) {
-      await notificationManager.setAlerts().then((value) {
+    } else if (currentAdapter is DeactivatedNotifications) {
+      await notificationManager.setAlerts().then((value) async {
         log('Setted all alerts');
 
         currentAdapter = ActivetedNotifications() as NotificationAdapter;
+
+        await localManager.setAlertPermission(value: true);
 
         toastManager.showSuccessToastMessage(
             text: LocaleKeys.toast_messages_notification_activated.tr());
@@ -102,13 +106,18 @@ class NotificationSetting<NotificationAdapter>
   }
 
   Future<void> cancelAllAlertsAndSetAlerts() async {
-    await notificationManager.cancelAllAlerts().whenComplete(
-      () {
-        log('Cancelled all alerts');
-        return notificationManager.setAlerts().whenComplete(
-              () => log('Setted all alerts'),
-            );
-      },
-    );
+    if (currentAdapter is ActivetedNotifications) {
+      await notificationManager.cancelAllAlerts().whenComplete(
+        () {
+          log('Cancelled all alerts');
+          return notificationManager.setAlerts().whenComplete(
+                () => log('Setted all alerts'),
+              );
+        },
+      );
+    } else if (currentAdapter is DeactivatedNotifications) {
+      log('dont setted any alert');
+      return;
+    }
   }
 }
