@@ -59,8 +59,6 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => di.injector<SplashBloc>()),
         BlocProvider(create: (_) => di.injector<HomeBloc>()),
-        // BlocProvider(create: (_) => di.injector<LangBloc>()),
-        // BlocProvider(create: (_) => di.injector<ThemeBloc>()),
       ],
       child: MaterialApp.router(
         builder: (context, child) {
@@ -69,7 +67,9 @@ class MyApp extends StatelessWidget {
             child: child!,
           );
         },
-        title: 'Taboo\nWord Maze',
+        title: LanguageManager.getCurrentAdapter().model.locale.toLanguageTag() == 'TR'
+            ? 'Tabu\nKelime Labirenti'
+            : 'Taboo\nWord Maze',
         theme: AppTheme.theme,
         darkTheme: AppTheme.darkTheme,
         themeMode: Provider.of<ThemeModeNotifier>(context, listen: true)

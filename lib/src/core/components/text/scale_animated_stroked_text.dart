@@ -1,9 +1,6 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants/app_constants.dart';
 import '../../theme/colors_tones.dart';
 
 class ScaleAnimatedStorekedText extends StatefulWidget {
@@ -46,12 +43,11 @@ class _ScaleAnimatedStorekedTextState extends State<ScaleAnimatedStorekedText>
   @override
   void initState() {
     _animationController = AnimationController(
-        vsync: this, duration: Duration(seconds: 2), value: 1)
+        vsync: this, duration: const Duration(seconds: 2), value: 1)
       ..repeat(reverse: true, min: 0.80, max: 1);
 
     _animation =
         CurvedAnimation(parent: _animationController, curve: Curves.easeInOut);
-    //Curves.bounceOut
 
     super.initState();
   }
@@ -76,7 +72,6 @@ class _ScaleAnimatedStorekedTextState extends State<ScaleAnimatedStorekedText>
               decoration: TextDecoration.none,
               fontSize: widget.fontSize ?? 20,
               fontWeight: widget.fontWeight ?? FontWeight.normal,
-              fontFamily: ApplicationConstants.FONT_FAMILY,
               foreground: Paint()
                 ..style = PaintingStyle.stroke
                 ..strokeWidth = widget.strokeWidth ?? 3
@@ -88,7 +83,6 @@ class _ScaleAnimatedStorekedTextState extends State<ScaleAnimatedStorekedText>
             maxLines: widget.maxLines ?? 1,
             textAlign: widget.textAlign,
             style: TextStyle(
-              fontFamily: ApplicationConstants.FONT_FAMILY,
               decoration: TextDecoration.none,
               fontSize: widget.fontSize ?? 20,
               fontWeight: widget.fontWeight ?? FontWeight.normal,

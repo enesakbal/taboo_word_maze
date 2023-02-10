@@ -2,4 +2,5 @@
 
 enum PreferencesKeys {
   THEME,
+  NOTIFICATION_STATUS,
 }

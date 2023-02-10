@@ -18,5 +18,10 @@
         "no_internet_first_open":"Need an internet connection for first open. Please check your internet connection. ",
         "no_internet":"Please check your internet connection."
 
+    },
+
+    "toast_messages":{
+        "notification_activated":"Notifications Turned On",
+        "notification_deactivated":"Notifications Turned Off"
     }
 }

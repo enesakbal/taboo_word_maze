@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors,prefer_const_literals_to_create_immutables
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +21,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
+    context.read<HomeBloc>().add(const ClearAlertsAndSetAgain());
     super.initState();
   }
 
@@ -134,9 +137,15 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _notificationButton() {
-    return CustomIconButton(
-      onPressed: () async {},
-      icon: Icons.notifications_off_outlined, //on
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return CustomIconButton(
+          onPressed: () async {
+            context.read<HomeBloc>().add(ChangeNotification(context));
+          },
+          icon: state.notificationAdapter.model.iconData, //on
+        );
+      },
     );
   }
 

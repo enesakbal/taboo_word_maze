@@ -6,11 +6,11 @@ import '../../core/lang/locale_keys.g.dart';
 import '../../domain/entities/taboo.dart';
 import '../../domain/repositories/taboo_repository.dart';
 import '../datasources/local/app_database.dart';
-import '../datasources/remote/remote_data_source.dart';
+import '../datasources/remote/taboo/taboo_remote_data_source.dart';
 
 class TabooRepositoryImpl extends TabooRepository {
   final AppDatabase appDatabase;
-  final RemoteDataSource remoteDataSource;
+  final TabooRemoteDataSource remoteDataSource;
 
   TabooRepositoryImpl(
       {required this.appDatabase, required this.remoteDataSource});

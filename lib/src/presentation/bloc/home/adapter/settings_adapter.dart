@@ -1,65 +1,147 @@
+// ignore_for_file: invalid_return_type_for_catch_error
+
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/cache/local_manager.dart';
+import '../../../../core/components/toast/toast_manager.dart';
 import '../../../../core/lang/adapter/language_adapter.dart';
-import '../../../../core/lang/language_manager.dart';
+import '../../../../core/lang/locale_keys.g.dart';
+import '../../../../core/notifications/fcm/notification_handler.dart';
+import '../../../../core/notifications/local/adapter/notification_adapter.dart';
+import '../../../../core/notifications/local/local_notification_manager.dart';
 import '../../../../core/notifier/theme_notifier.dart';
+import '../../../../core/theme/adapter/theme_adapter.dart';
+import '../../../../domain/usecaces/firebase_document_usecase.dart';
 
-abstract class SettingsAdapter<T> {
-  T initialValue;
+abstract class ISettings<T> {
+  T currentAdapter;
 
   Future<void> changeState(BuildContext context);
 
-  SettingsAdapter({
-    required this.initialValue,
+  ISettings({
+    required this.currentAdapter,
   });
 }
 
-class ThemeSetting<ThemeAdapter> extends SettingsAdapter<ThemeAdapter> {
-  ThemeAdapter currentAdapter = GetIt.I<LocalManager>().getCurrentThemeMode() as ThemeAdapter;
-
+class ThemeSetting<ThemeAdapter> extends ISettings<ThemeAdapter> {
   ThemeSetting({
-    required super.initialValue,
+    required super.currentAdapter,
   });
 
   @override
   Future<void> changeState(BuildContext context) async {
     final provider = Provider.of<ThemeModeNotifier>(context, listen: false);
 
-    await provider.changeTheme();
-    currentAdapter = provider.currentThemeAdapter as ThemeAdapter;
+    await provider.changeTheme().then((value) {
+      currentAdapter = provider.currentThemeAdapter as ThemeAdapter;
+      if (currentAdapter is LightTheme) {
+        log('Changed theme to LightTheme');
+      } else if (currentAdapter is DarkTheme) {
+        log('Changed theme to DarkTheme');
+      }
+    });
   }
 }
 
-class LangSetting<LocaleAdapter> extends SettingsAdapter<LocaleAdapter> {
-  LocaleAdapter currentAdapter =
-      LanguageManager.getCurrentAdapter() as LocaleAdapter;
-
-  LangSetting({required super.initialValue});
+class LangSetting<LocaleAdapter> extends ISettings<LocaleAdapter> {
+  LangSetting({required super.currentAdapter});
 
   @override
   Future<void> changeState(BuildContext context) async {
     final turkish = TurkishLocale().model.locale;
     final english = EnglishLocale().model.locale;
 
-    if (context.locale == TurkishLocale().model.locale) {
-      await context.setLocale(english);
-      currentAdapter = EnglishLocale() as LocaleAdapter;
-    } else {
-      currentAdapter = TurkishLocale() as LocaleAdapter;
-      await context.setLocale(turkish);
+    if (currentAdapter is TurkishLocale) {
+      await context.setLocale(english).then((value) {
+        currentAdapter = EnglishLocale() as LocaleAdapter;
+        log('Changed locale to English ');
+      });
+    } else if (currentAdapter is EnglishLocale) {
+      await context.setLocale(turkish).then((value) {
+        currentAdapter = TurkishLocale() as LocaleAdapter;
+        log('Changed locale to Turkish ');
+      });
     }
   }
 }
 
-class NotificationSetting extends SettingsAdapter {
-  NotificationSetting({required super.initialValue});
+class NotificationSetting<NotificationAdapter>
+    extends ISettings<NotificationAdapter> {
+  LocalNotificationManager notificationManager;
+  LocalManager localManager;
+  NotificationHandler notificationHandler;
+  FirebaseDocumentUsecase firebaseDocumentUsecase;
+
+  NotificationSetting({
+    required super.currentAdapter,
+    required this.notificationManager,
+    required this.localManager,
+    required this.notificationHandler,
+    required this.firebaseDocumentUsecase,
+  });
 
   @override
-  Future<void> changeState(BuildContext context) {
-    throw UnimplementedError();
+  Future<void> changeState(BuildContext context) async {
+    final toastManager = ToastManager(context: context);
+
+    if (currentAdapter is ActivetedNotifications) {
+      await notificationManager.cancelAllAlerts().then((value) async {
+        currentAdapter = DeactivatedNotifications() as NotificationAdapter;
+        /** Set current state with adapter */
+
+        await localManager.setAlertPermission(value: false);
+        /** set alert permission to false */
+
+        toastManager.showErrorToastMessage(
+            text: LocaleKeys.toast_messages_notification_deactivated.tr());
+        /** show toast message */
+      }).whenComplete(() {
+        firebaseDocumentUsecase.declineNotifications();
+        //* fire and forgot
+      });
+
+      log('Cancelled all local alerts');
+    } else if (currentAdapter is DeactivatedNotifications) {
+      await notificationManager.setAlerts().then((value) async {
+        log('Setted all local alerts');
+
+        currentAdapter = ActivetedNotifications() as NotificationAdapter;
+        /** Set current state with adapter */
+
+        await localManager.setAlertPermission(value: true);
+        /** set alert permission to true */
+
+        toastManager.showSuccessToastMessage(
+            text: LocaleKeys.toast_messages_notification_activated.tr());
+        /** show toast message */
+      }).whenComplete(() {
+        firebaseDocumentUsecase.allowNotifications();
+        //* fire and forgot
+      });
+    }
+
+    await notificationHandler.initialize();
+    /** reinitialize */
+  }
+
+  Future<void> cancelAllAlertsAndSetAlerts() async {
+    if (currentAdapter is ActivetedNotifications) {
+      await notificationManager.cancelAllAlerts().whenComplete(
+        () {
+          log('Cancelled all local alerts');
+          return notificationManager.setAlerts().whenComplete(
+                () => log('Setted all local alerts'),
+              );
+        },
+      );
+    } else if (currentAdapter is DeactivatedNotifications) {
+      log('Dont setted any local alert');
+      return;
+    }
   }
 }

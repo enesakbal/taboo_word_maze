@@ -17,5 +17,10 @@
         "has_update":"Yeni versiyonumuz yayında. Lütfen uygulamayı güncelleyiniz.",
         "no_internet_first_open":"Uygulamanın ilk kez açılış sırasında internete ihtiyacı var. Lütfen internet bağlantını kontrol et",
         "no_internet":"Lütfen internet bağlantını kontrol et."
+    },
+
+    "toast_messages":{
+        "notification_activated":"Bildirimler Açıldı",
+        "notification_deactivated":"Bildirimler Kapatıldı"
     }
 }

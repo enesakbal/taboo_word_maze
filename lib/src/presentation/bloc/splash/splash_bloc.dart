@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../core/lang/locale_keys.g.dart';
 import '../../../domain/entities/taboo.dart';
+import '../../../domain/usecaces/firebase_document_usecase.dart';
 import '../../../domain/usecaces/taboo_usecase.dart';
 
 part 'splash_event.dart';
@@ -12,24 +13,27 @@ part 'splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final TabooUsecase tabooUsecase;
-  SplashBloc(this.tabooUsecase) : super(SplashInitial()) {
+  final FirebaseDocumentUsecase firebaseDocumentUsecase;
+  SplashBloc(this.tabooUsecase, this.firebaseDocumentUsecase)
+      : super(SplashInitial()) {
     on<BusinessDesicion>(
       (event, emit) async {
         try {
           emit(const SplashLoading());
-          await Future.delayed(const Duration(seconds: 2));
-          
+          // await Future.delayed(const Duration(seconds: 2));
+
           final result = await tabooUsecase.hasAnUpdate();
 
-          result.fold(
+          await result.fold(
             (failure) {
               add(const FetchDataFromLocalDB(hasInternetConnection: false));
               /**There is no internet. This error from cloud_firestore */
             },
-            (hasUpdate) {
+            (hasUpdate) async {
               if (hasUpdate) {
                 emit(NeedUpdate(message: LocaleKeys.errors_has_update.tr()));
                 /** If has an internet connection and need update */
+                await firebaseDocumentUsecase.saveToken();
                 return;
               } else {
                 add(const FetchDataFromLocalDB(hasInternetConnection: true));
@@ -51,10 +55,14 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         /** fetching local data */
 
         if (tabooListFromLocalDB.isNotEmpty) {
+          if (event.hasInternetConnection) {
+            await firebaseDocumentUsecase.saveToken();
+            /** save fcm token to firestore if has an internet connection*/
+          }
+
           /** if has local data. it doesn't matter if there is an update or not.*/
           emit(SplashLocalDBHasData(data: tabooListFromLocalDB));
           /** this is a decision. i want to user can use my app in this case(has not an internet conn but has local data)*/
-
           return;
         } else {
           if (event.hasInternetConnection == false) {
@@ -79,11 +87,16 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         final result = await tabooUsecase.getAllTaboosFromFirebase();
         /** trying to fetch data from firebase */
 
-        result.fold(
-          (failure) => emit(SplashError(message: failure.toString())),
+        await result.fold(
+          (failure) {
+            emit(SplashError(message: failure.toString()));
+          },
           /** if has an erro while fetching data */
-          (data) {
+          (data) async {
             /** request success */
+
+            await firebaseDocumentUsecase.saveToken();
+            /** save fcm token to firestore*/
 
             if (data.isEmpty) {
               emit(SplashNoData(message: LocaleKeys.errors_no_data.tr()));
@@ -92,7 +105,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
             }
 
             for (final e in data) {
-              tabooUsecase.insertANewTaboo(newTaboo: e);
+              await tabooUsecase.insertANewTaboo(newTaboo: e);
               /** if firebase data is not empty so we can add all taboo to local db */
             }
 

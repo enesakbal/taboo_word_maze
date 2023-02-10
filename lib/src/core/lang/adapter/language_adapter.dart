@@ -3,25 +3,24 @@ import 'package:flutter/material.dart';
 import '../../constants/app_constants.dart';
 
 abstract class LocaleAdapter {
-  DynamicLocaleModel get model;
-
+  LocaleAdapterModel get model;
 }
 
-class DynamicLocaleModel {
+class LocaleAdapterModel {
   final String imagePath;
   final Locale locale;
 
-  const DynamicLocaleModel({
+  const LocaleAdapterModel({
     required this.imagePath,
     required this.locale,
   });
 
-  factory DynamicLocaleModel.turkish() => const DynamicLocaleModel(
+  factory LocaleAdapterModel.turkish() => const LocaleAdapterModel(
         imagePath: ApplicationConstants.TURKEY_SVG,
         locale: Locale('tr', 'TR'),
       );
 
-  factory DynamicLocaleModel.english() => const DynamicLocaleModel(
+  factory LocaleAdapterModel.english() => const LocaleAdapterModel(
         imagePath: ApplicationConstants.EU_SVG,
         locale: Locale('en', 'US'),
       );
@@ -29,11 +28,10 @@ class DynamicLocaleModel {
 
 class TurkishLocale implements LocaleAdapter {
   @override
-  DynamicLocaleModel get model => DynamicLocaleModel.turkish();
-
+  LocaleAdapterModel get model => LocaleAdapterModel.turkish();
 }
+
 class EnglishLocale implements LocaleAdapter {
   @override
-  DynamicLocaleModel get model => DynamicLocaleModel.english();
-
+  LocaleAdapterModel get model => LocaleAdapterModel.english();
 }
