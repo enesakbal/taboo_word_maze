@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/lang/adapter/language_adapter.dart';
 import '../../../core/notifications/local/adapter/notification_adapter.dart';
 import '../../../core/theme/adapter/theme_adapter.dart';
+import '../../../domain/usecaces/firebase_document_usecase.dart';
 import 'adapter/settings_adapter.dart';
 
 part 'home_event.dart';
@@ -16,6 +18,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final ThemeSetting<ThemeAdapter> themeSetting;
 
   final NotificationSetting<NotificationAdapter> notificationSetting;
+
 
   HomeBloc(this.langSetting, this.themeSetting, this.notificationSetting)
       : super(HomeInitial(

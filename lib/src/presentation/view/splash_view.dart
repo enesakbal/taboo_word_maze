@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -30,7 +32,7 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) async {
-        print(state);
+        log(state.runtimeType.toString());
         if (state is NeedUpdate) {
           await ErrorDialog(
             text: state.message,
@@ -40,10 +42,8 @@ class _SplashViewState extends State<SplashView> {
         } else if (state is SplashFetchedDataFromFirebase) {
           await router.replace(const HomeRoute());
         } else if (state is SplashNoData) {
-          print('no data');
           await ErrorDialog(text: state.message).show(context);
         } else if (state is SplashError) {
-          print('no data');
           await ErrorDialog(text: state.message).show(context);
         }
       },

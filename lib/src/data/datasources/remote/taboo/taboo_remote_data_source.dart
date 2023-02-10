@@ -1,20 +1,27 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../../core/constants/dot_env_manager.dart';
-import '../../../core/lang/locale_keys.g.dart';
-import '../../models/taboo_model.dart';
+import '../../../../core/constants/dot_env_manager.dart';
+import '../../../../core/lang/locale_keys.g.dart';
+import '../../../models/taboo_model.dart';
 
-abstract class RemoteDataSource {
+abstract class TabooRemoteDataSource {
   Future<List<TabooModel>?> getAllTaboosFromFirebase();
 
   Future<bool> hasAnUpdate();
 }
 
-class RemoteDataSourceImpl implements RemoteDataSource {
-  FirebaseFirestore firestore = GetIt.I<FirebaseFirestore>();
-  PackageInfo packageInfo = GetIt.I<PackageInfo>();
+class TabooRemoteDataSourceImpl implements TabooRemoteDataSource {
+  FirebaseFirestore firestore;
+  PackageInfo packageInfo;
+
+  TabooRemoteDataSourceImpl({
+    required this.firestore,
+    required this.packageInfo,
+  });
 
   @override
   Future<List<TabooModel>?> getAllTaboosFromFirebase() async {
@@ -24,7 +31,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
       final tabooIDList = await database.get();
 
-      print(tabooIDList.metadata);
       if (tabooIDList.size == 0) {
         throw FirebaseException(
             plugin: 'getAllTaboosFromFirebase',
@@ -36,6 +42,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         final data = element.data();
         modelList.add(TabooModel.fromJson(data));
       }
+      log('Fetched data from firestore');
 
       return modelList;
     } on FirebaseException catch (_) {
@@ -66,10 +73,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       //* Get live version
 
       if (liveVersion.contains(currentVersion)) {
-        print('same versions');
+        log('CURRENT VERSION : $currentVersion - LIVE VERSION : $liveVersion (SAME VERSIONS)');
         return false;
       }
-      print('different versions. need update ');
+      log('CURRENT VERSION : $currentVersion - LIVE VERSION : $liveVersion (DIFFERENT VERSIONS. NEED UPDATE)');
       return true;
     } on FirebaseException catch (_) {
       rethrow;

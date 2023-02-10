@@ -1,5 +1,12 @@
+import 'dart:developer';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get_it/get_it.dart';
+
+import '../../cache/local_manager.dart';
+import '../../enums/preferences_enums.dart';
+import '../local/adapter/notification_adapter.dart';
 
 const AndroidInitializationSettings initializationSettingsAndroid =
     AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -78,39 +85,4 @@ AndroidNotificationChannel englishChannel7 = const AndroidNotificationChannel(
   enableVibration: true,
 );
 
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // final notification = message.notification;
-  // final android = message.notification?.android;
-  // await flutterLocalNotificationsPlugin
-  //     .resolvePlatformSpecificImplementation<
-  //         AndroidFlutterLocalNotificationsPlugin>()
-  //     ?.createNotificationChannel(channel);
 
-  // final pref = GetIt.I<LocaleManager>();
-  // final notificationStatus =
-  //     pref.getBoolValue(PreferencesKeys.NOTIFICATION_STATUS);
-
-  // if (notificationStatus == false) {
-  //   return;
-  // }
-
-  // print('asadsaasd');
-  // if (notification != null && android != null) {
-  //   await flutterLocalNotificationsPlugin.show(
-  //     notification.hashCode,
-  //     notification.title,
-  //     notification.body,
-  //     NotificationDetails(
-  //       android: AndroidNotificationDetails(
-  //         channel.id,
-  //         channel.name,
-  //         channelDescription: channel.description,
-  //         playSound: true,
-  //         icon: '@mipmap/ic_launcher',
-
-  //         // other properties...
-  //       ),
-  //     ),
-  //   );
-  // }
-}

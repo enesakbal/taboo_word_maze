@@ -1,5 +1,8 @@
+// ignore_for_file: invalid_return_type_for_catch_error
+
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,10 +11,12 @@ import '../../../../core/cache/local_manager.dart';
 import '../../../../core/components/toast/toast_manager.dart';
 import '../../../../core/lang/adapter/language_adapter.dart';
 import '../../../../core/lang/locale_keys.g.dart';
+import '../../../../core/notifications/fcm/notification_handler.dart';
 import '../../../../core/notifications/local/adapter/notification_adapter.dart';
 import '../../../../core/notifications/local/local_notification_manager.dart';
 import '../../../../core/notifier/theme_notifier.dart';
 import '../../../../core/theme/adapter/theme_adapter.dart';
+import '../../../../domain/usecaces/firebase_document_usecase.dart';
 
 abstract class ISettings<T> {
   T currentAdapter;
@@ -35,9 +40,9 @@ class ThemeSetting<ThemeAdapter> extends ISettings<ThemeAdapter> {
     await provider.changeTheme().then((value) {
       currentAdapter = provider.currentThemeAdapter as ThemeAdapter;
       if (currentAdapter is LightTheme) {
-        log('changed theme to  LightTheme');
+        log('Changed theme to LightTheme');
       } else if (currentAdapter is DarkTheme) {
-        log('changed theme to  DarkTheme');
+        log('Changed theme to DarkTheme');
       }
     });
   }
@@ -54,12 +59,12 @@ class LangSetting<LocaleAdapter> extends ISettings<LocaleAdapter> {
     if (currentAdapter is TurkishLocale) {
       await context.setLocale(english).then((value) {
         currentAdapter = EnglishLocale() as LocaleAdapter;
-        log('changed locale to  English ');
+        log('Changed locale to English ');
       });
     } else if (currentAdapter is EnglishLocale) {
       await context.setLocale(turkish).then((value) {
         currentAdapter = TurkishLocale() as LocaleAdapter;
-        log('changed locale to  Turkish ');
+        log('Changed locale to Turkish ');
       });
     }
   }
@@ -69,11 +74,15 @@ class NotificationSetting<NotificationAdapter>
     extends ISettings<NotificationAdapter> {
   LocalNotificationManager notificationManager;
   LocalManager localManager;
+  NotificationHandler notificationHandler;
+  FirebaseDocumentUsecase firebaseDocumentUsecase;
 
   NotificationSetting({
     required super.currentAdapter,
     required this.notificationManager,
     required this.localManager,
+    required this.notificationHandler,
+    required this.firebaseDocumentUsecase,
   });
 
   @override
@@ -82,41 +91,56 @@ class NotificationSetting<NotificationAdapter>
 
     if (currentAdapter is ActivetedNotifications) {
       await notificationManager.cancelAllAlerts().then((value) async {
-        log('Cancelled all alerts');
-
         currentAdapter = DeactivatedNotifications() as NotificationAdapter;
+        /** Set current state with adapter */
 
         await localManager.setAlertPermission(value: false);
+        /** set alert permission to false */
 
         toastManager.showErrorToastMessage(
             text: LocaleKeys.toast_messages_notification_deactivated.tr());
+        /** show toast message */
+      }).whenComplete(() {
+        firebaseDocumentUsecase.declineNotifications();
+        //* fire and forgot
       });
+
+      log('Cancelled all local alerts');
     } else if (currentAdapter is DeactivatedNotifications) {
       await notificationManager.setAlerts().then((value) async {
-        log('Setted all alerts');
+        log('Setted all local alerts');
 
         currentAdapter = ActivetedNotifications() as NotificationAdapter;
+        /** Set current state with adapter */
 
         await localManager.setAlertPermission(value: true);
+        /** set alert permission to true */
 
         toastManager.showSuccessToastMessage(
             text: LocaleKeys.toast_messages_notification_activated.tr());
+        /** show toast message */
+      }).whenComplete(() {
+        firebaseDocumentUsecase.allowNotifications();
+        //* fire and forgot
       });
     }
+
+    await notificationHandler.initialize();
+    /** reinitialize */
   }
 
   Future<void> cancelAllAlertsAndSetAlerts() async {
     if (currentAdapter is ActivetedNotifications) {
       await notificationManager.cancelAllAlerts().whenComplete(
         () {
-          log('Cancelled all alerts');
+          log('Cancelled all local alerts');
           return notificationManager.setAlerts().whenComplete(
-                () => log('Setted all alerts'),
+                () => log('Setted all local alerts'),
               );
         },
       );
     } else if (currentAdapter is DeactivatedNotifications) {
-      log('dont setted any alert');
+      log('Dont setted any local alert');
       return;
     }
   }

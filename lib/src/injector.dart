@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -9,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/cache/local_manager.dart';
 import 'core/constants/local_db_constants.dart';
+import 'core/device_info/device_info.dart';
 import 'core/enums/env_enums.dart';
 import 'core/lang/adapter/language_adapter.dart';
 import 'core/lang/language_manager.dart';
@@ -18,9 +21,13 @@ import 'core/notifications/local/local_notification_manager.dart';
 import 'core/notifier/theme_notifier.dart';
 import 'core/theme/adapter/theme_adapter.dart';
 import 'data/datasources/local/app_database.dart';
-import 'data/datasources/remote/remote_data_source.dart';
+import 'data/datasources/remote/firebase_document/firebase_document_remote_data_source.dart';
+import 'data/datasources/remote/taboo/taboo_remote_data_source.dart';
+import 'data/repositories/firebase_document_repository_impl.dart';
 import 'data/repositories/taboo_repository_impl.dart';
+import 'domain/repositories/firebase_document_repository.dart';
 import 'domain/repositories/taboo_repository.dart';
+import 'domain/usecaces/firebase_document_usecase.dart';
 import 'domain/usecaces/taboo_usecase.dart';
 import 'presentation/bloc/home/adapter/settings_adapter.dart';
 import 'presentation/bloc/home/home_bloc.dart';
@@ -55,7 +62,7 @@ Future<void> init({required EnvModes mode}) async {
   //*------------------------------------------------------------------*//
   //*------------------------------------------------------------------*//
   final preferences = await SharedPreferences.getInstance();
-  injector.registerLazySingleton(
+  injector.registerLazySingleton<LocalManager>(
     () => LocalManager(preferences: preferences),
   );
 
@@ -69,7 +76,7 @@ Future<void> init({required EnvModes mode}) async {
   //*------------------------------------------------------------------*//
   final theme = localManager.getCurrentThemeMode();
 
-  injector.registerLazySingleton(
+  injector.registerLazySingleton<ThemeModeNotifier>(
     () => ThemeModeNotifier(theme, localManager.changeThemeMode),
   );
   //*------------------------------------------------------------------*//
@@ -93,7 +100,7 @@ Future<void> init({required EnvModes mode}) async {
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   injector.registerLazySingleton<LocalNotificationManager>(
       () => LocalNotificationManager(flutterLocalNotificationsPlugin));
-  await GetIt.I<LocalNotificationManager>().initialize();
+  await injector<LocalNotificationManager>().initialize();
 
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
@@ -109,6 +116,7 @@ Future<void> init({required EnvModes mode}) async {
   final firestore = FirebaseFirestore.instance;
 
   await firestore.clearPersistence();
+  // firestore.settings = const Settings(persistenceEnabled: false,);
 
   injector.registerLazySingleton<FirebaseMessaging>(() => messaging);
   injector.registerLazySingleton<FirebaseFirestore>(() => firestore);
@@ -121,8 +129,9 @@ Future<void> init({required EnvModes mode}) async {
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
 
-  await NotificationHandler(flutterLocalNotificationsPlugin, localManager)
-      .initialize();
+  injector.registerLazySingleton<NotificationHandler>(
+      () => NotificationHandler(flutterLocalNotificationsPlugin, localManager));
+  await injector<NotificationHandler>().initialize();
 
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
@@ -132,7 +141,18 @@ Future<void> init({required EnvModes mode}) async {
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
 
-  injector.registerLazySingleton<RemoteDataSource>(RemoteDataSourceImpl.new);
+  injector.registerLazySingleton<TabooRemoteDataSource>(() =>
+      TabooRemoteDataSourceImpl(
+          firestore: injector(), packageInfo: injector()));
+
+  injector.registerLazySingleton<FirebaseDocumentRemoteDataSource>(
+    () => FirebaseDocumentRemoteDataSourceImpl(
+      firestore: injector(),
+      messaging: injector(),
+      packageInfo: injector(),
+      deviceInfo: injector(),
+    ),
+  );
 
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
@@ -148,6 +168,11 @@ Future<void> init({required EnvModes mode}) async {
       appDatabase: injector(),
     ),
   );
+  injector.registerLazySingleton<FirebaseDocumentRepository>(
+    () => FirebaseDocumentRepositoryImpl(
+      remoteDataSource: injector(),
+    ),
+  );
 
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
@@ -158,6 +183,7 @@ Future<void> init({required EnvModes mode}) async {
   //*-------------------------------------------------------------------*/
 
   injector.registerLazySingleton(() => TabooUsecase(injector()));
+  injector.registerLazySingleton(() => FirebaseDocumentUsecase(injector()));
 
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
@@ -167,7 +193,7 @@ Future<void> init({required EnvModes mode}) async {
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
 
-  injector.registerFactory(() => SplashBloc(injector()));
+  injector.registerFactory(() => SplashBloc(injector(), injector()));
   injector.registerFactory(() => HomeBloc(injector(), injector(), injector()));
 
   //*-------------------------------------------------------------------*/
@@ -197,6 +223,8 @@ Future<void> init({required EnvModes mode}) async {
       currentAdapter: injector(),
       localManager: injector(),
       notificationManager: injector(),
+      notificationHandler: injector(),
+      firebaseDocumentUsecase: injector(),
     ),
   );
 
@@ -236,19 +264,36 @@ Future<void> init({required EnvModes mode}) async {
   //*-------------------------------------------------------------------*/
   //**************************- PACKAGE INFO -**************************//
 
-  print('*****************INITIAL STATES******************');
+  //**************************- DEVICE INFO -***************************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
 
-  final fcmToken = await messaging.getToken();
-  print('FCM TOKEN : $fcmToken');
+  injector.registerLazySingleton<DeviceInfo>(DeviceInfo.new);
 
-  final notificationStatus = localManager.getCurrentAlertAdapter();
-  print('NOTIFICATION STATUS : ${notificationStatus.runtimeType}');
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //**************************- DEVICE INFO -***************************//
 
-  final currentTheme = localManager.getCurrentThemeMode();
-  print('THEME : ${currentTheme.runtimeType}');
+  try {
+    log('*****************INITIAL STATES******************');
 
-  final currentLang = LanguageManager.getCurrentAdapter();
-  print('LANGUAGE : ${currentLang.runtimeType}');
+    if (mode == EnvModes.developmentMode) {
+      final fcmToken = await messaging.getToken();
+      if (fcmToken == null) {}
+      log('null', level: 4);
 
-  print('*****************INITIAL STATES******************');
+      log('FCM TOKEN : $fcmToken');
+    }
+
+    final notificationStatus = localManager.getCurrentAlertAdapter();
+    log('NOTIFICATION STATUS : ${notificationStatus.runtimeType}');
+
+    final currentTheme = localManager.getCurrentThemeMode();
+    log('THEME : ${currentTheme.runtimeType}');
+
+    final currentLang = LanguageManager.getCurrentAdapter();
+    log('LANGUAGE : ${currentLang.runtimeType}');
+
+    log('*****************INITIAL STATES******************');
+  } on Exception catch (_) {}
 }
