@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: library_private_types_in_public_api
+
 part of 'app_database.dart';
 
 // **************************************************************************
@@ -107,7 +109,7 @@ class _$TabooDao extends TabooDao {
         _tabooInsertionAdapter = InsertionAdapter(
             database,
             'Taboo',
-            (Taboo item) => <String, Object?>{
+            (item) => <String, Object?>{
                   'word': item.word,
                   'forbiddenWords': item.forbiddenWords
                 }),
@@ -115,7 +117,7 @@ class _$TabooDao extends TabooDao {
             database,
             'Taboo',
             ['word'],
-            (Taboo item) => <String, Object?>{
+            (item) => <String, Object?>{
                   'word': item.word,
                   'forbiddenWords': item.forbiddenWords
                 }),
@@ -123,7 +125,7 @@ class _$TabooDao extends TabooDao {
             database,
             'Taboo',
             ['word'],
-            (Taboo item) => <String, Object?>{
+            (item) => <String, Object?>{
                   'word': item.word,
                   'forbiddenWords': item.forbiddenWords
                 });
@@ -143,7 +145,7 @@ class _$TabooDao extends TabooDao {
   @override
   Future<List<Taboo>> getAllTaboo() async {
     return _queryAdapter.queryList('SELECT * FROM Taboo',
-        mapper: (Map<String, Object?> row) => Taboo(
+        mapper: (row) => Taboo(
             word: row['word'] as String?,
             forbiddenWords: row['forbiddenWords'] as String?));
   }

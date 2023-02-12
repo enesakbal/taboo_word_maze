@@ -15,7 +15,7 @@ import 'core/device_info/device_info.dart';
 import 'core/enums/env_enums.dart';
 import 'core/lang/adapter/language_adapter.dart';
 import 'core/lang/language_manager.dart';
-import 'core/notifications/fcm/notification_handler.dart';
+import 'core/notifications/fcm/push_notification_handler.dart';
 import 'core/notifications/local/adapter/notification_adapter.dart';
 import 'core/notifications/local/local_notification_manager.dart';
 import 'core/notifier/theme_notifier.dart';
@@ -129,9 +129,9 @@ Future<void> init({required EnvModes mode}) async {
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
 
-  injector.registerLazySingleton<NotificationHandler>(
-      () => NotificationHandler(flutterLocalNotificationsPlugin, localManager));
-  await injector<NotificationHandler>().initialize();
+  injector.registerLazySingleton<PushNotificationHandler>(
+      () => PushNotificationHandler(flutterLocalNotificationsPlugin, localManager));
+  await injector<PushNotificationHandler>().initialize();
 
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/

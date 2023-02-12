@@ -1,12 +1,4 @@
-import 'dart:developer';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:get_it/get_it.dart';
-
-import '../../cache/local_manager.dart';
-import '../../enums/preferences_enums.dart';
-import '../local/adapter/notification_adapter.dart';
 
 const AndroidInitializationSettings initializationSettingsAndroid =
     AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -84,5 +76,3 @@ AndroidNotificationChannel englishChannel7 = const AndroidNotificationChannel(
   playSound: true,
   enableVibration: true,
 );
-
-

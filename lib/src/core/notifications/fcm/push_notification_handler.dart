@@ -1,3 +1,4 @@
+
 import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -19,7 +20,7 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   log('firebaseMessagingBackgroundHandler');
 
   final preferences = await SharedPreferences.getInstance();
-  late var notificationStatus;
+  late NotificationAdapter notificationStatus;
 
   final permission =
       preferences.getBool(PreferencesKeys.NOTIFICATION_STATUS.toString());
@@ -67,11 +68,11 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   }
 }
 
-class NotificationHandler {
+class PushNotificationHandler {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   final LocalManager localManager;
 
-  NotificationHandler(this.flutterLocalNotificationsPlugin, this.localManager);
+  PushNotificationHandler(this.flutterLocalNotificationsPlugin, this.localManager);
 
   Future<void> initialize() async {
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);

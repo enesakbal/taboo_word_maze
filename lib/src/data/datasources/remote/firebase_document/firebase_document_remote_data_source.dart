@@ -67,6 +67,8 @@ class FirebaseDocumentRemoteDataSourceImpl
       };
 
       await database.doc(deviceID).update(map);
+      //** if user want recieve notification, we must fill with his token on firestore documents  */
+
       log('Allowed firebase push notifications');
     } on FirebaseException catch (_) {
       log('Error while allowing firebase push notifications');
@@ -82,16 +84,15 @@ class FirebaseDocumentRemoteDataSourceImpl
       final deviceID = await deviceInfo.getDeviceID();
 
       await database.doc(deviceID).get();
-
       //* for catching offline
+
       final map = {
         'token': '',
       };
 
-      await database.doc(deviceID).get();
-      //* for catching offline
-
       await database.doc(deviceID).update(map);
+      //** if user dont want recieve notification, we must empty his token on firestore documents  */
+
       log('Declined firebase push notifications');
     } on FirebaseException catch (_) {
       log('Error while declining firebase push notifications');
