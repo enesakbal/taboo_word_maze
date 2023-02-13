@@ -1,10 +1,10 @@
-// ignore_for_file: prefer_const_constructors,prefer_const_literals_to_create_immutables
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../config/router/app_router.dart';
 import '../../core/components/button/custom_icon_button.dart';
 import '../../core/components/button/custom_text_button.dart';
 import '../../core/components/text/stroked_text.dart';
@@ -103,7 +103,9 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _playButton() {
     return CustomTextButton(
-      onPressed: () {},
+      onPressed: () async {
+        await router.push(const GameRoute());
+      },
       text: LocaleKeys.home_play.tr(),
       height: 7.5.h,
       width: 55.w,

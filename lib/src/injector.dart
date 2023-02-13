@@ -29,6 +29,7 @@ import 'domain/repositories/firebase_document_repository.dart';
 import 'domain/repositories/taboo_repository.dart';
 import 'domain/usecaces/firebase_document_usecase.dart';
 import 'domain/usecaces/taboo_usecase.dart';
+import 'presentation/bloc/game/game_bloc.dart';
 import 'presentation/bloc/home/adapter/settings_adapter.dart';
 import 'presentation/bloc/home/home_bloc.dart';
 import 'presentation/bloc/splash/splash_bloc.dart';
@@ -195,6 +196,7 @@ Future<void> init({required EnvModes mode}) async {
 
   injector.registerFactory(() => SplashBloc(injector(), injector()));
   injector.registerFactory(() => HomeBloc(injector(), injector(), injector()));
+  injector.registerFactory(() => GameBloc(injector()));
 
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/

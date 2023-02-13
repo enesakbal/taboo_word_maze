@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import '../../presentation/view/game_view.dart';
 import '../../presentation/view/home_view.dart';
 import '../../presentation/view/splash_view.dart';
 
@@ -19,6 +20,13 @@ part 'app_router.gr.dart';
       path: '/home',
       transitionsBuilder: TransitionsBuilders.fadeIn,
       durationInMilliseconds: 800,
+      initial: false,
+    ),
+    CustomRoute(
+      page: GameView,
+      path: '/game',
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+      durationInMilliseconds: 400,
       initial: false,
     )
   ],

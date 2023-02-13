@@ -59,7 +59,7 @@ class StorekedAutoSizeText extends StatelessWidget {
             fontFamily: ApplicationConstants.FONT_FAMILY,
             fontSize: fontSize ?? 20,
             fontWeight: fontWeight ?? FontWeight.normal,
-            color: textColor ?? Colors.white,
+            color: textColor ?? ColorsTones.azure,
           ),
         ),
       ],

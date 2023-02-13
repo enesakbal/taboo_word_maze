@@ -10,23 +10,25 @@ class AppTheme {
 
   static NeumorphicStyle get neumorphicStyle => _neumorphicStyle();
 
-  static ThemeData get _darkTheme => ThemeData(
+  static ThemeData get _theme => ThemeData(
         fontFamily: ApplicationConstants.FONT_FAMILY,
-        primaryColor: ColorsTones.dark,
-        scaffoldBackgroundColor: ColorsTones.dark,
+        primaryColor: Colors.white,
+        appBarTheme: AppBarTheme(color: Colors.transparent),
+        scaffoldBackgroundColor: ColorsTones.softBlue,
         elevatedButtonTheme: _elevatedButtonStyle(),
-        textButtonTheme: _textButtonStyle(),
-        brightness: Brightness.dark,
+        textButtonTheme: _textButtonStyleLight(),
+        brightness: Brightness.light,
         iconTheme: const IconThemeData(color: Colors.black),
       );
 
-  static ThemeData get _theme => ThemeData(
+  static ThemeData get _darkTheme => ThemeData(
         fontFamily: ApplicationConstants.FONT_FAMILY,
-        primaryColor: ColorsTones.softBlue,
-        scaffoldBackgroundColor: ColorsTones.softBlue,
+        primaryColor: ColorsTones.darkPrimary,
+        appBarTheme: AppBarTheme(color: Colors.transparent),
+        scaffoldBackgroundColor: ColorsTones.darkSecondary,
         elevatedButtonTheme: _elevatedButtonStyle(),
-        textButtonTheme: _textButtonStyle(),
-        brightness: Brightness.light,
+        textButtonTheme: _textButtonStyleDark(),
+        brightness: Brightness.dark,
         iconTheme: const IconThemeData(color: Colors.black),
       );
 
@@ -34,28 +36,41 @@ class AppTheme {
     return ElevatedButtonThemeData(
       style: IconButton.styleFrom(
         alignment: Alignment.center,
-        backgroundColor: ColorsTones.buttonBackgroundColor,
+        backgroundColor: ColorsTones.buttonBackgroundColorLight,
         elevation: 12,
         padding: EdgeInsets.zero,
       ),
     );
   }
 
-  static TextButtonThemeData _textButtonStyle() {
+  static TextButtonThemeData _textButtonStyleLight() {
     return TextButtonThemeData(
       style: IconButton.styleFrom(
         alignment: Alignment.center,
-        backgroundColor: ColorsTones.buttonBackgroundColor,
+        backgroundColor: ColorsTones.buttonBackgroundColorLight,
         elevation: 12,
         padding: EdgeInsets.zero,
+        hoverColor: Colors.red,
+      ),
+    );
+  }
+
+  static TextButtonThemeData _textButtonStyleDark() {
+    return TextButtonThemeData(
+      style: IconButton.styleFrom(
+        alignment: Alignment.center,
+        backgroundColor: ColorsTones.buttonBackgroundColorDark,
+        elevation: 12,
+        padding: EdgeInsets.zero,
+        hoverColor: Colors.red,
       ),
     );
   }
 
   static NeumorphicStyle _neumorphicStyle() {
     return NeumorphicStyle(
-      color: ColorsTones.buttonBackgroundColor,
-      shadowLightColor: ColorsTones.buttonBackgroundColor,
+      color: ColorsTones.buttonBackgroundColorLight,
+      shadowLightColor: ColorsTones.buttonBackgroundColorLight,
       shadowDarkColor: Colors.black,
       depth: 1,
       boxShape: NeumorphicBoxShape.roundRect(
