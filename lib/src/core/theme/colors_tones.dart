@@ -13,11 +13,16 @@ class ColorsTones {
   static Color get slateGrey => const Color(0XFF708090);
   static Color get flaxYellow => const Color(0XFFEEDC82);
   static Color get goldenYellow => const Color(0XFFFFD700);
-  static Color get buttonBackgroundColor => azure.withOpacity(0.8);
+  static Color get buttonBackgroundColorLight => azure.withOpacity(0.8);
 
 //* dark mode
 
-  static Color get dark => const Color(0XFF303030);
+  static Color get darkPrimary => const Color(0XFF303030);
+  static Color get darkSecondary => const Color(0XFF414141);
+  static Color get dark => const Color(0XFF313131);
+  static Color get darkRed => const Color(0XFFCA3E47).withOpacity(0.6);
+  static Color get buttonBackgroundColorDark =>
+      ColorsTones.azure.withOpacity(0.6);
 
   /**
    * #87CEFA (Light Sky Blue)

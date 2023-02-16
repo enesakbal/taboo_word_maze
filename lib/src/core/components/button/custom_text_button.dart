@@ -19,7 +19,7 @@ class CustomTextButton extends StatefulWidget {
   final double borderRadius;
   final double borderWidth;
 
-  final bool? hasAnimation;
+  final bool hasAnimation;
 
   final Color? overlayColor;
   final Color? backgroundColor;
@@ -101,7 +101,7 @@ class _CustomTextButtonState extends State<CustomTextButton>
             padding: MaterialStateProperty.all(
               EdgeInsets.symmetric(horizontal: 5.w),
             ),
-            backgroundColor: MaterialStatePropertyAll(widget.hasAnimation!
+            backgroundColor: MaterialStatePropertyAll(widget.hasAnimation
                 ? _colorAnimation.value
                 : widget.backgroundColor),
             overlayColor: MaterialStatePropertyAll(widget.overlayColor),
@@ -120,7 +120,9 @@ class _CustomTextButtonState extends State<CustomTextButton>
 
   @override
   void dispose() {
-    _colorController.dispose();
+    if (widget.hasAnimation == true) {
+      _colorController.dispose();
+    }
     super.dispose();
   }
 }

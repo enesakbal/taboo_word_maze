@@ -61,6 +61,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           }
 
           /** if has local data. it doesn't matter if there is an update or not.*/
+          print(tabooListFromLocalDB);
           emit(SplashLocalDBHasData(data: tabooListFromLocalDB));
           /** this is a decision. i want to user can use my app in this case(has not an internet conn but has local data)*/
           return;

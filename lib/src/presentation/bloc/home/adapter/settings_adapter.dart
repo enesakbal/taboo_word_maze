@@ -55,12 +55,12 @@ class LangSetting<T extends LocaleAdapter> extends ISettings<LocaleAdapter> {
 
     if (currentAdapter is TurkishLocale) {
       await context.setLocale(english).then((value) {
-        currentAdapter = EnglishLocale as LocaleAdapter;
+        currentAdapter = EnglishLocale();
         log('Changed locale to English ');
       });
     } else if (currentAdapter is EnglishLocale) {
       await context.setLocale(turkish).then((value) {
-        currentAdapter = TurkishLocale as LocaleAdapter;
+        currentAdapter = TurkishLocale();
         log('Changed locale to Turkish ');
       });
     }
