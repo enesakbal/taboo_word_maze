@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_const_constructors, unused_field, strict_raw_type
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,9 @@ import 'package:sizer/sizer.dart';
 import '../../config/router/app_router.dart';
 import '../../core/components/button/custom_icon_button.dart';
 import '../../core/components/button/custom_text_button.dart';
-import '../../core/components/text/stroked_text.dart';
-import '../../core/lang/locale_keys.g.dart';
+import '../../core/components/text/stroked_auto_size_text.dart';
+import '../../core/init/lang/locale_keys.g.dart';
+import '../../core/theme/colors_tones.dart';
 import '../bloc/home/home_bloc.dart';
 
 class HomeView extends StatefulWidget {
@@ -70,34 +72,12 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _headers() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Center(
-            child: Hero(
-              tag: 'header-1',
-              child: StorekedText(
-                textAlign: TextAlign.center,
-                text: LocaleKeys.splash_title.tr(),
-                fontSize: 60,
-              ),
-            ),
-          ),
-          Center(
-            child: Hero(
-              tag: 'header-2',
-              child: StorekedText(
-                textAlign: TextAlign.center,
-                text: LocaleKeys.splash_subtitle.tr(),
-                fontSize: 45,
-              ),
-            ),
-          ),
-        ],
-      ),
+    return StorekedAutoSizeText(
+      text: LocaleKeys.splash_title.tr(),
+      fontSize: 70,
+      fontWeight: FontWeight.w900,
+      strokeColor: ColorsTones2.secondaryColor,
+      strokeWidth: 6,
     );
   }
 

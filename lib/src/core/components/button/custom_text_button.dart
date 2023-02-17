@@ -52,14 +52,14 @@ class CustomTextButton extends StatefulWidget {
 }
 
 class _CustomTextButtonState extends State<CustomTextButton>
-    with AnimationMixin {
+    with SingleTickerProviderStateMixin {
   late AnimationController _colorController;
   late Animation<Color?> _colorAnimation;
 
   @override
   void initState() {
     //* start of color animation
-    _colorController = createController()
+    _colorController = AnimationController(vsync: this)
       ..repeat(
         period: const Duration(seconds: 1, milliseconds: 0),
         reverse: true,

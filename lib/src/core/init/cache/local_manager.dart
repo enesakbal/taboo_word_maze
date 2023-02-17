@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../enums/preferences_enums.dart';
+import '../../constants/enums/preferences_enums.dart';
+import '../../theme/adapter/theme_adapter.dart';
 import '../notifications/local/adapter/notification_adapter.dart';
-import '../theme/adapter/theme_adapter.dart';
 
 class LocalManager {
   final SharedPreferences preferences;

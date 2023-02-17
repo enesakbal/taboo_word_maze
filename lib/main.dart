@@ -9,9 +9,9 @@ import 'package:sizer/sizer.dart';
 
 import 'src/config/router/app_router.dart';
 import 'src/core/constants/app_constants.dart';
-import 'src/core/enums/env_enums.dart';
-import 'src/core/lang/language_manager.dart';
-import 'src/core/notifier/theme_notifier.dart';
+import 'src/core/constants/enums/env_enums.dart';
+import 'src/core/init/lang/language_manager.dart';
+import 'src/core/init/notifier/theme_notifier.dart';
 import 'src/core/theme/app_theme.dart';
 import 'src/injector.dart' as di;
 import 'src/presentation/bloc/game/game_bloc.dart';

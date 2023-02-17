@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constants/app_constants.dart';
+import '../../../constants/app_constants.dart';
 
 abstract class LocaleAdapter {
   LocaleAdapterModel get model;

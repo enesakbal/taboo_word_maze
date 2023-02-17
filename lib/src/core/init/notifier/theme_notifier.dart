@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/adapter/theme_adapter.dart';
+import '../../theme/adapter/theme_adapter.dart';
 
 class ThemeModeNotifier extends ChangeNotifier {
   ThemeAdapter currentThemeAdapter;

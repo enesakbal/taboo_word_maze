@@ -35,19 +35,23 @@ class StorekedAutoSizeText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        AutoSizeText(
-          text,
-          maxLines: maxLines ?? 1,
-          textAlign: textAlign,
-          style: TextStyle(
-            decoration: TextDecoration.none,
-            fontFamily: ApplicationConstants.FONT_FAMILY,
-            fontSize: fontSize ?? 20,
-            fontWeight: fontWeight ?? FontWeight.normal,
-            foreground: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = strokeWidth ?? 3
-              ..color = strokeColor ?? ColorsTones.softBlue,
+        Positioned(
+          top: 0,
+          right: 3,
+          bottom: 1,
+          child: AutoSizeText(
+            text,
+            maxLines: maxLines ?? 1,
+            textAlign: textAlign,
+            style: TextStyle(
+              decoration: TextDecoration.none,
+              fontSize: fontSize ?? 20,
+              fontWeight: fontWeight ?? FontWeight.normal,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = strokeWidth ?? 3
+                ..color = strokeColor ?? ColorsTones.softBlue,
+            ),
           ),
         ),
         AutoSizeText(
@@ -56,7 +60,6 @@ class StorekedAutoSizeText extends StatelessWidget {
           textAlign: textAlign,
           style: TextStyle(
             decoration: TextDecoration.none,
-            fontFamily: ApplicationConstants.FONT_FAMILY,
             fontSize: fontSize ?? 20,
             fontWeight: fontWeight ?? FontWeight.normal,
             color: textColor ?? ColorsTones.azure,

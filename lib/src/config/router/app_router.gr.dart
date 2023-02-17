@@ -27,8 +27,8 @@ class _$AppRouter extends RootStackRouter {
       return CustomPage<dynamic>(
         routeData: routeData,
         child: const HomeView(),
-        transitionsBuilder: TransitionsBuilders.fadeIn,
-        durationInMilliseconds: 800,
+        transitionsBuilder: zoomInTransition,
+        durationInMilliseconds: 1500,
         opaque: true,
         barrierDismissible: false,
       );

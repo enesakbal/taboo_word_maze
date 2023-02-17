@@ -31,15 +31,6 @@ class SplashFetchedDataFromFirebase extends SplashState {
   List<Object> get props => [data];
 }
 
-class SplashNoData extends SplashState {
-  final String message;
-
-  const SplashNoData({required this.message});
-
-  @override
-  List<Object> get props => [message];
-}
-
 class SplashError extends SplashState {
   final String message;
 
