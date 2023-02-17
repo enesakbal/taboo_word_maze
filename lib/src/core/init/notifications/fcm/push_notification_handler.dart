@@ -6,8 +6,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../constants/enums/preferences_enums.dart';
 import '../../cache/local_manager.dart';
-import '../../enums/preferences_enums.dart';
 import '../config/notfication_config.dart';
 import '../local/adapter/notification_adapter.dart';
 

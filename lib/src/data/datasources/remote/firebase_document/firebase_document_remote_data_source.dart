@@ -5,7 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../../core/constants/dot_env_manager.dart';
-import '../../../../core/device_info/device_info.dart';
+import '../../../../core/init/device_info/device_info.dart';
 
 abstract class FirebaseDocumentRemoteDataSource {
   Future<void> saveToken();

@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../../core/constants/dot_env_manager.dart';
-import '../../../../core/lang/locale_keys.g.dart';
+import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../models/taboo_model.dart';
 
 abstract class TabooRemoteDataSource {

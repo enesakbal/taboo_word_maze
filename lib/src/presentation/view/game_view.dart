@@ -69,16 +69,6 @@ class _GameViewState extends State<GameView> {
     );
   }
 
-//todo oyunun içine geçmeye hazırsın
-//todo play butonuna tıklandığı anda oyun ekranı açılır aşağıda 3 adet tuş vardır pas tabu doğru
-//todo arka tarafta anlatılan kelime ve onun alt tarafında da tabular vardır
-//todo oyun süresi sağ üst veya aşağıda olacak
-//todo bu sayfa açıldığında tüm alanlar boş olarak karşımıza çıkmalı
-//todo kullanıcının yapması gereken ilk şey iki adet grup ismi girmesi olacak
-//todo grup isimleri en 3 karakter olup olmadığını kontorol ettikten sonra iki grup ismişnin de girilmesi halinde
-//todo popup kapanır ve sürenin olacağı kısımda başla yazısı çıkar
-//todo başla butonuna tıklandığı anda sayaç görünür ve oyun başlar
-
   Widget _buildBody() {
     return Container(
       width: 100.w,

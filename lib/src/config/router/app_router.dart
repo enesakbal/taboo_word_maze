@@ -18,8 +18,8 @@ part 'app_router.gr.dart';
     CustomRoute(
       page: HomeView,
       path: '/home',
-      transitionsBuilder: TransitionsBuilders.fadeIn,
-      durationInMilliseconds: 800,
+      transitionsBuilder: zoomInTransition,
+      durationInMilliseconds: 1500,
       initial: false,
     ),
     CustomRoute(
@@ -32,5 +32,26 @@ part 'app_router.gr.dart';
   ],
 )
 class AppRouter extends _$AppRouter {}
+
+Widget zoomInTransition(BuildContext context, Animation<double> animation,
+    Animation<double> secondaryAnimation, Widget child) {
+  final opacity = Tween<double>(
+    end: 1,
+    begin: 0,
+  ).chain(CurveTween(curve: Curves.fastOutSlowIn)).animate(animation);
+
+  final scale = Tween<double>(
+    end: 1,
+    begin: 1.20,
+  ).chain(CurveTween(curve: Curves.fastOutSlowIn)).animate(animation);
+
+  return FadeTransition(
+    opacity: opacity,
+    child: ScaleTransition(
+      scale: scale,
+      child: child,
+    ),
+  );
+}
 
 final router = AppRouter();

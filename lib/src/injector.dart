@@ -9,16 +9,17 @@ import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/cache/local_manager.dart';
+import 'core/constants/enums/env_enums.dart';
+import 'core/init/cache/local_manager.dart';
 import 'core/constants/local_db_constants.dart';
-import 'core/device_info/device_info.dart';
-import 'core/enums/env_enums.dart';
-import 'core/lang/adapter/language_adapter.dart';
-import 'core/lang/language_manager.dart';
-import 'core/notifications/fcm/push_notification_handler.dart';
-import 'core/notifications/local/adapter/notification_adapter.dart';
-import 'core/notifications/local/local_notification_manager.dart';
-import 'core/notifier/theme_notifier.dart';
+
+import 'core/init/device_info/device_info.dart';
+import 'core/init/lang/adapter/language_adapter.dart';
+import 'core/init/lang/language_manager.dart';
+import 'core/init/notifications/fcm/push_notification_handler.dart';
+import 'core/init/notifications/local/adapter/notification_adapter.dart';
+import 'core/init/notifications/local/local_notification_manager.dart';
+import 'core/init/notifier/theme_notifier.dart';
 import 'core/theme/adapter/theme_adapter.dart';
 import 'data/datasources/local/app_database.dart';
 import 'data/datasources/remote/firebase_document/firebase_document_remote_data_source.dart';

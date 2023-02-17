@@ -31,3 +31,10 @@ class ColorsTones {
 #F0FFFF (Azure) 
    */
 }
+
+class ColorsTones2 {
+  ///*light mode
+  static Color get primaryColor => const Color(0XFF4E9EFA);
+  static Color get secondaryColor => const Color(0XFFb36457);
+  static Color get azure => const Color(0XFFF0FFFF);
+}

@@ -12,60 +12,19 @@ class AppTheme {
 
   static ThemeData get _theme => ThemeData(
         fontFamily: ApplicationConstants.FONT_FAMILY,
-        primaryColor: Colors.white,
-        appBarTheme: AppBarTheme(color: Colors.transparent),
-        scaffoldBackgroundColor: ColorsTones.softBlue,
-        elevatedButtonTheme: _elevatedButtonStyle(),
-        textButtonTheme: _textButtonStyleLight(),
-        brightness: Brightness.light,
-        iconTheme: const IconThemeData(color: Colors.black),
+        primaryColor: ColorsTones2.primaryColor,
+        scaffoldBackgroundColor: ColorsTones2.primaryColor,
+        textTheme: TextTheme(
+          displayLarge: TextStyle(
+            color: ColorsTones2.azure,
+            fontSize: 20,
+          ),
+        ),
       );
 
   static ThemeData get _darkTheme => ThemeData(
         fontFamily: ApplicationConstants.FONT_FAMILY,
-        primaryColor: ColorsTones.darkPrimary,
-        appBarTheme: AppBarTheme(color: Colors.transparent),
-        scaffoldBackgroundColor: ColorsTones.darkSecondary,
-        elevatedButtonTheme: _elevatedButtonStyle(),
-        textButtonTheme: _textButtonStyleDark(),
-        brightness: Brightness.dark,
-        iconTheme: const IconThemeData(color: Colors.black),
       );
-
-  static ElevatedButtonThemeData _elevatedButtonStyle() {
-    return ElevatedButtonThemeData(
-      style: IconButton.styleFrom(
-        alignment: Alignment.center,
-        backgroundColor: ColorsTones.buttonBackgroundColorLight,
-        elevation: 12,
-        padding: EdgeInsets.zero,
-      ),
-    );
-  }
-
-  static TextButtonThemeData _textButtonStyleLight() {
-    return TextButtonThemeData(
-      style: IconButton.styleFrom(
-        alignment: Alignment.center,
-        backgroundColor: ColorsTones.buttonBackgroundColorLight,
-        elevation: 12,
-        padding: EdgeInsets.zero,
-        hoverColor: Colors.red,
-      ),
-    );
-  }
-
-  static TextButtonThemeData _textButtonStyleDark() {
-    return TextButtonThemeData(
-      style: IconButton.styleFrom(
-        alignment: Alignment.center,
-        backgroundColor: ColorsTones.buttonBackgroundColorDark,
-        elevation: 12,
-        padding: EdgeInsets.zero,
-        hoverColor: Colors.red,
-      ),
-    );
-  }
 
   static NeumorphicStyle _neumorphicStyle() {
     return NeumorphicStyle(

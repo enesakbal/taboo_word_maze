@@ -131,6 +131,19 @@ flutter:
         - asset: assets/fonts/Chakra_Petch/ChakraPetch-SemiBold.ttf
         - asset: assets/fonts/Chakra_Petch/ChakraPetch-SemiBoldItalic.ttf
 
+
+    - family: Marhey
+      fonts:
+        - asset: assets/fonts/Marhey/Marhey-Bold.ttf
+        
+        - asset: assets/fonts/Marhey/Marhey-Regular.ttf
+
+        - asset: assets/fonts/Marhey/Marhey-Light.ttf
+
+        - asset: assets/fonts/Marhey/Marhey-Medium.ttf
+
+        - asset: assets/fonts/Marhey/Marhey-SemiBold.ttf
+
           
     
   

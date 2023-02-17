@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../core/lang/locale_keys.g.dart';
+import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../domain/entities/taboo.dart';
 import '../../../domain/usecaces/firebase_document_usecase.dart';
 import '../../../domain/usecaces/taboo_usecase.dart';
@@ -16,6 +16,9 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final FirebaseDocumentUsecase firebaseDocumentUsecase;
   SplashBloc(this.tabooUsecase, this.firebaseDocumentUsecase)
       : super(SplashInitial()) {
+          
+
+
     on<BusinessDesicion>(
       (event, emit) async {
         try {
@@ -61,7 +64,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           }
 
           /** if has local data. it doesn't matter if there is an update or not.*/
-          print(tabooListFromLocalDB);
+          // print(tabooListFromLocalDB);
           emit(SplashLocalDBHasData(data: tabooListFromLocalDB));
           /** this is a decision. i want to user can use my app in this case(has not an internet conn but has local data)*/
           return;
@@ -100,7 +103,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
             /** save fcm token to firestore*/
 
             if (data.isEmpty) {
-              emit(SplashNoData(message: LocaleKeys.errors_no_data.tr()));
+              emit(SplashError(message: LocaleKeys.errors_no_data.tr()));
               /** if firebase data is empty */
               return;
             }

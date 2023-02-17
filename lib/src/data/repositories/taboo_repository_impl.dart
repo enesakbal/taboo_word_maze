@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import '../../core/lang/locale_keys.g.dart';
+import '../../core/init/lang/locale_keys.g.dart';
 import '../../domain/entities/taboo.dart';
 import '../../domain/repositories/taboo_repository.dart';
 import '../datasources/local/app_database.dart';
