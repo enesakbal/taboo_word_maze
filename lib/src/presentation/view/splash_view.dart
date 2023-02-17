@@ -37,6 +37,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
   @override
   void initState() {
+  
     Future.delayed(Duration(seconds: 3)).then(
         (value) => context.read<SplashBloc>().add(const BusinessDesicion()));
 
@@ -60,6 +61,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     _headerAnimation = Tween<double>(begin: 1, end: 1.10).animate(
       _headerAnimationController!,
     );
+    super.initState();
   }
 
   @override
@@ -113,7 +115,6 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
               Expanded(flex: 2, child: _jumpingAnimation()),
               SizedBox(height: 2.5.h),
               Expanded(flex: 1, child: _dotAnimaiton()),
-              // _dotAnimaiton(),
             ],
           ),
         ),

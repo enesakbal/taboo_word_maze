@@ -10,9 +10,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/constants/enums/env_enums.dart';
-import 'core/init/cache/local_manager.dart';
 import 'core/constants/local_db_constants.dart';
-
+import 'core/init/cache/local_manager.dart';
 import 'core/init/device_info/device_info.dart';
 import 'core/init/lang/adapter/language_adapter.dart';
 import 'core/init/lang/language_manager.dart';

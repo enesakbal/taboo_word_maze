@@ -4,8 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/init/cache/local_manager.dart';
 import '../../../../core/components/toast/toast_manager.dart';
+import '../../../../core/init/cache/local_manager.dart';
 
 import '../../../../core/init/lang/adapter/language_adapter.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
