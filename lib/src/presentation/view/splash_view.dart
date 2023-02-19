@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, strict_raw_type
-
 import 'dart:async';
 import 'dart:developer';
 
@@ -11,8 +9,9 @@ import 'package:sizer/sizer.dart';
 import '../../config/router/app_router.dart';
 import '../../core/components/dialogs/error_dialog.dart';
 import '../../core/components/text/stroked_auto_size_text.dart';
-import '../../core/constants/app_constants.dart';
 import '../../core/init/lang/locale_keys.g.dart';
+import '../../core/rive/rive_constants.dart';
+import '../../core/rive/rive_utils.dart';
 import '../../core/theme/colors_tones.dart';
 import '../bloc/splash/splash_bloc.dart';
 
@@ -24,43 +23,56 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
-  late SMITrigger touch;
-
-  late RiveAnimationController _dotController;
   late StateMachineController? _jumpingAnimationController;
+  late SMITrigger touched;
+  //** jumping pokemon controller and trigger name
+
+  late RiveAnimationController<RuntimeArtboard> _dotController;
+  //* dot animation controller
 
   late AnimationController? _scaleAnimationController;
   late Animation<double> _scaleAnimation;
+  //* scale transition
 
   late AnimationController? _headerAnimationController;
   late Animation<double> _headerAnimation;
+  //* header scale animation
 
   @override
   void initState() {
-  
-    Future.delayed(Duration(seconds: 3)).then(
+    Future.delayed(const Duration(seconds: 3)).then(
         (value) => context.read<SplashBloc>().add(const BusinessDesicion()));
 
     _dotController = OneShotAnimation('load');
+    //* 'load' from rive.app.com (custom value)
 
     _scaleAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1,milliseconds: 500),
+      duration: const Duration(seconds: 1, milliseconds: 250),
     );
-    _scaleAnimation = Tween<double>(begin: 1, end: 20)
+    //* duration : the length of time this animation should last.
+    //* if u want to use .forward(). you must add a value inside of duration parameter
+
+    _scaleAnimation = Tween<double>(begin: 1, end: 15)
         .chain(CurveTween(curve: Curves.fastOutSlowIn))
         .animate(
           _scaleAnimationController!,
         );
+    //* scale 1x to 20x
 
     _headerAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
-    )..repeat(reverse: true);
+    )..repeat(
+        reverse: true,
+        period: const Duration(seconds: 1),
+      );
+    //* repeat : starts running this animation in the forward direction, and restarts the animation when it completes.
+    //* period : animation period
 
     _headerAnimation = Tween<double>(begin: 1, end: 1.10).animate(
       _headerAnimationController!,
     );
+
     super.initState();
   }
 
@@ -81,14 +93,12 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
           await ErrorDialog(
             text: state.message,
           ).show(context);
-        } else if (state is SplashLocalDBHasData) {
+        } else if (state is SplashLocalDBHasData ||
+            state is SplashFetchedDataFromFirebase) {
           await _scaleAnimationController?.forward().whenComplete(() async {
             await router.replace(const HomeRoute());
           });
-        } else if (state is SplashFetchedDataFromFirebase) {
-          await _scaleAnimationController?.forward().whenComplete(() async {
-            await router.replace(const HomeRoute());
-          });
+          //* wait for the animation to finish
         } else if (state is SplashError) {
           await ErrorDialog(text: state.message).show(context);
         }
@@ -103,7 +113,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     return SafeArea(
       child: ScaleTransition(
         scale: _scaleAnimation,
-        alignment: Alignment(0.1, 0.1),
+        alignment: const Alignment(0.1, 0.1),
         child: Container(
           height: 100.h,
           width: 100.w,
@@ -142,18 +152,19 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
       child: Align(
         alignment: Alignment.center,
         child: RiveAnimation.asset(
-          ApplicationConstants.LOADING_RIVE,
+          RiveConstants.jumpingAnimationPath,
           fit: BoxFit.cover,
           onInit: (artboard) {
-            _jumpingAnimationController = StateMachineController.fromArtboard(
-                artboard, 'State Machine 1');
-            artboard.addController(_jumpingAnimationController!);
-            touch = _jumpingAnimationController!.findInput<bool>('touched')
+            _jumpingAnimationController = RiveUtils.getController(artboard,
+                stateMachineName: 'State Machine 1');
+
+            touched = _jumpingAnimationController!.findInput<bool>('touched')
                 as SMITrigger;
+
             Timer.periodic(
-              Duration(seconds: 1, milliseconds: 500),
+              const Duration(seconds: 1, milliseconds: 500),
               (timer) {
-                touch.fire();
+                touched.fire();
               },
             );
           },
@@ -164,7 +175,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
   Widget _dotAnimaiton() {
     return RiveAnimation.asset(
-      ApplicationConstants.LOADING_RIVE2,
+      RiveConstants.loadingAnimationPath,
       controllers: [_dotController],
     );
   }

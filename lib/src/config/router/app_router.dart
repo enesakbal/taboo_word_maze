@@ -22,13 +22,13 @@ part 'app_router.gr.dart';
       durationInMilliseconds: 1500,
       initial: false,
     ),
-    CustomRoute(
-      page: GameView,
-      path: '/game',
-      transitionsBuilder: TransitionsBuilders.fadeIn,
-      durationInMilliseconds: 400,
-      initial: false,
-    )
+    // CustomRoute(
+    //   page: GameView,
+    //   path: '/game',
+    //   transitionsBuilder: TransitionsBuilders.fadeIn,
+    //   durationInMilliseconds: 400,
+    //   initial: false,
+    // )
   ],
 )
 class AppRouter extends _$AppRouter {}

@@ -3,13 +3,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../config/router/app_router.dart';
+import '../../core/components/button/animated_icon_button.dart';
 import '../../core/components/button/custom_icon_button.dart';
 import '../../core/components/button/custom_text_button.dart';
 import '../../core/components/text/stroked_auto_size_text.dart';
 import '../../core/init/lang/locale_keys.g.dart';
+import '../../core/rive/rive_constants.dart';
+import '../../core/rive/rive_utils.dart';
 import '../../core/theme/colors_tones.dart';
 import '../bloc/home/home_bloc.dart';
 
@@ -21,6 +24,9 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  late StateMachineController _controller;
+  late SMITrigger _toggleTheme;
+
   @override
   void initState() {
     context.read<HomeBloc>().add(const ClearAlertsAndSetAgain());
@@ -74,7 +80,7 @@ class _HomeViewState extends State<HomeView> {
   Widget _headers() {
     return StorekedAutoSizeText(
       text: LocaleKeys.splash_title.tr(),
-      fontSize: 70,
+      fontSize: 75,
       fontWeight: FontWeight.w900,
       strokeColor: ColorsTones2.secondaryColor,
       strokeWidth: 6,
@@ -84,12 +90,11 @@ class _HomeViewState extends State<HomeView> {
   Widget _playButton() {
     return CustomTextButton(
       onPressed: () async {
-        await router.push(const GameRoute());
+        // await router.push(const GameRoute());
       },
       text: LocaleKeys.home_play.tr(),
       height: 7.5.h,
-      width: 55.w,
-      hasAnimation: true,
+      width: 60.w,
     );
   }
 
@@ -98,8 +103,7 @@ class _HomeViewState extends State<HomeView> {
       onPressed: () {},
       text: LocaleKeys.home_edit.tr(),
       height: 7.5.h,
-      width: 55.w,
-      hasAnimation: false,
+      width: 60.w,
     );
   }
 
@@ -134,12 +138,29 @@ class _HomeViewState extends State<HomeView> {
   Widget _themeButton() {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        return CustomIconButton(
-            onPressed: () async {
-              context.read<HomeBloc>().add(ChangeTheme(context));
+        // return CustomIconButton(
+        //     onPressed: () async {
+        //       context.read<HomeBloc>().add(ChangeTheme(context));
+        //     },
+        //     icon: state.themeAdapter.model.iconData //dark_mode
+        //     );
+        return AnimatedIconButton(
+          onPressed: () {
+            _toggleTheme.fire();
+            context.read<HomeBloc>().add(
+                  ChangeTheme(context),
+                );
+          },
+          child: RiveAnimation.asset(
+            RiveConstants.themeAnimationPath,
+            onInit: (artboard) {
+              _controller =
+                  RiveUtils.getController(artboard, stateMachineName: 'theme');
+              _toggleTheme =
+                  _controller.findInput<bool>('toggleTheme') as SMITrigger;
             },
-            icon: state.themeAdapter.model.iconData //dark_mode
-            );
+          ),
+        );
       },
     );
   }

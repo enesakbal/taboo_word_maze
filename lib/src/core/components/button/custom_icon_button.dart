@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../theme/app_theme.dart';
+import '../../theme/colors_tones.dart';
 
 class CustomIconButton extends StatelessWidget {
   final IconData? icon;
@@ -44,6 +45,7 @@ class CustomIconButton extends StatelessWidget {
             )
           : Icon(
               icon,
+              color: ColorsTones2.azure2,
               size: 25.sp,
             ),
     );

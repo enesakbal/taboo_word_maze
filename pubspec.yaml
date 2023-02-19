@@ -144,6 +144,37 @@ flutter:
 
         - asset: assets/fonts/Marhey/Marhey-SemiBold.ttf
 
+
+    - family: ShantellSans
+      fonts:
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-ExtraBold.ttf
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-ExtraBoldItalic.ttf
+          style: italic
+
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-SemiBold.ttf
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-SemiBoldItalic.ttf
+          style: italic
+
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-Bold.ttf
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-BoldItalic.ttf
+          style: italic
+
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-Regular.ttf
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-Italic.ttf
+          style: italic
+
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-Light.ttf
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-LightItalic.ttf
+          style: italic
+
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-Medium.ttf
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-MediumItalic.ttf
+          style: italic
+
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-SemiBold.ttf
+        - asset: assets/fonts/Shantell_Sans/ShantellSans-SemiBoldItalic.ttf
+
+
           
     
   

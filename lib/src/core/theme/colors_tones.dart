@@ -37,4 +37,5 @@ class ColorsTones2 {
   static Color get primaryColor => const Color(0XFF4E9EFA);
   static Color get secondaryColor => const Color(0XFFb36457);
   static Color get azure => const Color(0XFFF0FFFF);
+  static Color get azure2 => const Color.fromARGB(255, 214, 233, 233);
 }

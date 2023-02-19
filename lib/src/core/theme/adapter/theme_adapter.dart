@@ -6,21 +6,21 @@ abstract class ThemeAdapter {
 }
 
 class ThemeAdapterModel {
-  final IconData iconData;
+  final String animationState;
   final ThemeMode themeMode;
 
   const ThemeAdapterModel({
-    required this.iconData,
+    required this.animationState,
     required this.themeMode,
   });
 
   factory ThemeAdapterModel.light() => const ThemeAdapterModel(
-        iconData: Icons.light_mode_outlined,
+        animationState: 'day',
         themeMode: ThemeMode.light,
       );
 
   factory ThemeAdapterModel.dark() => const ThemeAdapterModel(
-        iconData: Icons.dark_mode_outlined,
+        animationState: 'night',
         themeMode: ThemeMode.dark,
       );
 }

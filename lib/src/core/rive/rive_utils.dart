@@ -1,6 +1,16 @@
 import 'package:rive/rive.dart';
 
 class RiveUtils {
+  static StateMachineController getController(Artboard artboard,
+      {required String stateMachineName}) {
+    final controller =
+        StateMachineController.fromArtboard(artboard, stateMachineName);
+
+    artboard.addController(controller!);
+
+    return controller;
+  }
+
   static SMIBool getRiveInput(Artboard artboard,
       {required String stateMachineName}) {
     final controller =

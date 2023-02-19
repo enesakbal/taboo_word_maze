@@ -33,16 +33,6 @@ class _$AppRouter extends RootStackRouter {
         barrierDismissible: false,
       );
     },
-    GameRoute.name: (routeData) {
-      return CustomPage<dynamic>(
-        routeData: routeData,
-        child: const GameView(),
-        transitionsBuilder: TransitionsBuilders.fadeIn,
-        durationInMilliseconds: 400,
-        opaque: true,
-        barrierDismissible: false,
-      );
-    },
   };
 
   @override
@@ -60,10 +50,6 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           HomeRoute.name,
           path: '/home',
-        ),
-        RouteConfig(
-          GameRoute.name,
-          path: '/game',
         ),
       ];
 }
@@ -90,16 +76,4 @@ class HomeRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'HomeRoute';
-}
-
-/// generated route for
-/// [GameView]
-class GameRoute extends PageRouteInfo<void> {
-  const GameRoute()
-      : super(
-          GameRoute.name,
-          path: '/game',
-        );
-
-  static const String name = 'GameRoute';
 }

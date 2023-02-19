@@ -10,35 +10,61 @@ class AppTheme {
 
   static NeumorphicStyle get neumorphicStyle => _neumorphicStyle();
 
-  static ThemeData get _theme => ThemeData(
-        fontFamily: ApplicationConstants.FONT_FAMILY,
-        primaryColor: ColorsTones2.primaryColor,
-        scaffoldBackgroundColor: ColorsTones2.primaryColor,
-        textTheme: TextTheme(
-          displayLarge: TextStyle(
-            color: ColorsTones2.azure,
-            fontSize: 20,
-          ),
+  static ThemeData get _theme {
+    return ThemeData(
+      fontFamily: ApplicationConstants.FONT_FAMILY_CONTENT,
+      primaryColor: ColorsTones2.primaryColor,
+      scaffoldBackgroundColor: ColorsTones2.primaryColor,
+      textTheme: TextTheme(
+        displayLarge: TextStyle(
+          color: ColorsTones2.azure,
+          fontSize: 20,
         ),
-      );
+        labelMedium: TextStyle(
+          color: ColorsTones2.azure,
+          fontSize: 20,
+        ),
+      ),
+    );
+  }
 
-  static ThemeData get _darkTheme => ThemeData(
-        fontFamily: ApplicationConstants.FONT_FAMILY,
-      );
+  static ThemeData get _darkTheme => ThemeData();
 
   static NeumorphicStyle _neumorphicStyle() {
     return NeumorphicStyle(
-      color: ColorsTones.buttonBackgroundColorLight,
-      shadowLightColor: ColorsTones.buttonBackgroundColorLight,
+      color: ColorsTones2.secondaryColor,
+      shadowLightColor: ColorsTones2.secondaryColor,
       shadowDarkColor: Colors.black,
       depth: 1,
       boxShape: NeumorphicBoxShape.roundRect(
         BorderRadius.circular(12),
       ),
-      border: const NeumorphicBorder(
-        color: Colors.black,
+      border: NeumorphicBorder(
+        color: ColorsTones2.secondaryColor,
         width: 1,
       ),
     );
   }
+
+  // static final textButtonThemeData = TextButtonThemeData(
+  //   style: ButtonStyle(
+  //     backgroundColor: MaterialStatePropertyAll(ColorsTones2.secondaryColor),
+  //     textStyle: MaterialStatePropertyAll(
+  //       TextStyle(
+  //         color: ColorsTones2.azure,
+  //         fontSize: 20,
+  //         fontFamily: ApplicationConstants.FONT_FAMILY_CONTENT,
+  //       ),
+  //     ),
+  //     shape: MaterialStatePropertyAll(
+  //       RoundedRectangleBorder(
+  //         side: BorderSide(
+  //           color: ColorsTones2.secondaryColor,
+  //           width: 1.5,
+  //         ),
+  //         borderRadius: BorderRadius.circular(12),
+  //       ),
+  //     ),
+  //   ),
+  // );
 }
