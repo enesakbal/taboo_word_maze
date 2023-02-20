@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
@@ -40,6 +41,8 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    FirebaseAnalytics.instance.setCurrentScreen(screenName: 'Splash View');
+
     Future.delayed(const Duration(seconds: 3)).then(
         (value) => context.read<SplashBloc>().add(const BusinessDesicion()));
 

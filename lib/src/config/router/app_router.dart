@@ -6,9 +6,11 @@ import '../../presentation/view/splash_view.dart';
 
 part 'app_router.gr.dart';
 
+
 @AdaptiveAutoRouter(
   // * for names
   replaceInRouteName: 'View,Route',
+  
   routes: <AutoRoute>[
     AutoRoute(
       page: SplashView,
@@ -22,13 +24,13 @@ part 'app_router.gr.dart';
       durationInMilliseconds: 1500,
       initial: false,
     ),
-    // CustomRoute(
-    //   page: GameView,
-    //   path: '/game',
-    //   transitionsBuilder: TransitionsBuilders.fadeIn,
-    //   durationInMilliseconds: 400,
-    //   initial: false,
-    // )
+    CustomRoute(
+      page: GameView,
+      path: '/game',
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+      durationInMilliseconds: 400,
+      initial: false,
+    )
   ],
 )
 class AppRouter extends _$AppRouter {}

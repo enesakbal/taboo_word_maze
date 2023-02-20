@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +35,6 @@ void main() async {
   ]);
 
   await di.init(mode: EnvModes.developmentMode);
-
   runApp(
     MultiProvider(
       providers: [
@@ -54,8 +55,11 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
 
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,16 +76,23 @@ class MyApp extends StatelessWidget {
             child: child!,
           );
         },
-        title: LanguageManager.getCurrentAdapter().model.locale.toLanguageTag() == 'TR'
-            ? 'Tabu\nKelime Labirenti'
-            : 'Taboo\nWord Maze',
+        title:
+            LanguageManager.getCurrentAdapter().model.locale.toLanguageTag() ==
+                    'TR'
+                ? 'Tabu\nKelime Labirenti'
+                : 'Taboo\nWord Maze',
         theme: AppTheme.theme,
         darkTheme: AppTheme.darkTheme,
         themeMode: Provider.of<ThemeModeNotifier>(context, listen: true)
             .currentThemeAdapter
             .model
             .themeMode,
-        routerDelegate: router.delegate(),
+        routerDelegate: AutoRouterDelegate(
+          router,
+          navigatorObservers: () => [
+            FirebaseAnalyticsObserver(analytics: analytics),
+          ],
+        ),
         routeInformationParser: router.defaultRouteParser(),
         debugShowCheckedModeBanner: false,
         supportedLocales: context.supportedLocales,
