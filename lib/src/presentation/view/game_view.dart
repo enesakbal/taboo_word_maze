@@ -23,7 +23,6 @@ class _GameViewState extends State<GameView> {
   void initState() {
     context.read<GameBloc>().add(StartGame());
     print('object');
-     FirebaseAnalytics.instance.setCurrentScreen(screenName: 'Game View');
     super.initState();
   }
 

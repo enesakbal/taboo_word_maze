@@ -32,7 +32,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     context.read<HomeBloc>().add(const ClearAlertsAndSetAgain());
-         FirebaseAnalytics.instance.setCurrentScreen(screenName: 'Home View');
 
     super.initState();
   }
@@ -40,12 +39,6 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return _buildScaffold();
-  }
-
-  @override
-  void didChangeDependencies() {
-    FirebaseAnalytics.instance.setCurrentScreen(screenName: 'Home View');
-    super.didChangeDependencies();
   }
 
   Widget _buildScaffold() {

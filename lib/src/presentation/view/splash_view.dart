@@ -41,8 +41,6 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    FirebaseAnalytics.instance.setCurrentScreen(screenName: 'Splash View');
-
     Future.delayed(const Duration(seconds: 3)).then(
         (value) => context.read<SplashBloc>().add(const BusinessDesicion()));
 

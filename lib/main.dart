@@ -56,8 +56,10 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
+
+  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(
+    analytics: analytics,
+  );
 
   const MyApp({super.key});
 
@@ -90,7 +92,21 @@ class MyApp extends StatelessWidget {
         routerDelegate: AutoRouterDelegate(
           router,
           navigatorObservers: () => [
-            FirebaseAnalyticsObserver(analytics: analytics),
+            FirebaseAnalyticsObserver(
+              analytics: analytics,
+              nameExtractor: (settings) {
+                print(settings.arguments);
+                
+                analytics.logScreenView(
+                  screenClass: settings.name,
+                  screenName: settings.name
+                ).then((value) =>
+                    print(settings.name));
+            
+              },
+              onError: (error) =>
+                  print(error.message.toString() + "ENES AKBAL  "),
+            )
           ],
         ),
         routeInformationParser: router.defaultRouteParser(),
