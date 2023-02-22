@@ -54,13 +54,22 @@ void main() async {
   );
 }
 
+FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(
+  analytics: analytics,
+nameExtractor: (settings) {
+    analytics
+        .setCurrentScreen(
+          screenName: settings.name ?? 'null',
+          screenClassOverride: settings.name ?? 'null',
+        )
+        .then((value) => print(settings.name ?? 'null' 'nameExtractor'));
+  },
+  onError: (error) => print('${error.message}ERROR '),
+);
+
 class MyApp extends StatelessWidget {
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-
-  static FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(
-    analytics: analytics,
-  );
-
   const MyApp({super.key});
 
   @override
@@ -92,21 +101,7 @@ class MyApp extends StatelessWidget {
         routerDelegate: AutoRouterDelegate(
           router,
           navigatorObservers: () => [
-            FirebaseAnalyticsObserver(
-              analytics: analytics,
-              nameExtractor: (settings) {
-                print(settings.arguments);
-                
-                analytics.logScreenView(
-                  screenClass: settings.name,
-                  screenName: settings.name
-                ).then((value) =>
-                    print(settings.name));
-            
-              },
-              onError: (error) =>
-                  print(error.message.toString() + "ENES AKBAL  "),
-            )
+            observer,
           ],
         ),
         routeInformationParser: router.defaultRouteParser(),
