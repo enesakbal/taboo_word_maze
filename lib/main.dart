@@ -58,13 +58,14 @@ FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
 FirebaseAnalyticsObserver observer = FirebaseAnalyticsObserver(
   analytics: analytics,
-nameExtractor: (settings) {
+  nameExtractor: (settings) {
     analytics
         .setCurrentScreen(
           screenName: settings.name ?? 'null',
           screenClassOverride: settings.name ?? 'null',
         )
         .then((value) => print(settings.name ?? 'null' 'nameExtractor'));
+    return;
   },
   onError: (error) => print('${error.message}ERROR '),
 );

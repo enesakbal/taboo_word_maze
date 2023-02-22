@@ -21,6 +21,8 @@
 
     "toast_messages":{
         "notification_activated":"Bildirimler Açıldı",
-        "notification_deactivated":"Bildirimler Kapatıldı"
+        "notification_deactivated":"Bildirimler Kapatıldı",
+        "soon":"Yakında Eklenecek."
+
     }
 }

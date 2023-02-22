@@ -46,25 +46,4 @@ class AppTheme {
     );
   }
 
-  // static final textButtonThemeData = TextButtonThemeData(
-  //   style: ButtonStyle(
-  //     backgroundColor: MaterialStatePropertyAll(ColorsTones2.secondaryColor),
-  //     textStyle: MaterialStatePropertyAll(
-  //       TextStyle(
-  //         color: ColorsTones2.azure,
-  //         fontSize: 20,
-  //         fontFamily: ApplicationConstants.FONT_FAMILY_CONTENT,
-  //       ),
-  //     ),
-  //     shape: MaterialStatePropertyAll(
-  //       RoundedRectangleBorder(
-  //         side: BorderSide(
-  //           color: ColorsTones2.secondaryColor,
-  //           width: 1.5,
-  //         ),
-  //         borderRadius: BorderRadius.circular(12),
-  //       ),
-  //     ),
-  //   ),
-  // );
 }

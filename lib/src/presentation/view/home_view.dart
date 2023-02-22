@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unused_field, strict_raw_type
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
@@ -26,9 +25,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  late StateMachineController _controller;
-  late SMITrigger _toggleTheme;
-
   @override
   void initState() {
     context.read<HomeBloc>().add(const ClearAlertsAndSetAgain());
@@ -103,14 +99,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _editButton() {
     return CustomTextButton(
-      onPressed: () async {
-        await FirebaseAnalytics.instance.logPurchase(
-          currency: "deneme satın alımı",
-          coupon: "no coupon",
-          tax: 0,
-          value: 23.5,
-        );
-      },
+      onPressed: () async {},
       text: LocaleKeys.home_edit.tr(),
       height: 7.5.h,
       width: 60.w,
@@ -148,29 +137,12 @@ class _HomeViewState extends State<HomeView> {
   Widget _themeButton() {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        // return CustomIconButton(
-        //     onPressed: () async {
-        //       context.read<HomeBloc>().add(ChangeTheme(context));
-        //     },
-        //     icon: state.themeAdapter.model.iconData //dark_mode
-        //     );
-        return AnimatedIconButton(
-          onPressed: () {
-            _toggleTheme.fire();
-            context.read<HomeBloc>().add(
-                  ChangeTheme(context),
-                );
+        return CustomIconButton(
+          onPressed: () async {
+            context.read<HomeBloc>().add(ChangeTheme(context));
           },
-          child: RiveAnimation.asset(
-            RiveConstants.themeAnimationPath,
-            onInit: (artboard) {
-              _controller =
-                  RiveUtils.getController(artboard, stateMachineName: 'theme');
-              _toggleTheme =
-                  _controller.findInput<bool>('toggleTheme') as SMITrigger;
-            },
-          ),
-        );
+          icon: state.themeAdapter.model.iconData,
+        ); //on
       },
     );
   }

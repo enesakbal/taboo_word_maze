@@ -67,11 +67,39 @@ class ToastManager {
     );
   }
 
+  void showInfoToastMessage({
+    required String text,
+  }) {
+    fToast.showToast(
+      child: Container(
+        width: 60.w,
+        height: 5.h,
+        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: isDarkTheme ? Colors.grey : Colors.yellow,
+        ),
+        child: Container(
+          height: 5.h,
+          width: 40.w,
+          alignment: Alignment.center,
+          child: AutoSizeText(
+            text,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontWeight: FontWeight.w400,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   void showErrorToastMessage({
     required String text,
   }) {
-    final isDarkTheme =
-        GetIt.I<ThemeSetting<ThemeAdapter>>().currentAdapter is DarkTheme;
     fToast.showToast(
       child: Container(
         width: 60.w,

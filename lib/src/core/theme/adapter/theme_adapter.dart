@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 
-
 abstract class ThemeAdapter {
   ThemeAdapterModel get model;
 }
 
 class ThemeAdapterModel {
-  final String animationState;
+  final IconData iconData;
   final ThemeMode themeMode;
 
   const ThemeAdapterModel({
-    required this.animationState,
+    required this.iconData,
     required this.themeMode,
   });
 
   factory ThemeAdapterModel.light() => const ThemeAdapterModel(
-        animationState: 'day',
+        iconData: Icons.light_mode_outlined,
         themeMode: ThemeMode.light,
       );
 
   factory ThemeAdapterModel.dark() => const ThemeAdapterModel(
-        animationState: 'night',
+        iconData: Icons.dark_mode_outlined,
         themeMode: ThemeMode.dark,
       );
 }

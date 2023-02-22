@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
@@ -54,12 +53,12 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     //* duration : the length of time this animation should last.
     //* if u want to use .forward(). you must add a value inside of duration parameter
 
-    _scaleAnimation = Tween<double>(begin: 1, end: 15)
+    _scaleAnimation = Tween<double>(begin: 1, end: 17)
         .chain(CurveTween(curve: Curves.fastOutSlowIn))
         .animate(
           _scaleAnimationController!,
         );
-    //* scale 1x to 20x
+    //* scale 1x to 17x
 
     _headerAnimationController = AnimationController(
       vsync: this,

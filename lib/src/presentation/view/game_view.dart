@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -54,7 +51,7 @@ class _GameViewState extends State<GameView> {
                 builder: (context, state) {
                   return AutoSizeText(
                     ' ${state.point} Point',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 40,
                       // color: Colors.black,
                     ),

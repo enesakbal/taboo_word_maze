@@ -19,9 +19,9 @@
         "no_internet":"Please check your internet connection."
 
     },
-
     "toast_messages":{
         "notification_activated":"Notifications Turned On",
-        "notification_deactivated":"Notifications Turned Off"
+        "notification_deactivated":"Notifications Turned Off",
+        "soon":"Will be added soon"
     }
 }

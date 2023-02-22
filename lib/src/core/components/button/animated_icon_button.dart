@@ -1,11 +1,9 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../theme/app_theme.dart';
-import '../../theme/colors_tones.dart';
 
-class AnimatedIconButton extends StatelessWidget {
+class SettingIconButton extends StatefulWidget {
   final IconData? icon;
 
   final Color? color;
@@ -17,7 +15,7 @@ class AnimatedIconButton extends StatelessWidget {
   final double buttonSize;
 
   final Widget child;
-  const AnimatedIconButton({
+  const SettingIconButton({
     super.key,
     required this.onPressed,
     required this.child,
@@ -28,21 +26,26 @@ class AnimatedIconButton extends StatelessWidget {
   });
 
   @override
+  State<SettingIconButton> createState() => _SettingIconButtonState();
+}
+
+class _SettingIconButtonState extends State<SettingIconButton> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 25.sp + buttonSize * 2.h,
-      width: 25.sp + buttonSize * 2.h,
+      height: 25.sp + widget.buttonSize * 2.h,
+      width: 25.sp + widget.buttonSize * 2.h,
       child: NeumorphicButton(
-        onPressed: onPressed,
+        onPressed: widget.onPressed,
         padding:
-            svgData != null ? EdgeInsets.zero : EdgeInsets.all(buttonSize.h),
+            widget.svgData != null ? EdgeInsets.zero : EdgeInsets.all(widget.buttonSize.h),
         margin: EdgeInsets.zero,
         style: AppTheme.neumorphicStyle.copyWith(
-          color: color,
+          color: widget.color,
           shape: NeumorphicShape.convex,
           disableDepth: false,
         ),
-        child: child,
+        child: widget.child,
       ),
     );
   }

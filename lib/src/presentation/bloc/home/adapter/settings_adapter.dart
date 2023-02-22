@@ -33,16 +33,23 @@ class ThemeSetting<T extends ThemeAdapter> extends ISettings<ThemeAdapter> {
 
   @override
   Future<void> changeState(BuildContext context) async {
-    final provider = Provider.of<ThemeModeNotifier>(context, listen: false);
+    final toastManager = ToastManager(context: context);
 
-    await provider.changeTheme().then((value) {
-      currentAdapter = provider.currentThemeAdapter;
-      if (currentAdapter is LightTheme) {
-        log('Changed theme to LightTheme');
-      } else if (currentAdapter is DarkTheme) {
-        log('Changed theme to DarkTheme');
-      }
-    });
+    toastManager.showInfoToastMessage(
+        text: LocaleKeys.toast_messages_soon.tr());
+    return;
+    //?
+    // final provider = Provider.of<ThemeModeNotifier>(context, listen: false);
+
+    // await provider.changeTheme().then((value) {
+    //   currentAdapter = provider.currentThemeAdapter;
+    //   if (currentAdapter is LightTheme) {
+    //     log('Changed theme to LightTheme');
+    //   } else if (currentAdapter is DarkTheme) {
+    //     log('Changed theme to DarkTheme');
+    //   }
+    // });
+    //?
   }
 }
 

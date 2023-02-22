@@ -1,10 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../theme/app_theme.dart';
-import '../../theme/colors_tones.dart';
 
 class CustomTextButton extends StatelessWidget {
   final void Function() onPressed;
