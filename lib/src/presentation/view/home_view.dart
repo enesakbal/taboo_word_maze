@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors, unused_field, strict_raw_type
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../config/router/app_router.dart';
 import '../../core/components/button/animated_icon_button.dart';
 import '../../core/components/button/custom_icon_button.dart';
 import '../../core/components/button/custom_text_button.dart';
@@ -30,6 +32,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     context.read<HomeBloc>().add(const ClearAlertsAndSetAgain());
+
     super.initState();
   }
 
@@ -90,7 +93,7 @@ class _HomeViewState extends State<HomeView> {
   Widget _playButton() {
     return CustomTextButton(
       onPressed: () async {
-        // await router.push(const GameRoute());
+        await router.push(const GameRoute());
       },
       text: LocaleKeys.home_play.tr(),
       height: 7.5.h,
@@ -100,7 +103,14 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _editButton() {
     return CustomTextButton(
-      onPressed: () {},
+      onPressed: () async {
+        await FirebaseAnalytics.instance.logPurchase(
+          currency: "deneme satın alımı",
+          coupon: "no coupon",
+          tax: 0,
+          value: 23.5,
+        );
+      },
       text: LocaleKeys.home_edit.tr(),
       height: 7.5.h,
       width: 60.w,
