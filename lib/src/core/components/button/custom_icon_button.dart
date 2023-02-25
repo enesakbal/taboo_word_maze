@@ -9,8 +9,11 @@ class CustomIconButton extends StatelessWidget {
   final IconData? icon;
 
   final Color? color;
+  final Color? shadowLightColor;
 
   final String? svgData;
+
+  final NeumorphicBorder? border;
 
   final void Function()? onPressed;
 
@@ -23,6 +26,8 @@ class CustomIconButton extends StatelessWidget {
     this.color,
     this.svgData,
     this.buttonSize = 0.75,
+    this.shadowLightColor,
+    this.border,
   });
 
   @override
@@ -35,6 +40,8 @@ class CustomIconButton extends StatelessWidget {
         color: color,
         shape: NeumorphicShape.convex,
         disableDepth: false,
+        shadowLightColor: shadowLightColor,
+        border: border,
       ),
       child: svgData != null
           ? SvgPicture.asset(

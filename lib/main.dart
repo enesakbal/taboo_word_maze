@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import 'src/config/router/app_router.dart';
+import 'src/core/components/dialogs/start_game_dialog/bloc/start_game_dialog_bloc.dart';
 import 'src/core/constants/app_constants.dart';
 import 'src/core/constants/enums/env_enums.dart';
 import 'src/core/init/lang/language_manager.dart';
@@ -80,6 +81,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.injector<SplashBloc>()),
         BlocProvider(create: (_) => di.injector<HomeBloc>()),
         BlocProvider(create: (_) => di.injector<GameBloc>()),
+        BlocProvider(create: (_) => di.injector<StartGameDialogBloc>()),
       ],
       child: MaterialApp.router(
         builder: (context, child) {

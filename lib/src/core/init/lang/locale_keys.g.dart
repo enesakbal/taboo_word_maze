@@ -1,5 +1,7 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
+// ignore_for_file: constant_identifier_names
+
 abstract class  LocaleKeys {
   static const splash_title = 'splash.title';
   static const splash_subtitle = 'splash.subtitle';
@@ -9,6 +11,14 @@ abstract class  LocaleKeys {
   static const home_edit = 'home.edit';
   static const home_settings = 'home.settings';
   static const home_rate = 'home.rate';
+  static const home_play_dialog_header = 'home.play_dialog.header';
+  static const home_play_dialog_team_1 = 'home.play_dialog.team_1';
+  static const home_play_dialog_placeholder_1 = 'home.play_dialog.placeholder_1';
+  static const home_play_dialog_team_2 = 'home.play_dialog.team_2';
+  static const home_play_dialog_placeholder_2 = 'home.play_dialog.placeholder_2';
+  static const home_play_dialog_start = 'home.play_dialog.start';
+  static const home_play_dialog_time = 'home.play_dialog.time';
+  static const home_play_dialog = 'home.play_dialog';
   static const home = 'home';
   static const errors_an_error = 'errors.an_error';
   static const errors_no_data = 'errors.no_data';

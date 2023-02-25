@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/components/toast/toast_manager.dart';
 import '../../../../core/init/cache/local_manager.dart';
@@ -12,7 +11,6 @@ import '../../../../core/init/lang/locale_keys.g.dart';
 import '../../../../core/init/notifications/fcm/push_notification_handler.dart';
 import '../../../../core/init/notifications/local/adapter/notification_adapter.dart';
 import '../../../../core/init/notifications/local/local_notification_manager.dart';
-import '../../../../core/init/notifier/theme_notifier.dart';
 import '../../../../core/theme/adapter/theme_adapter.dart';
 import '../../../../domain/usecaces/firebase_document_usecase.dart';
 

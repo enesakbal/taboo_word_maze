@@ -1,36 +1,34 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import '../../presentation/view/game_view.dart';
 import '../../presentation/view/home_view.dart';
+import '../../presentation/view/new_game_view.dart';
 import '../../presentation/view/splash_view.dart';
 
 part 'app_router.gr.dart';
 
-
 @AdaptiveAutoRouter(
   // * for names
   replaceInRouteName: 'View,Route',
-  
   routes: <AutoRoute>[
     AutoRoute(
       page: SplashView,
       path: '/splash',
-      initial: true,
+      // initial: true,
     ),
     CustomRoute(
       page: HomeView,
       path: '/home',
       transitionsBuilder: zoomInTransition,
       durationInMilliseconds: 1500,
-      initial: false,
+      initial: true,
     ),
     CustomRoute(
-      page: GameView,
-      path: '/game',
+      page: NGameView,
+      path: '/gamenew',
       transitionsBuilder: TransitionsBuilders.fadeIn,
       durationInMilliseconds: 400,
-      initial: false,
-    )
+      // initial: true,
+    ),
   ],
 )
 class AppRouter extends _$AppRouter {}

@@ -31,6 +31,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             dataList.shuffle(seed);
           }
 
+          print(dataList.first);
           emit(GameStarted(taboo: dataList.first, point: currentPoint));
         } on Exception catch (_) {}
       },
@@ -58,7 +59,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       },
     );
 
-    
     on<DecreaseAPoint>(
       (event, emit) async {
         try {

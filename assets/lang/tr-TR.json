@@ -8,7 +8,16 @@
         "play" : "Oyna",
         "edit" : "Tabuları Düzenle",
         "settings" : "Ayarlar",
-        "rate":"Uygulamayı Değerlendirin"
+        "rate":"Uygulamayı Değerlendirin",
+        "play_dialog": {
+            "header": "Takımlar",
+            "team_1":"Takım 1",
+            "placeholder_1":"örn. Gryffindor, Patronlar,...",
+            "team_2":"Takım 2",
+            "placeholder_2":"örn. Slytherin, Meteorlar,...",
+            "start": "Başla",
+             "time":"Süre"
+        }
     },
 
     "errors":{
@@ -22,7 +31,7 @@
     "toast_messages":{
         "notification_activated":"Bildirimler Açıldı",
         "notification_deactivated":"Bildirimler Kapatıldı",
-        "soon":"Yakında Eklenecek."
+        "soon":"Yakında Eklenecek"
 
     }
 }
