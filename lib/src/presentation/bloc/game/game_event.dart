@@ -16,3 +16,7 @@ class SkipTaboo extends GameEvent {}
 class IncreaseAPoint extends GameEvent {}
 
 class DecreaseAPoint extends GameEvent {}
+
+class StopGame extends GameEvent {}
+
+class ResumeGame extends GameEvent {}

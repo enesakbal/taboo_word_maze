@@ -3,22 +3,20 @@ part of 'game_bloc.dart';
 abstract class GameState extends Equatable {
   final Taboo taboo;
   final int point;
+  final bool isVisible;
 
   const GameState({
     this.taboo = const Taboo(word: '', forbiddenWords: ',,,,'),
     this.point = 0,
+    this.isVisible = true,
   });
 
   @override
-  List<Object> get props => [taboo, point];
+  List<Object> get props => [taboo, point, isVisible];
 }
 
-class GameInitial extends GameState {}
-
-class GameFetchedData extends GameState {
-  const GameFetchedData({
-    super.taboo,
-  });
+class GameInitial extends GameState {
+  const GameInitial();
 }
 
 class GameStarted extends GameState {
@@ -28,16 +26,10 @@ class GameStarted extends GameState {
   });
 }
 
-class GameSkippedTaboo extends GameState {
-  const GameSkippedTaboo({
-    required super.taboo,
-    required super.point,
-  });
-}
-
-class GameAddedAPoint extends GameState {
-  const GameAddedAPoint({
-    required super.taboo,
-    required super.point,
+class GameUpdatedStatus extends GameState {
+  const GameUpdatedStatus({
+    super.taboo,
+    super.point,
+    super.isVisible,
   });
 }

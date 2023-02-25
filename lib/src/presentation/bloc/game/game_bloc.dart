@@ -14,15 +14,18 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   GameBloc(
     this.tabooUsecase,
-  ) : super(GameInitial()) {
+  ) : super(const GameInitial()) {
     var dataList = <Taboo>[];
 
     var currentPoint = 0;
 
+    var isVisible = true;
+
     on<StartGame>(
       (event, emit) async {
         try {
-          emit(GameInitial());
+          currentPoint = 0;
+          emit(const GameInitial());
           //* reset state
 
           if (dataList.isEmpty) {
@@ -43,7 +46,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           final seed = Random.secure();
           dataList.shuffle(seed);
 
-          emit(GameSkippedTaboo(taboo: dataList.first, point: currentPoint));
+          emit(GameUpdatedStatus(taboo: dataList.first, point: currentPoint));
         } on Exception catch (_) {}
       },
     );
@@ -54,7 +57,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           final seed = Random.secure();
           dataList.shuffle(seed);
           currentPoint += 1;
-          emit(GameAddedAPoint(taboo: dataList.first, point: currentPoint));
+          emit(GameUpdatedStatus(taboo: dataList.first, point: currentPoint));
         } on Exception catch (_) {}
       },
     );
@@ -65,13 +68,33 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           final seed = Random.secure();
           dataList.shuffle(seed);
           currentPoint -= 1;
-          emit(GameAddedAPoint(taboo: dataList.first, point: currentPoint));
+          emit(GameUpdatedStatus(taboo: dataList.first, point: currentPoint));
         } on Exception catch (_) {}
       },
     );
 
-    // on<GameEvent>((event, emit) {
-    //   print('objectDSFADFASFS');
-    // });
+    on<StopGame>((event, emit) {
+      print('object1');
+      isVisible = false;
+
+      emit(GameUpdatedStatus(
+        taboo: dataList.first,
+        point: currentPoint,
+        isVisible: isVisible,
+      ));
+      print('object2');
+    });
+
+    on<ResumeGame>((event, emit) {
+      isVisible = true;
+
+      emit(
+        GameUpdatedStatus(
+          taboo: dataList.first,
+          point: currentPoint,
+          isVisible: isVisible,
+        ),
+      );
+    });
   }
 }

@@ -97,10 +97,11 @@ class MyApp extends StatelessWidget {
                 : 'Taboo\nWord Maze',
         theme: AppTheme.theme,
         darkTheme: AppTheme.darkTheme,
-        themeMode: Provider.of<ThemeModeNotifier>(context, listen: true)
-            .currentThemeAdapter
-            .model
-            .themeMode,
+        themeMode: ThemeMode.light,
+        // themeMode: Provider.of<ThemeModeNotifier>(context, listen: true)
+        //     .currentThemeAdapter
+        //     .model
+        //     .themeMode,
         routerDelegate: AutoRouterDelegate(
           router,
           navigatorObservers: () => [
