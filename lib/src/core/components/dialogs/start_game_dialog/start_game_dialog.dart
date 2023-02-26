@@ -11,17 +11,18 @@ import '../../button/custom_text_button.dart';
 import '../../text_form_field/custom_text_form_field.dart';
 import 'bloc/start_game_dialog_bloc.dart';
 
-extension Show on StartGameDialog {
-  Future<T?> show<T>(BuildContext context) {
-    return showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (context) {
-        return this;
-      },
-    );
-  }
-}
+// extension Show on StartGameDialog {
+//   Future<T?> show<T>(BuildContext context) {
+//     return showDialog(
+//       context: context,
+//       barrierDismissible: false,
+//       // routeSettings: const RouteSettings(name: '/start_game_dialog'),
+//       builder: (context) {
+//         return this;
+//       },
+//     );
+//   }
+// }
 
 class StartGameDialog extends StatelessWidget {
   const StartGameDialog({super.key});
@@ -29,7 +30,10 @@ class StartGameDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => true,
+      onWillPop: () async {
+        // await router.pop();
+        return true;
+      },
       child: AlertDialog(
         insetPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
         titlePadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
@@ -55,8 +59,8 @@ class StartGameDialog extends StatelessWidget {
         builder: (context, state) {
           return CustomTextButton(
             onPressed: () async {
-              await router.push(
-                NGameRoute(
+              await router.replace(
+                GameRoute(
                   duration: int.parse(state.time),
                 ),
               );

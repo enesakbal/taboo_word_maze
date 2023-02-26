@@ -16,7 +16,18 @@
             "team_2":"Takım 2",
             "placeholder_2":"örn. Slytherin, Meteorlar,...",
             "start": "Başla",
-             "time":"Süre"
+            "time":"Süre"
+        },
+        "pause_dialog":{
+            "header":"Duraklatıldı",
+            "resume_button":"Devam Et",
+            "home_button":"Ana Sayfa"
+        },
+        "yes_no_dialog":{
+            "header":"Çıkış",
+            "content":"Oyunu bitirmek istediğine emin misin?",
+            "yes":"Evet",
+            "no":"Hayır"
         }
     },
 

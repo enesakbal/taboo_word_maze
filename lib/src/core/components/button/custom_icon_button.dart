@@ -47,13 +47,13 @@ class CustomIconButton extends StatelessWidget {
           ? SvgPicture.asset(
               svgData!,
               fit: BoxFit.fill,
-              height: 25.sp + buttonSize * 2.h,
-              width: 25.sp + buttonSize * 2.h,
+              height: 27.5.sp + buttonSize * 2.h,
+              width: 27.5.sp + buttonSize * 2.h,
             )
           : Icon(
               icon,
               color: ColorsTones2.azure2,
-              size: 25.sp,
+              size: 27.5.sp,
             ),
     );
   }

@@ -43,4 +43,6 @@ class ColorsTones2 {
   static Color get pass => const Color(0XFFF4BB44);
   static Color get fail => const Color(0XFFFF613F);
   static Color get black => const Color.fromARGB(255, 0, 0, 0);
+  static Color get softBlue => const Color.fromARGB(255, 70, 86, 186);
+  // static Color get orange => Color.fromARGB(255, 159, 107, 255);
 }

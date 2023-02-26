@@ -33,3 +33,17 @@ class GameUpdatedStatus extends GameState {
     super.isVisible,
   });
 }
+class GamePaused extends GameState {
+  const GamePaused({
+    super.taboo,
+    super.point,
+    super.isVisible,
+  });
+}
+class GameResumed extends GameState {
+  const GameResumed({
+    super.taboo,
+    super.point,
+    super.isVisible,
+  });
+}

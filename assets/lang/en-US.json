@@ -17,6 +17,17 @@
             "placeholder_2":"etc. Slytherin, Meteors,...",
             "start": "Start",
             "time":"Time"
+        },
+        "pause_dialog":{
+            "header":"Paused",
+            "resume_button":"Resume",
+            "home_button":"Home"
+        },
+        "yes_no_dialog":{
+            "header":"Exit",
+            "content":"Are you sure you want to finish the game?",
+            "yes":"Yes",
+            "no":"No"
         }
     },
 

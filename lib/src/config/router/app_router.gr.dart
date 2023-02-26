@@ -33,11 +33,11 @@ class _$AppRouter extends RootStackRouter {
         barrierDismissible: false,
       );
     },
-    NGameRoute.name: (routeData) {
-      final args = routeData.argsAs<NGameRouteArgs>();
+    GameRoute.name: (routeData) {
+      final args = routeData.argsAs<GameRouteArgs>();
       return CustomPage<dynamic>(
         routeData: routeData,
-        child: NGameView(
+        child: GameView(
           key: args.key,
           duration: args.duration,
         ),
@@ -66,8 +66,8 @@ class _$AppRouter extends RootStackRouter {
           path: '/home',
         ),
         RouteConfig(
-          NGameRoute.name,
-          path: '/gamenew',
+          GameRoute.name,
+          path: '/game',
         ),
       ];
 }
@@ -97,25 +97,25 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [NGameView]
-class NGameRoute extends PageRouteInfo<NGameRouteArgs> {
-  NGameRoute({
+/// [GameView]
+class GameRoute extends PageRouteInfo<GameRouteArgs> {
+  GameRoute({
     Key? key,
     required int duration,
   }) : super(
-          NGameRoute.name,
-          path: '/gamenew',
-          args: NGameRouteArgs(
+          GameRoute.name,
+          path: '/game',
+          args: GameRouteArgs(
             key: key,
             duration: duration,
           ),
         );
 
-  static const String name = 'NGameRoute';
+  static const String name = 'GameRoute';
 }
 
-class NGameRouteArgs {
-  const NGameRouteArgs({
+class GameRouteArgs {
+  const GameRouteArgs({
     this.key,
     required this.duration,
   });
@@ -126,6 +126,6 @@ class NGameRouteArgs {
 
   @override
   String toString() {
-    return 'NGameRouteArgs{key: $key, duration: $duration}';
+    return 'GameRouteArgs{key: $key, duration: $duration}';
   }
 }

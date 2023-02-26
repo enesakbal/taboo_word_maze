@@ -5,33 +5,37 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../config/router/app_router.dart';
 import '../../core/components/button/custom_icon_button.dart';
+import '../../core/components/dialogs/pause_game_dialog/pause_game_dialog.dart';
+import '../../core/components/dialogs/yes_no_dialog/yes_no_dialog.dart';
 import '../../core/rive/rive_constants.dart';
 import '../../core/rive/rive_utils.dart';
 import '../../core/theme/colors_tones.dart';
 import '../bloc/game/game_bloc.dart';
 
-class NGameView extends StatefulWidget {
-  const NGameView({super.key, required this.duration});
+class GameView extends StatefulWidget {
+  const GameView({super.key, required this.duration});
 
   final int duration;
 
   @override
-  State<NGameView> createState() => _NGameViewState();
+  State<GameView> createState() => _GameViewState();
 }
 
-class _NGameViewState extends State<NGameView> {
+class _GameViewState extends State<GameView> {
   late CountDownController _timerController;
+  //* countdown controller
 
   late StateMachineController? _bearAnimationController;
   late SMITrigger _success;
   late SMITrigger _fail;
+  //* for bear animation
 
   @override
   void initState() {
     _timerController = CountDownController();
-
-    context.read<GameBloc>().add(StartGame());
+    context.read<GameBloc>().add(const StartGame());
 
     super.initState();
   }
@@ -45,11 +49,48 @@ class _NGameViewState extends State<NGameView> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<GameBloc, GameState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         print(state);
+        if (state is GamePaused) {
+          _timerController.pause();
+          //* if the game is paused the timer is also paused
+
+          await PauseGameDialog(
+            onPressedHome: () async {
+              await YesNoDialog(
+                onPressedYes: () async => router.replace(const HomeRoute()),
+                onPressedNo: () {},
+              ).show(context);
+              //* are u sure want to finish game
+            },
+            onPressedResume: () async =>
+                context.read<GameBloc>().add(const ResumeGame()),
+          ).show(context);
+          //* pause dialog
+        } else if (state is GameResumed) {
+          _timerController.resume();
+          //* game resumed
+        }
       },
-      child: Scaffold(
-        body: _buildBody(),
+      child: WillPopScope(
+        //* detect for back button clicking using willpopscope
+        onWillPop: () async {
+          //* clicking to back button its run
+
+          _timerController.pause();
+          //* pause timer
+          await YesNoDialog(
+            onPressedYes: () async => router.replace(const HomeRoute()),
+            //* if user wants to go to home
+
+            onPressedNo: () => _timerController.resume(),
+            //* if user dont wants
+          ).show(context);
+          return false;
+        },
+        child: Scaffold(
+          body: _buildBody(),
+        ),
       ),
     );
   }
@@ -85,7 +126,7 @@ class _NGameViewState extends State<NGameView> {
             _score(),
             _timer(),
           ],
-        )
+        ),
       ],
     );
   }
@@ -109,6 +150,8 @@ class _NGameViewState extends State<NGameView> {
 
           _fail = _bearAnimationController!.findInput<bool>('trigFail')
               as SMITrigger;
+
+          //* this values from rive
         },
       ),
     );
@@ -164,12 +207,7 @@ class _NGameViewState extends State<NGameView> {
       isReverseAnimation: true,
       isTimerTextShown: true,
       autoStart: true,
-      onStart: () {
-        // _timerController.start();
-        // await Future.delayed(Duration(seconds: 2), () {
-        //   _timerController.start();
-        // });
-      },
+      onStart: () {},
       onComplete: () {},
       onChange: (timeStamp) {},
     );
@@ -183,7 +221,6 @@ class _NGameViewState extends State<NGameView> {
         decoration: BoxDecoration(
           color: ColorsTones2.azure2,
           borderRadius: const BorderRadius.all(Radius.circular(25)),
-          // border: Border.all(color: Colors.white),
         ),
         child: BlocBuilder<GameBloc, GameState>(
           builder: (context, state) {
@@ -194,7 +231,6 @@ class _NGameViewState extends State<NGameView> {
                   flex: 2,
                   child: _word(state),
                 ),
-                // Spacer(),
                 SizedBox(height: 2.h),
                 for (var i = 0; i < 5; i++) ...[
                   Expanded(
@@ -270,82 +306,69 @@ class _NGameViewState extends State<NGameView> {
   }
 
   Widget _buttons() {
-    return Column(
-      children: [
-        Container(
-          width: 75.w,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Container(
+      width: 75.w,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          CustomIconButton(
+            onPressed: () {
+              //* increase point
+              context.read<GameBloc>().add(const IncreaseAPoint());
+
+              //* start success animation
+              _success.fire();
+            },
+            color: ColorsTones2.success,
+            shadowLightColor: Colors.transparent,
+            border: const NeumorphicBorder.none(),
+            icon: Icons.check_outlined,
+            buttonSize: 1.75,
+          ),
+          SizedBox(width: 2.w),
+          Column(
             children: [
               CustomIconButton(
                 onPressed: () {
-                  context.read<GameBloc>().add(IncreaseAPoint());
-                  _success.fire();
-                  _timerController.resume();
-                },
-                color: ColorsTones2.success,
-                shadowLightColor: Colors.transparent,
-                border: const NeumorphicBorder.none(),
-                icon: Icons.check_outlined,
-                buttonSize: 1.75,
-              ),
-              SizedBox(width: 2.w),
-              CustomIconButton(
-                onPressed: () {
-                  context.read<GameBloc>().add(SkipTaboo());
-                  _timerController.resume();
+                  //* get new data
+                  context.read<GameBloc>().add(const SkipTaboo());
                 },
                 color: ColorsTones2.pass,
                 shadowLightColor: Colors.transparent,
                 border: const NeumorphicBorder.none(),
-                icon: Icons.skip_next,
+                icon: Icons.forward_sharp,
                 buttonSize: 1.75,
               ),
-              SizedBox(width: 2.w),
+              SizedBox(height: 2.h),
               CustomIconButton(
                 onPressed: () {
-                  context.read<GameBloc>().add(DecreaseAPoint());
-                  _fail.fire();
-                  _timerController.resume();
+                  //* pause game
+                  context.read<GameBloc>().add(const PauseGame());
                 },
-                color: ColorsTones2.fail,
-                shadowLightColor: Colors.transparent,
-                border: const NeumorphicBorder.none(),
-                icon: Icons.close_outlined,
-                buttonSize: 1.75,
-              ),
-            ],
-          ),
-        ),
-        Container(
-          width: 100.w,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomIconButton(
-                onPressed: () {
-                  context.read<GameBloc>().add(ResumeGame());
-                  _timerController.resume();
-                },
-                color: ColorsTones2.fail,
-                shadowLightColor: Colors.transparent,
-                border: const NeumorphicBorder.none(),
-                icon: Icons.start,
-              ),
-              CustomIconButton(
-                onPressed: () {
-                  context.read<GameBloc>().add(StopGame());
-                  _timerController.pause();
-                },
-                color: ColorsTones2.fail,
+                color: ColorsTones2.softBlue,
                 shadowLightColor: Colors.transparent,
                 border: const NeumorphicBorder.none(),
                 icon: Icons.pause,
               ),
             ],
           ),
-        )
-      ],
+          SizedBox(width: 2.w),
+          CustomIconButton(
+            onPressed: () {
+              //* decrease point
+              context.read<GameBloc>().add(const DecreaseAPoint());
+
+              //* start fail animation
+              _fail.fire();
+            },
+            color: ColorsTones2.fail,
+            shadowLightColor: Colors.transparent,
+            border: const NeumorphicBorder.none(),
+            icon: Icons.close_outlined,
+            buttonSize: 1.75,
+          ),
+        ],
+      ),
     );
   }
 }

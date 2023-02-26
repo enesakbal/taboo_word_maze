@@ -73,23 +73,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       },
     );
 
-    on<StopGame>((event, emit) {
-      print('object1');
+    on<PauseGame>((event, emit) {
       isVisible = false;
-
-      emit(GameUpdatedStatus(
+      emit(GamePaused(
         taboo: dataList.first,
         point: currentPoint,
         isVisible: isVisible,
       ));
-      print('object2');
     });
 
     on<ResumeGame>((event, emit) {
       isVisible = true;
-
       emit(
-        GameUpdatedStatus(
+        GameResumed(
           taboo: dataList.first,
           point: currentPoint,
           isVisible: isVisible,

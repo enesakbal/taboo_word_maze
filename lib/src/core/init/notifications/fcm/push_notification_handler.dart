@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -15,7 +14,7 @@ final localManager = GetIt.instance<LocalManager>();
 final flutterLocalNotificationsPlugin =
     GetIt.I<FlutterLocalNotificationsPlugin>();
 
-//todo this is not working
+//! this is not working
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   log('firebaseMessagingBackgroundHandler');
 
@@ -72,7 +71,8 @@ class PushNotificationHandler {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   final LocalManager localManager;
 
-  PushNotificationHandler(this.flutterLocalNotificationsPlugin, this.localManager);
+  PushNotificationHandler(
+      this.flutterLocalNotificationsPlugin, this.localManager);
 
   Future<void> initialize() async {
     FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);

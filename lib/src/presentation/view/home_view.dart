@@ -87,7 +87,10 @@ class _HomeViewState extends State<HomeView> {
   Widget _playButton() {
     return CustomTextButton(
       onPressed: () async {
-        await StartGameDialog().show(context);
+        await showDialog(
+          context: context,
+          builder: (context) => StartGameDialog(),
+        );
       },
       text: LocaleKeys.home_play.tr(),
       height: 7.5.h,

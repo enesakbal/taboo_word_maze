@@ -19,6 +19,15 @@ abstract class  LocaleKeys {
   static const home_play_dialog_start = 'home.play_dialog.start';
   static const home_play_dialog_time = 'home.play_dialog.time';
   static const home_play_dialog = 'home.play_dialog';
+  static const home_pause_dialog_header = 'home.pause_dialog.header';
+  static const home_pause_dialog_resume_button = 'home.pause_dialog.resume_button';
+  static const home_pause_dialog_home_button = 'home.pause_dialog.home_button';
+  static const home_pause_dialog = 'home.pause_dialog';
+  static const home_yes_no_dialog_header = 'home.yes_no_dialog.header';
+  static const home_yes_no_dialog_content = 'home.yes_no_dialog.content';
+  static const home_yes_no_dialog_yes = 'home.yes_no_dialog.yes';
+  static const home_yes_no_dialog_no = 'home.yes_no_dialog.no';
+  static const home_yes_no_dialog = 'home.yes_no_dialog';
   static const home = 'home';
   static const errors_an_error = 'errors.an_error';
   static const errors_no_data = 'errors.no_data';
