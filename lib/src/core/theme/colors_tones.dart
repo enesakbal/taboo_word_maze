@@ -38,4 +38,11 @@ class ColorsTones2 {
   static Color get secondaryColor => const Color(0XFFb36457);
   static Color get azure => const Color(0XFFF0FFFF);
   static Color get azure2 => const Color.fromARGB(255, 214, 233, 233);
+  static Color get azure3 => const Color.fromARGB(255, 213, 227, 227);
+  static Color get success => const Color(0XFF3CB371);
+  static Color get pass => const Color(0XFFF4BB44);
+  static Color get fail => const Color(0XFFFF613F);
+  static Color get black => const Color.fromARGB(255, 0, 0, 0);
+  static Color get softBlue => const Color.fromARGB(255, 70, 86, 186);
+  // static Color get orange => Color.fromARGB(255, 159, 107, 255);
 }

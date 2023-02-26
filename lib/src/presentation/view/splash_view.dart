@@ -53,12 +53,12 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     //* duration : the length of time this animation should last.
     //* if u want to use .forward(). you must add a value inside of duration parameter
 
-    _scaleAnimation = Tween<double>(begin: 1, end: 17)
+    _scaleAnimation = Tween<double>(begin: 1, end: 20)
         .chain(CurveTween(curve: Curves.fastOutSlowIn))
         .animate(
           _scaleAnimationController!,
         );
-    //* scale 1x to 17x
+    //* scale 1x to 20x
 
     _headerAnimationController = AnimationController(
       vsync: this,

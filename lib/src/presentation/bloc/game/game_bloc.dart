@@ -14,15 +14,18 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   GameBloc(
     this.tabooUsecase,
-  ) : super(GameInitial()) {
+  ) : super(const GameInitial()) {
     var dataList = <Taboo>[];
 
     var currentPoint = 0;
 
+    var isVisible = true;
+
     on<StartGame>(
       (event, emit) async {
         try {
-          emit(GameInitial());
+          currentPoint = 0;
+          emit(const GameInitial());
           //* reset state
 
           if (dataList.isEmpty) {
@@ -31,6 +34,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             dataList.shuffle(seed);
           }
 
+          print(dataList.first);
           emit(GameStarted(taboo: dataList.first, point: currentPoint));
         } on Exception catch (_) {}
       },
@@ -42,7 +46,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           final seed = Random.secure();
           dataList.shuffle(seed);
 
-          emit(GameSkippedTaboo(taboo: dataList.first, point: currentPoint));
+          emit(GameUpdatedStatus(taboo: dataList.first, point: currentPoint));
         } on Exception catch (_) {}
       },
     );
@@ -53,25 +57,40 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           final seed = Random.secure();
           dataList.shuffle(seed);
           currentPoint += 1;
-          emit(GameAddedAPoint(taboo: dataList.first, point: currentPoint));
+          emit(GameUpdatedStatus(taboo: dataList.first, point: currentPoint));
         } on Exception catch (_) {}
       },
     );
 
-    
     on<DecreaseAPoint>(
       (event, emit) async {
         try {
           final seed = Random.secure();
           dataList.shuffle(seed);
           currentPoint -= 1;
-          emit(GameAddedAPoint(taboo: dataList.first, point: currentPoint));
+          emit(GameUpdatedStatus(taboo: dataList.first, point: currentPoint));
         } on Exception catch (_) {}
       },
     );
 
-    // on<GameEvent>((event, emit) {
-    //   print('objectDSFADFASFS');
-    // });
+    on<PauseGame>((event, emit) {
+      isVisible = false;
+      emit(GamePaused(
+        taboo: dataList.first,
+        point: currentPoint,
+        isVisible: isVisible,
+      ));
+    });
+
+    on<ResumeGame>((event, emit) {
+      isVisible = true;
+      emit(
+        GameResumed(
+          taboo: dataList.first,
+          point: currentPoint,
+          isVisible: isVisible,
+        ),
+      );
+    });
   }
 }

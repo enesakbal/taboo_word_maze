@@ -7,12 +7,30 @@ abstract class GameEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchData extends GameEvent {}
+class FetchData extends GameEvent {
+  const FetchData();
+}
 
-class StartGame extends GameEvent {}
+class StartGame extends GameEvent {
+  const StartGame();
+}
 
-class SkipTaboo extends GameEvent {}
+class SkipTaboo extends GameEvent {
+  const SkipTaboo();
+}
 
-class IncreaseAPoint extends GameEvent {}
+class IncreaseAPoint extends GameEvent {
+  const IncreaseAPoint();
+}
 
-class DecreaseAPoint extends GameEvent {}
+class DecreaseAPoint extends GameEvent {
+  const DecreaseAPoint();
+}
+
+class PauseGame extends GameEvent {
+  const PauseGame();
+}
+
+class ResumeGame extends GameEvent {
+  const ResumeGame();
+}

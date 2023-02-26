@@ -9,6 +9,7 @@ import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/components/dialogs/start_game_dialog/bloc/start_game_dialog_bloc.dart';
 import 'core/constants/enums/env_enums.dart';
 import 'core/constants/local_db_constants.dart';
 import 'core/init/cache/local_manager.dart';
@@ -197,6 +198,7 @@ Future<void> init({required EnvModes mode}) async {
   injector.registerFactory(() => SplashBloc(injector(), injector()));
   injector.registerFactory(() => HomeBloc(injector(), injector(), injector()));
   injector.registerFactory(() => GameBloc(injector()));
+  injector.registerFactory(StartGameDialogBloc.new);
 
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/

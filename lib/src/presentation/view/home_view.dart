@@ -3,17 +3,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rive/rive.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../config/router/app_router.dart';
-import '../../core/components/button/animated_icon_button.dart';
 import '../../core/components/button/custom_icon_button.dart';
 import '../../core/components/button/custom_text_button.dart';
+import '../../core/components/dialogs/start_game_dialog/start_game_dialog.dart';
 import '../../core/components/text/stroked_auto_size_text.dart';
 import '../../core/init/lang/locale_keys.g.dart';
-import '../../core/rive/rive_constants.dart';
-import '../../core/rive/rive_utils.dart';
 import '../../core/theme/colors_tones.dart';
 import '../bloc/home/home_bloc.dart';
 
@@ -41,6 +37,7 @@ class _HomeViewState extends State<HomeView> {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return Scaffold(
+          resizeToAvoidBottomInset: false,
           body: _buildBody(),
         );
       },
@@ -52,6 +49,7 @@ class _HomeViewState extends State<HomeView> {
       height: 100.h,
       width: 100.w,
       padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 7.5.h),
+      decoration: BoxDecoration(shape: BoxShape.circle),
       child: Container(
         color: Colors.transparent,
         child: Column(
@@ -79,7 +77,7 @@ class _HomeViewState extends State<HomeView> {
   Widget _headers() {
     return StorekedAutoSizeText(
       text: LocaleKeys.splash_title.tr(),
-      fontSize: 75,
+      fontSize: 85,
       fontWeight: FontWeight.w900,
       strokeColor: ColorsTones2.secondaryColor,
       strokeWidth: 6,
@@ -89,7 +87,10 @@ class _HomeViewState extends State<HomeView> {
   Widget _playButton() {
     return CustomTextButton(
       onPressed: () async {
-        await router.push(const GameRoute());
+        await showDialog(
+          context: context,
+          builder: (context) => StartGameDialog(),
+        );
       },
       text: LocaleKeys.home_play.tr(),
       height: 7.5.h,

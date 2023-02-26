@@ -34,9 +34,13 @@ class _$AppRouter extends RootStackRouter {
       );
     },
     GameRoute.name: (routeData) {
+      final args = routeData.argsAs<GameRouteArgs>();
       return CustomPage<dynamic>(
         routeData: routeData,
-        child: const GameView(),
+        child: GameView(
+          key: args.key,
+          duration: args.duration,
+        ),
         transitionsBuilder: TransitionsBuilders.fadeIn,
         durationInMilliseconds: 400,
         opaque: true,
@@ -50,7 +54,7 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           '/#redirect',
           path: '/',
-          redirectTo: '/splash',
+          redirectTo: '/home',
           fullMatch: true,
         ),
         RouteConfig(
@@ -94,12 +98,34 @@ class HomeRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [GameView]
-class GameRoute extends PageRouteInfo<void> {
-  const GameRoute()
-      : super(
+class GameRoute extends PageRouteInfo<GameRouteArgs> {
+  GameRoute({
+    Key? key,
+    required int duration,
+  }) : super(
           GameRoute.name,
           path: '/game',
+          args: GameRouteArgs(
+            key: key,
+            duration: duration,
+          ),
         );
 
   static const String name = 'GameRoute';
+}
+
+class GameRouteArgs {
+  const GameRouteArgs({
+    this.key,
+    required this.duration,
+  });
+
+  final Key? key;
+
+  final int duration;
+
+  @override
+  String toString() {
+    return 'GameRouteArgs{key: $key, duration: $duration}';
+  }
 }

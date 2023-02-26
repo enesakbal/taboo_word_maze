@@ -20,6 +20,9 @@ class CustomTextButton extends StatelessWidget {
 
   final Color? backgroundColor;
   final Color? borderSideColor;
+  final Color? shadowLightColor;
+
+  final FontWeight? fontWeight;
 
   const CustomTextButton({
     super.key,
@@ -28,12 +31,14 @@ class CustomTextButton extends StatelessWidget {
     this.maxLines = 1,
     this.height,
     this.width,
-    this.fontSize = 25,
+    this.fontSize,
     this.borderRadius = 12,
     this.borderWidth = 1.5,
     this.elevation = 2,
     this.backgroundColor,
     this.borderSideColor = Colors.transparent,
+    this.shadowLightColor = Colors.transparent,
+    this.fontWeight,
   });
 
   @override
@@ -48,8 +53,8 @@ class CustomTextButton extends StatelessWidget {
             text,
             maxLines: maxLines,
             style: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.w600,
+              fontSize: fontSize ?? 25,
+              fontWeight: fontWeight ?? FontWeight.w600,
               color: Colors.white,
             ),
           ),
@@ -60,6 +65,7 @@ class CustomTextButton extends StatelessWidget {
             color: borderSideColor,
             width: borderWidth,
           ),
+          shadowLightColor: shadowLightColor,
         ),
       ),
     );
