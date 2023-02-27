@@ -12,7 +12,13 @@ class FetchData extends GameEvent {
 }
 
 class StartGame extends GameEvent {
-  const StartGame();
+  final Team team1;
+  final Team team2;
+
+  const StartGame({
+    required this.team1,
+    required this.team2,
+  });
 }
 
 class SkipTaboo extends GameEvent {

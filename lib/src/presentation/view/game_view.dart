@@ -12,12 +12,21 @@ import '../../core/components/dialogs/yes_no_dialog/yes_no_dialog.dart';
 import '../../core/rive/rive_constants.dart';
 import '../../core/rive/rive_utils.dart';
 import '../../core/theme/colors_tones.dart';
+import '../../domain/entities/team.dart';
 import '../bloc/game/game_bloc.dart';
 
 class GameView extends StatefulWidget {
-  const GameView({super.key, required this.duration});
+  const GameView({
+    super.key,
+    required this.duration,
+    required this.team1,
+    required this.team2,
+  });
 
   final int duration;
+
+  final Team team1;
+  final Team team2;
 
   @override
   State<GameView> createState() => _GameViewState();
@@ -35,7 +44,12 @@ class _GameViewState extends State<GameView> {
   @override
   void initState() {
     _timerController = CountDownController();
-    context.read<GameBloc>().add(const StartGame());
+    context.read<GameBloc>().add(
+          StartGame(
+            team1: widget.team1,
+            team2: widget.team2,
+          ),
+        );
 
     super.initState();
   }

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../domain/entities/taboo.dart';
+import '../../../domain/entities/team.dart';
 import '../../../domain/usecaces/taboo_usecase.dart';
 
 part 'game_event.dart';
@@ -17,14 +18,28 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) : super(const GameInitial()) {
     var dataList = <Taboo>[];
 
+    late Team currentTeam;
+
     var currentPoint = 0;
+
+    Team team1;
+    Team team2;
 
     var isVisible = true;
 
     on<StartGame>(
       (event, emit) async {
         try {
-          currentPoint = 0;
+          // currentPoint = 0;
+
+          currentTeam = event.team1;
+
+          team1 = event.team1;
+          team2 = event.team2;
+
+          // var currentTeamName = currentTeam.teamName;
+          // var currentTeamPoint = currentTeam.point;
+
           emit(const GameInitial());
           //* reset state
 

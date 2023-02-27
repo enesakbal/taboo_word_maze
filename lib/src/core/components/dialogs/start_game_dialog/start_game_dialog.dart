@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../config/router/app_router.dart';
+import '../../../../domain/entities/team.dart';
 import '../../../init/extensions/string_extensions.dart';
 import '../../../init/lang/locale_keys.g.dart';
 import '../../../theme/colors_tones.dart';
@@ -49,15 +50,25 @@ class StartGameDialog extends IDialog {
               context.read<StartGameDialogBloc>().add(
                     const ChangeHasPressedState(),
                   );
-              // //*
-              //   _team1Controller.text = 'Enes';
-              //   _team2Controller.text = 'Akbal';
-              // //*
+              //*
+                _team1Controller.text = 'Enes';
+                _team2Controller.text = 'Akbal';
+              //*
 
               if (_formKey.currentState!.validate()) {
                 await router.replace(
                   GameRoute(
                     duration: int.parse(state.time),
+                    team1: Team(
+                      teamName: _team1Controller.text,
+                      point: 0,
+                      roundList: const [],
+                    ),
+                    team2: Team(
+                      teamName: _team1Controller.text,
+                      point: 0,
+                      roundList: const [],
+                    ),
                   ),
                 );
               }
