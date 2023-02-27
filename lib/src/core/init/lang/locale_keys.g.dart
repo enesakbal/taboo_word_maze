@@ -18,6 +18,8 @@ abstract class  LocaleKeys {
   static const home_play_dialog_placeholder_2 = 'home.play_dialog.placeholder_2';
   static const home_play_dialog_start = 'home.play_dialog.start';
   static const home_play_dialog_time = 'home.play_dialog.time';
+  static const home_play_dialog_team_name_error_empty = 'home.play_dialog.team_name_error_empty';
+  static const home_play_dialog_team_name_error_lenght = 'home.play_dialog.team_name_error_lenght';
   static const home_play_dialog = 'home.play_dialog';
   static const home_pause_dialog_header = 'home.pause_dialog.header';
   static const home_pause_dialog_resume_button = 'home.pause_dialog.resume_button';

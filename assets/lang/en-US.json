@@ -16,7 +16,9 @@
             "team_2":"Team 2",
             "placeholder_2":"etc. Slytherin, Meteors,...",
             "start": "Start",
-            "time":"Time"
+            "time":"Time",
+            "team_name_error_empty":"Team name cannot be left blank",
+            "team_name_error_lenght":"Enter a team name of at least 3 characters"
         },
         "pause_dialog":{
             "header":"Paused",

@@ -1,4 +1,3 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,20 +7,9 @@ import '../../../../config/router/app_router.dart';
 import '../../../init/lang/locale_keys.g.dart';
 import '../../../theme/colors_tones.dart';
 import '../../button/custom_text_button.dart';
+import '../dialog_interface.dart';
 
-extension Show on YesNoDialog {
-  Future<T?> show<T>(BuildContext context) {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return this;
-      },
-    );
-  }
-}
-
-class YesNoDialog extends StatelessWidget {
+class YesNoDialog extends IDialog {
   const YesNoDialog({
     super.key,
     required this.onPressedYes,
@@ -116,5 +104,10 @@ class YesNoDialog extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  Future<T?> show<T>(BuildContext context, {bool isDissmissible = false}) {
+    return super.show(context, isDissmissible: isDissmissible);
   }
 }

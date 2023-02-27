@@ -9,20 +9,9 @@ import '../../../../config/router/app_router.dart';
 import '../../../init/lang/locale_keys.g.dart';
 import '../../../theme/colors_tones.dart';
 import '../../button/custom_text_button.dart';
+import '../dialog_interface.dart';
 
-extension Show on PauseGameDialog {
-  Future<T?> show<T>(BuildContext context) {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return this;
-      },
-    );
-  }
-}
-
-class PauseGameDialog extends StatelessWidget {
+class PauseGameDialog extends IDialog {
   const PauseGameDialog({
     super.key,
     required this.onPressedHome,
@@ -222,5 +211,10 @@ class PauseGameDialog extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  Future<T?> show<T>(BuildContext context, {bool isDissmissible = false}) {
+    return super.show(context, isDissmissible: isDissmissible);
   }
 }
