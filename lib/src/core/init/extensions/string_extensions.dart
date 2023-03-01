@@ -5,8 +5,8 @@ extension StringExtension on String {
   String? get isValidTeamName => isNotEmpty
       ? length > 2
           ? null
-          : LocaleKeys.home_play_dialog_team_name_error_lenght.tr()
-      : LocaleKeys.home_play_dialog_team_name_error_empty.tr();
+          : LocaleKeys.game_start_dialog_team_name_error_lenght.tr()
+      : LocaleKeys.game_start_dialog_team_name_error_empty.tr();
 
   //* cannot be empty and the length must be at least 3 char
 }

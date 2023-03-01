@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:rive/rive.dart';
@@ -7,8 +8,10 @@ import 'package:sizer/sizer.dart';
 
 import '../../config/router/app_router.dart';
 import '../../core/components/button/custom_icon_button.dart';
+import '../../core/components/dialogs/game_info_dialog/game_info_dialog.dart';
 import '../../core/components/dialogs/pause_game_dialog/pause_game_dialog.dart';
 import '../../core/components/dialogs/yes_no_dialog/yes_no_dialog.dart';
+import '../../core/init/lang/locale_keys.g.dart';
 import '../../core/rive/rive_constants.dart';
 import '../../core/rive/rive_utils.dart';
 import '../../core/theme/colors_tones.dart';
@@ -44,6 +47,7 @@ class _GameViewState extends State<GameView> {
   @override
   void initState() {
     _timerController = CountDownController();
+
     context.read<GameBloc>().add(
           StartGame(
             team1: widget.team1,
@@ -52,6 +56,8 @@ class _GameViewState extends State<GameView> {
         );
 
     super.initState();
+
+    // super.initState();
   }
 
   @override
@@ -65,11 +71,24 @@ class _GameViewState extends State<GameView> {
     return BlocListener<GameBloc, GameState>(
       listener: (context, state) async {
         print(state);
-        if (state is GamePaused) {
+        if (state is GameStarted) {
+          await GameInfoDialog(
+              buttonText: LocaleKeys.game_info_dialog_resume_button.tr(),
+              contentText: LocaleKeys.game_info_dialog_content_part_1.tr() +
+                  widget.team1.teamName! +
+                  LocaleKeys.game_info_dialog_content_part_2.tr(),
+              headerText: LocaleKeys.game_info_dialog_header.tr(),
+              onPressed: () async {
+                _timerController.start();
+              }).show(context);
+          context.read<GameBloc>().add(const ResumeGame());
+        } else if (state is GamePaused) {
           _timerController.pause();
           //* if the game is paused the timer is also paused
 
           await PauseGameDialog(
+            team1: state.team1,
+            team2: state.team2,
             onPressedHome: () async {
               await YesNoDialog(
                 onPressedYes: () async => router.replace(const HomeRoute()),
@@ -92,14 +111,15 @@ class _GameViewState extends State<GameView> {
           //* clicking to back button its run
 
           _timerController.pause();
+          context.read<GameBloc>().add(const PauseGame());
           //* pause timer
-          await YesNoDialog(
-            onPressedYes: () async => router.replace(const HomeRoute()),
-            //* if user wants to go to home
+          // await YesNoDialog(
+          //   onPressedYes: () async => router.replace(const HomeRoute()),
+          //   //* if user wants to go to home
 
-            onPressedNo: () => _timerController.resume(),
-            //* if user dont wants
-          ).show(context);
+          //   onPressedNo: () => _timerController.resume(),
+          //   //* if user dont wants
+          // ).show(context);
           return false;
         },
         child: Scaffold(
@@ -114,14 +134,14 @@ class _GameViewState extends State<GameView> {
       child: Container(
         height: 100.h,
         width: 100.w,
-        padding: EdgeInsets.only(right: 4.w, left: 4.w, bottom: 5.h),
+        padding: EdgeInsets.only(right: 4.w, left: 4.w, bottom: 2.5.h),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _topSide(),
-            SizedBox(height: 2.h),
+            SizedBox(height: 1.h),
             _gameWords(),
-            SizedBox(height: 4.h),
+            SizedBox(height: 2.h),
             _buttons(),
           ],
         ),
@@ -151,6 +171,7 @@ class _GameViewState extends State<GameView> {
       width: 65.w,
       padding: EdgeInsets.zero,
       margin: EdgeInsets.zero,
+      // color: Colors.red,
       child: RiveAnimation.asset(
         RiveConstants.bearAnimationPath,
         fit: BoxFit.fitWidth,
@@ -187,7 +208,7 @@ class _GameViewState extends State<GameView> {
       child: BlocBuilder<GameBloc, GameState>(
         builder: (context, state) {
           return AutoSizeText(
-            state.point.toString(),
+            state.team.totalScore.toString(),
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
@@ -220,7 +241,7 @@ class _GameViewState extends State<GameView> {
       isReverse: true,
       isReverseAnimation: true,
       isTimerTextShown: true,
-      autoStart: true,
+      autoStart: false,
       onStart: () {},
       onComplete: () {},
       onChange: (timeStamp) {},
@@ -280,17 +301,18 @@ class _GameViewState extends State<GameView> {
       child: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.w),
-          child: state.isVisible
-              ? AutoSizeText(
-                  state.taboo.word!,
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.w600,
-                  ),
-                )
-              : null,
+          child: Opacity(
+            opacity: state.isVisible ? 1 : 0,
+            child: AutoSizeText(
+              state.tabooData.word!,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -304,24 +326,26 @@ class _GameViewState extends State<GameView> {
         decoration: const BoxDecoration(
             // color: Colors.red,
             ),
-        child: state.isVisible
-            ? AutoSizeText(
-                state.taboo.forbiddenWords!.split(',')[i],
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w300,
-                ),
-              )
-            : null,
+        child: Opacity(
+          opacity: state.isVisible ? 1 : 0,
+          child: AutoSizeText(
+            state.tabooData.forbiddenWords!.split(',')[i],
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
       ),
     );
   }
 
   Widget _buttons() {
-    return Container(
+    return SizedBox(
       width: 75.w,
+      height: 17.5.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -341,6 +365,7 @@ class _GameViewState extends State<GameView> {
           ),
           SizedBox(width: 2.w),
           Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CustomIconButton(
                 onPressed: () {
@@ -352,8 +377,13 @@ class _GameViewState extends State<GameView> {
                 border: const NeumorphicBorder.none(),
                 icon: Icons.forward_sharp,
                 buttonSize: 1.75,
+                badgeCounter: BlocBuilder<GameBloc, GameState>(
+                  builder: (context, state) {
+                    return AutoSizeText(
+                        state.tabooData.word!.length.toString());
+                  },
+                ),
               ),
-              SizedBox(height: 2.h),
               CustomIconButton(
                 onPressed: () {
                   //* pause game
@@ -381,6 +411,18 @@ class _GameViewState extends State<GameView> {
             icon: Icons.close_outlined,
             buttonSize: 1.75,
           ),
+          // CustomIconButton(
+          //   onPressed: () {
+          //     context.read<GameBloc>().add(
+          //           EndOfRound(),
+          //         );
+          //   },
+          //   color: ColorsTones2.fail,
+          //   shadowLightColor: Colors.transparent,
+          //   border: const NeumorphicBorder.none(),
+          //   icon: Icons.change_circle,
+          //   buttonSize: 1.75,
+          // ),
         ],
       ),
     );

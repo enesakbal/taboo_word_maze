@@ -51,8 +51,8 @@ class StartGameDialog extends IDialog {
                     const ChangeHasPressedState(),
                   );
               //*
-                _team1Controller.text = 'Enes';
-                _team2Controller.text = 'Akbal';
+              _team1Controller.text = 'Enes';
+              _team2Controller.text = 'Akbal';
               //*
 
               if (_formKey.currentState!.validate()) {
@@ -61,19 +61,21 @@ class StartGameDialog extends IDialog {
                     duration: int.parse(state.time),
                     team1: Team(
                       teamName: _team1Controller.text,
-                      point: 0,
-                      roundList: const [],
+                      totalScore: 0,
+                      roundList: const [
+                      ],
                     ),
                     team2: Team(
-                      teamName: _team1Controller.text,
-                      point: 0,
-                      roundList: const [],
+                      teamName: _team2Controller.text,
+                      totalScore: 0,
+                      roundList: const [
+                      ],
                     ),
                   ),
                 );
               }
             },
-            text: LocaleKeys.home_play_dialog_start.tr(),
+            text: LocaleKeys.game_start_dialog_start.tr(),
             fontSize: 35,
             width: 50.w,
             height: 6.h,
@@ -98,7 +100,7 @@ class StartGameDialog extends IDialog {
             children: [
               SizedBox(height: 1.h),
               AutoSizeText(
-                LocaleKeys.home_play_dialog_team_1.tr(),
+                LocaleKeys.game_start_dialog_team_1.tr(),
                 textAlign: TextAlign.center,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
@@ -112,7 +114,7 @@ class StartGameDialog extends IDialog {
                     onChanged: (_) => state.hasPressed
                         ? _formKey.currentState!.validate()
                         : null,
-                    hintText: LocaleKeys.home_play_dialog_placeholder_1.tr(),
+                    hintText: LocaleKeys.game_start_dialog_placeholder_1.tr(),
                   );
                 },
               ),
@@ -124,7 +126,7 @@ class StartGameDialog extends IDialog {
                 ),
               ),
               AutoSizeText(
-                LocaleKeys.home_play_dialog_team_2.tr(),
+                LocaleKeys.game_start_dialog_team_2.tr(),
                 textAlign: TextAlign.center,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
@@ -138,7 +140,7 @@ class StartGameDialog extends IDialog {
                     onChanged: (_) => state.hasPressed
                         ? _formKey.currentState!.validate()
                         : null,
-                    hintText: LocaleKeys.home_play_dialog_placeholder_2.tr(),
+                    hintText: LocaleKeys.game_start_dialog_placeholder_2.tr(),
                   );
                 },
               ),
@@ -151,7 +153,7 @@ class StartGameDialog extends IDialog {
                 ),
               ),
               AutoSizeText(
-                LocaleKeys.home_play_dialog_time.tr(),
+                LocaleKeys.game_start_dialog_time.tr(),
                 textAlign: TextAlign.center,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
@@ -217,7 +219,7 @@ class StartGameDialog extends IDialog {
       ),
       alignment: Alignment.topCenter,
       child: Text(
-        LocaleKeys.home_play_dialog_header.tr(),
+        LocaleKeys.game_start_dialog_header.tr(),
         style: TextStyle(
           fontSize: 25.sp,
           fontWeight: FontWeight.bold,

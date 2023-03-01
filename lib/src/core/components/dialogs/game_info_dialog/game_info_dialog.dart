@@ -1,32 +1,39 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../config/router/app_router.dart';
-import '../../../init/lang/locale_keys.g.dart';
 import '../../../theme/colors_tones.dart';
 import '../../button/custom_text_button.dart';
 import '../dialog_interface.dart';
 
-class YesNoDialog extends IDialog {
-  const YesNoDialog({
+class GameInfoDialog extends IDialog {
+  const GameInfoDialog({
     super.key,
-    required this.onPressedYes,
-    required this.onPressedNo,
+    required this.onPressed,
+    required this.headerText,
+    required this.contentText,
+    required this.buttonText,
   });
 
-  final void Function() onPressedYes;
-  final void Function() onPressedNo;
+  final void Function() onPressed;
+
+  final String headerText;
+  final String contentText;
+  final String buttonText;
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => true,
+      onWillPop: () async {
+        onPressed.call();
+
+        return true;
+      },
       child: AlertDialog(
-        insetPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
+        insetPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
         titlePadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
-        contentPadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
+        contentPadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 2.h),
         actionsAlignment: MainAxisAlignment.center,
         actionsPadding: EdgeInsets.only(bottom: 2.h),
         iconPadding: EdgeInsets.zero,
@@ -45,22 +52,15 @@ class YesNoDialog extends IDialog {
   List<Widget> _actions() {
     return [
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomTextButton(
             width: 35.w,
-            onPressed: onPressedYes,
-            text: LocaleKeys.game_yes_no_dialog_yes.tr(),
-            backgroundColor: ColorsTones2.fail,
-            fontSize: 40,
-          ),
-          CustomTextButton(
-            width: 35.w,
+            height: 6.h,
             onPressed: () async {
               await router.pop();
-              onPressedNo.call();
             },
-            text: LocaleKeys.game_yes_no_dialog_no.tr(),
+            text: buttonText,
             backgroundColor: ColorsTones2.success,
           ),
         ],
@@ -70,15 +70,18 @@ class YesNoDialog extends IDialog {
 
   Container _content() {
     return Container(
-      height: 15.h,
+      height: 20.h,
       width: 100.w,
       padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 0.h),
       child: Center(
         child: AutoSizeText(
-          LocaleKeys.game_yes_no_dialog_content.tr(),
+          contentText,
           textAlign: TextAlign.center,
-          maxLines: 3,
-          style: TextStyle(fontSize: 25, color: ColorsTones2.black),
+          style: TextStyle(
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w400,
+            color: ColorsTones2.black,
+          ),
         ),
       ),
     );
@@ -89,18 +92,18 @@ class YesNoDialog extends IDialog {
       width: 100.w,
       padding: EdgeInsets.symmetric(vertical: 2.h),
       decoration: BoxDecoration(
-        color: ColorsTones2.fail,
+        color: ColorsTones2.softBlue,
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(12),
         ),
       ),
       alignment: Alignment.topCenter,
       child: Text(
-        LocaleKeys.game_yes_no_dialog_header.tr(),
+        headerText,
         style: TextStyle(
           fontSize: 25.sp,
           fontWeight: FontWeight.bold,
-          color: ColorsTones2.azure2,
+          color: ColorsTones2.azure,
         ),
       ),
     );

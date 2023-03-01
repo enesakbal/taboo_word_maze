@@ -8,8 +8,11 @@
         "play" : "Play",
         "edit" : "Edit Taboos",
         "settings" : "Settings",
-        "rate":"Rate Me",
-        "play_dialog": {
+        "rate":"Rate Me"
+       
+    },
+    "game":{
+        "start_dialog": {
             "header": "Teams",
             "team_1":"Team 1",
             "placeholder_1":"etc. Gryffindor, Stingrays,...",
@@ -22,6 +25,7 @@
         },
         "pause_dialog":{
             "header":"Paused",
+            "round":"Round",
             "resume_button":"Resume",
             "home_button":"Home"
         },
@@ -30,6 +34,12 @@
             "content":"Are you sure you want to finish the game?",
             "yes":"Yes",
             "no":"No"
+        },
+        "info_dialog":{
+            "header" : "Play",
+            "content_part_1":"Team ",
+            "content_part_2":" will start the game",
+            "resume_button":"Go"
         }
     },
 

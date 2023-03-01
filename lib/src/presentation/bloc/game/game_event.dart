@@ -40,3 +40,6 @@ class PauseGame extends GameEvent {
 class ResumeGame extends GameEvent {
   const ResumeGame();
 }
+class EndOfRound extends GameEvent {
+  const EndOfRound();
+}
