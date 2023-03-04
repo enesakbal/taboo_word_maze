@@ -49,6 +49,16 @@ class _$AppRouter extends RootStackRouter {
         barrierDismissible: false,
       );
     },
+    EditRoute.name: (routeData) {
+      return CustomPage<dynamic>(
+        routeData: routeData,
+        child: const EditView(),
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+        durationInMilliseconds: 400,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
   };
 
   @override
@@ -70,6 +80,10 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(
           GameRoute.name,
           path: '/game',
+        ),
+        RouteConfig(
+          EditRoute.name,
+          path: '/edit',
         ),
       ];
 }
@@ -140,4 +154,16 @@ class GameRouteArgs {
   String toString() {
     return 'GameRouteArgs{key: $key, duration: $duration, team1: $team1, team2: $team2}';
   }
+}
+
+/// generated route for
+/// [EditView]
+class EditRoute extends PageRouteInfo<void> {
+  const EditRoute()
+      : super(
+          EditRoute.name,
+          path: '/edit',
+        );
+
+  static const String name = 'EditRoute';
 }

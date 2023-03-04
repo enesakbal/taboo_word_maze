@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../config/router/app_router.dart';
 import '../../core/components/button/custom_icon_button.dart';
 import '../../core/components/button/custom_text_button.dart';
 import '../../core/components/dialogs/start_game_dialog/start_game_dialog.dart';
@@ -97,7 +98,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _editButton() {
     return CustomTextButton(
-      onPressed: () async {},
+      onPressed: () async => router.push(const EditRoute()),
       text: LocaleKeys.home_edit.tr(),
       height: 7.5.h,
       width: 60.w,

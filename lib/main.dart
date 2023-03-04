@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:taboo_word_maze/src/presentation/bloc/edit/edit_bloc.dart';
 
 import 'src/config/router/app_router.dart';
 import 'src/core/components/dialogs/start_game_dialog/bloc/start_game_dialog_bloc.dart';
@@ -81,6 +82,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.injector<SplashBloc>()),
         BlocProvider(create: (_) => di.injector<HomeBloc>()),
         BlocProvider(create: (_) => di.injector<GameBloc>()),
+        BlocProvider(create: (_) => di.injector<EditBloc>()),
         BlocProvider(create: (_) => di.injector<StartGameDialogBloc>()),
       ],
       child: MaterialApp.router(
@@ -105,7 +107,6 @@ class MyApp extends StatelessWidget {
         routerDelegate: AutoRouterDelegate(
           router,
           navigatorObservers: () => [
-            
             observer,
           ],
         ),

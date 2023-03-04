@@ -93,7 +93,8 @@ class _GameViewState extends State<GameView> {
             onPressedHome: () async {
               await YesNoDialog(
                 onPressedYes: () async => router.replace(const HomeRoute()),
-                onPressedNo: () {},
+                contentText: LocaleKeys.game_yes_no_dialog_content.tr(),
+                headerText: LocaleKeys.game_yes_no_dialog_header.tr(),
               ).show(context);
               //* are u sure want to finish game
             },
@@ -137,6 +138,7 @@ class _GameViewState extends State<GameView> {
           return false;
         },
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           body: _buildBody(),
         ),
       ),

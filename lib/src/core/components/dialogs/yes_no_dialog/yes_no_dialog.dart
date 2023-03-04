@@ -13,11 +13,14 @@ class YesNoDialog extends IDialog {
   const YesNoDialog({
     super.key,
     required this.onPressedYes,
-    required this.onPressedNo,
+    required this.contentText,
+    required this.headerText,
   });
 
   final void Function() onPressedYes;
-  final void Function() onPressedNo;
+
+  final String headerText;
+  final String contentText;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,6 @@ class YesNoDialog extends IDialog {
             width: 35.w,
             onPressed: () async {
               await router.pop();
-              onPressedNo.call();
             },
             text: LocaleKeys.game_yes_no_dialog_no.tr(),
             backgroundColor: ColorsTones2.success,
@@ -75,7 +77,7 @@ class YesNoDialog extends IDialog {
       padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 0.h),
       child: Center(
         child: AutoSizeText(
-          LocaleKeys.game_yes_no_dialog_content.tr(),
+          contentText,
           textAlign: TextAlign.center,
           maxLines: 3,
           style: TextStyle(fontSize: 25, color: ColorsTones2.black),
@@ -96,7 +98,7 @@ class YesNoDialog extends IDialog {
       ),
       alignment: Alignment.topCenter,
       child: Text(
-        LocaleKeys.game_yes_no_dialog_header.tr(),
+        headerText,
         style: TextStyle(
           fontSize: 25.sp,
           fontWeight: FontWeight.bold,
