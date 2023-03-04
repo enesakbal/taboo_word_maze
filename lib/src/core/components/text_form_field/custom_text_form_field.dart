@@ -10,6 +10,13 @@ class CustomTextFormField extends StatelessWidget {
     required this.validator,
     this.onChanged,
     this.hintText,
+    this.enabledColor,
+    this.focusedColor,
+    this.fillColor,
+    this.prefixIconColor,
+    this.prefixIcon,
+    this.suffixIconColor,
+    this.suffixIcon,
   });
 
   final String? hintText;
@@ -18,6 +25,15 @@ class CustomTextFormField extends StatelessWidget {
 
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
+
+  final Color? focusedColor;
+  final Color? enabledColor;
+  final Color? fillColor;
+  final Color? prefixIconColor;
+  final Color? suffixIconColor;
+
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -34,22 +50,23 @@ class CustomTextFormField extends StatelessWidget {
           cursorColor: Colors.black,
           onChanged: onChanged,
           decoration: InputDecoration(
-            fillColor: Colors.black12,
+            fillColor: fillColor ?? Colors.black12,
+            filled: true,
             hintText: hintText,
             contentPadding: const EdgeInsets.all(12),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.black,
-              ),
-            ),
             disabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.transparent,
               ),
             ),
-            enabledBorder: const OutlineInputBorder(
+            enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.black,
+                color: enabledColor ?? ColorsTones2.black,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: focusedColor ?? ColorsTones2.black,
               ),
             ),
             border: const OutlineInputBorder(
@@ -68,8 +85,10 @@ class CustomTextFormField extends StatelessWidget {
             focusedErrorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: ColorsTones2.fail, width: 2.5),
             ),
-            // // fillColor: Colors.red.withOpacity(0.3),
-            filled: true,
+            prefixIcon: prefixIcon,
+            prefixIconColor: prefixIconColor,
+            suffixIcon: suffixIcon,
+            suffixIconColor: suffixIconColor,
           ),
         ),
       ),

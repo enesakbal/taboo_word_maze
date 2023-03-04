@@ -48,6 +48,17 @@
             "resume_button":"Go"
         }
     },
+    "edit":{
+        "save":"Save",
+        "remove":"Remove",
+        "search":"Search Taboo",
+        "yes_no_dialog":{
+            "header":"Remove Taboo",
+            "content":"Are you sure you want to remove this Taboo?",
+            "yes":"Yes",
+            "no":"No"
+        }
+    },
 
     "errors":{
         "an_error":"An unknown error has occurred. Please try again.",
