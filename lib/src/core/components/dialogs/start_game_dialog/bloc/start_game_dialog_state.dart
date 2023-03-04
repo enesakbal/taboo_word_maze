@@ -1,7 +1,7 @@
 part of 'start_game_dialog_bloc.dart';
 
 abstract class StartGameDialogState extends Equatable {
-  const StartGameDialogState({this.time = '91', this.hasPressed = false});
+  const StartGameDialogState({this.time = '5', this.hasPressed = false});
 
   final String time;
   final bool hasPressed;

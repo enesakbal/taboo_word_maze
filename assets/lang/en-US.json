@@ -27,7 +27,10 @@
             "header":"Paused",
             "round":"Round",
             "resume_button":"Resume",
-            "home_button":"Home"
+            "home_button":"Home",
+            "playing": "Playing Now",
+            "total": "Total"
+
         },
         "yes_no_dialog":{
             "header":"Exit",
@@ -37,8 +40,11 @@
         },
         "info_dialog":{
             "header" : "Play",
-            "content_part_1":"Team ",
-            "content_part_2":" will start the game",
+            "header2": "End Of Round",
+            "content_1_part_1":"Team ",
+            "content_1_part_2":" will start the game",
+            "content_2_part_1":"Team ",
+            "content_2_part_2":" will start the new round.",
             "resume_button":"Go"
         }
     },

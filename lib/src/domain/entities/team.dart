@@ -12,7 +12,7 @@ class Team extends Equatable {
   Team({
     this.teamName = '',
     this.totalScore = 0,
-    this.roundList,
+    this.roundList = const [],
   });
 
   void increaseAPoint() => totalScore = totalScore! + 1;

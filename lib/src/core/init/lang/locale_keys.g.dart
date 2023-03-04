@@ -26,6 +26,8 @@ abstract class  LocaleKeys {
   static const game_pause_dialog_round = 'game.pause_dialog.round';
   static const game_pause_dialog_resume_button = 'game.pause_dialog.resume_button';
   static const game_pause_dialog_home_button = 'game.pause_dialog.home_button';
+  static const game_pause_dialog_playing = 'game.pause_dialog.playing';
+  static const game_pause_dialog_total = 'game.pause_dialog.total';
   static const game_pause_dialog = 'game.pause_dialog';
   static const game_yes_no_dialog_header = 'game.yes_no_dialog.header';
   static const game_yes_no_dialog_content = 'game.yes_no_dialog.content';
@@ -33,8 +35,11 @@ abstract class  LocaleKeys {
   static const game_yes_no_dialog_no = 'game.yes_no_dialog.no';
   static const game_yes_no_dialog = 'game.yes_no_dialog';
   static const game_info_dialog_header = 'game.info_dialog.header';
-  static const game_info_dialog_content_part_1 = 'game.info_dialog.content_part_1';
-  static const game_info_dialog_content_part_2 = 'game.info_dialog.content_part_2';
+  static const game_info_dialog_header2 = 'game.info_dialog.header2';
+  static const game_info_dialog_content_1_part_1 = 'game.info_dialog.content_1_part_1';
+  static const game_info_dialog_content_1_part_2 = 'game.info_dialog.content_1_part_2';
+  static const game_info_dialog_content_2_part_1 = 'game.info_dialog.content_2_part_1';
+  static const game_info_dialog_content_2_part_2 = 'game.info_dialog.content_2_part_2';
   static const game_info_dialog_resume_button = 'game.info_dialog.resume_button';
   static const game_info_dialog = 'game.info_dialog';
   static const game = 'game';

@@ -34,6 +34,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     final seed = Random.secure();
 
+    late int skipCount;
+
     on<StartGame>(
       (event, emit) async {
         try {
@@ -41,6 +43,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           team2 = event.team2;
 
           roundNumber = 1;
+          skipCount = 3;
 
           currentRound = Round(roundNumber: roundNumber);
           currentTeam = team1;
@@ -62,11 +65,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<SkipTaboo>(
       (event, emit) async {
         try {
+          if (skipCount == 0) {
+            return;
+          }
           dataList.shuffle(seed);
 
           currentRound.increasePass();
+          skipCount -= 1;
 
-          emit(GameUpdatedStatus(tabooData: dataList.first, team: currentTeam));
+          emit(GameUpdatedStatus(
+            tabooData: dataList.first,
+            team: currentTeam,
+            skipCount: skipCount,
+          ));
         } on Exception catch (e) {
           print(e);
         }
@@ -81,7 +92,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           currentTeam.increaseAPoint();
           currentRound.increaseSuccess();
 
-          emit(GameUpdatedStatus(tabooData: dataList.first, team: currentTeam));
+          emit(GameUpdatedStatus(
+            tabooData: dataList.first,
+            team: currentTeam,
+            skipCount: skipCount,
+          ));
         } on Exception catch (e) {
           print(e);
         }
@@ -96,7 +111,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           currentTeam.decreaseAPoint();
           currentRound.increaseFail();
 
-          emit(GameUpdatedStatus(tabooData: dataList.first, team: currentTeam));
+          emit(GameUpdatedStatus(
+            tabooData: dataList.first,
+            team: currentTeam,
+            skipCount: skipCount,
+          ));
         } on Exception catch (e) {
           print(e);
         }
@@ -111,6 +130,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           isVisible: false,
           team1: team1,
           team2: team2,
+          skipCount: skipCount,
         ));
       } on Exception catch (e) {
         print(e);
@@ -119,17 +139,22 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     on<ResumeGame>((event, emit) {
       try {
-        emit(GameResumed(tabooData: dataList.first, team: currentTeam));
+        emit(GameResumed(
+          tabooData: dataList.first,
+          team: currentTeam,
+          skipCount: skipCount,
+        ));
       } on Exception catch (e) {
         print(e);
       }
     });
 
     on<EndOfRound>((event, emit) {
-      try {
-        currentTeam.roundList!.add(currentRound);
-        currentRound = Round(roundNumber: roundNumber);
+      currentTeam.roundList!.add(currentRound);
+      currentRound = Round(roundNumber: roundNumber);
+      skipCount = 3;
 
+      try {
         if (currentTeam == team1) {
           currentTeam = team2;
         } else if (currentTeam == team2) {
@@ -137,17 +162,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           currentTeam = team1;
         }
 
-        // print("*****");
-        // print(team1);
-        // print("*****");
-        // print(team2);
-        // print("*****");
+        dataList.shuffle(seed);
 
         emit(
-          GameResumed(
+          GameRoundEnded(
             tabooData: dataList.first,
             team: currentTeam,
-            isVisible: true,
+            isVisible: false,
+            skipCount: skipCount,
           ),
         );
       } on Exception catch (e) {

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -59,18 +61,8 @@ class StartGameDialog extends IDialog {
                 await router.replace(
                   GameRoute(
                     duration: int.parse(state.time),
-                    team1: Team(
-                      teamName: _team1Controller.text,
-                      totalScore: 0,
-                      roundList: const [
-                      ],
-                    ),
-                    team2: Team(
-                      teamName: _team2Controller.text,
-                      totalScore: 0,
-                      roundList: const [
-                      ],
-                    ),
+                    team1: Team(teamName: _team1Controller.text, roundList: []),
+                    team2: Team(teamName: _team2Controller.text, roundList: []),
                   ),
                 );
               }

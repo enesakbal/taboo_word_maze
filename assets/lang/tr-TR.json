@@ -26,7 +26,9 @@
             "header":"Duraklatıldı",
             "round":"Tur",
             "resume_button":"Devam Et",
-            "home_button":"Ana Sayfa"
+            "home_button":"Ana Sayfa",
+            "playing": "Oynanıyor",
+            "total": "Toplam"
         },
         "yes_no_dialog":{
             "header":"Çıkış",
@@ -36,8 +38,11 @@
         },
         "info_dialog":{
             "header" : "Oyun Sırası",
-            "content_part_1":"Oyuna ",
-            "content_part_2":" takımı başlayacak",
+            "header2" : "Tur Sonu",
+            "content_1_part_1":"Oyuna ",
+            "content_1_part_2":" takımı başlayacak",
+            "content_2_part_1":"Yeni tura ",
+            "content_2_part_2":" takımı başlayacak",
             "resume_button":"Başla"
         }
     },

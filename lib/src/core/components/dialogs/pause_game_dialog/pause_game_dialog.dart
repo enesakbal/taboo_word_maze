@@ -143,21 +143,20 @@ class PauseGameDialog extends IDialog {
                       ),
                       Expanded(
                         child: AutoSizeText(
-                          team1.roundList!.length > index
-                              ? team1.roundList![index]!.score.toString()
-                              : '-',
+                          team1.roundList![index]!.score.toString(),
                           textAlign: TextAlign.center,
+                          maxLines: 1,
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
                       ),
                       Expanded(
                         child: AutoSizeText(
-                          // (team2.roundList[index]  ?? '0').toString(),
                           team2.roundList!.length > index
                               ? team2.roundList![index]!.score.toString()
-                              : '-',
+                              : LocaleKeys.game_pause_dialog_playing.tr(),
                           textAlign: TextAlign.center,
+                          maxLines: 1,
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
@@ -172,25 +171,36 @@ class PauseGameDialog extends IDialog {
               children: [
                 SizedBox(
                   width: 15.w,
-                  child: Text(
-                    15.toString(),
+                  child: AutoSizeText(
+                    LocaleKeys.game_pause_dialog_total.tr(),
+                    maxLines: 1,
                     textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: AutoSizeText(
                     team1.totalScore.toString(),
+                    maxLines: 1,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w600),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: AutoSizeText(
                     team2.totalScore.toString(),
+                    maxLines: 1,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w600),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],

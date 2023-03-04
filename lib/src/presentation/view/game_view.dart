@@ -8,6 +8,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../config/router/app_router.dart';
 import '../../core/components/button/custom_icon_button.dart';
+import '../../core/components/dialogs/end_game_dialog/end_game_dialog.dart';
 import '../../core/components/dialogs/game_info_dialog/game_info_dialog.dart';
 import '../../core/components/dialogs/pause_game_dialog/pause_game_dialog.dart';
 import '../../core/components/dialogs/yes_no_dialog/yes_no_dialog.dart';
@@ -74,14 +75,14 @@ class _GameViewState extends State<GameView> {
         if (state is GameStarted) {
           await GameInfoDialog(
               buttonText: LocaleKeys.game_info_dialog_resume_button.tr(),
-              contentText: LocaleKeys.game_info_dialog_content_part_1.tr() +
-                  widget.team1.teamName! +
-                  LocaleKeys.game_info_dialog_content_part_2.tr(),
+              contentText: LocaleKeys.game_info_dialog_content_1_part_1.tr() +
+                  state.team.teamName! +
+                  LocaleKeys.game_info_dialog_content_1_part_2.tr(),
               headerText: LocaleKeys.game_info_dialog_header.tr(),
               onPressed: () async {
                 _timerController.start();
+                context.read<GameBloc>().add(const ResumeGame());
               }).show(context);
-          context.read<GameBloc>().add(const ResumeGame());
         } else if (state is GamePaused) {
           _timerController.pause();
           //* if the game is paused the timer is also paused
@@ -103,6 +104,19 @@ class _GameViewState extends State<GameView> {
         } else if (state is GameResumed) {
           _timerController.resume();
           //* game resumed
+        } else if (state is GameRoundEnded) {
+          _timerController.reset();
+          await EndGameDialog(
+            onPressed: () {
+              context.read<GameBloc>().add(const ResumeGame());
+              _timerController.start();
+            },
+            buttonText: LocaleKeys.game_info_dialog_resume_button.tr(),
+            contentText: LocaleKeys.game_info_dialog_content_2_part_1.tr() +
+                state.team.teamName! +
+                LocaleKeys.game_info_dialog_content_2_part_2.tr(),
+            headerText: LocaleKeys.game_info_dialog_header2.tr(),
+          ).show(context);
         }
       },
       child: WillPopScope(
@@ -221,30 +235,36 @@ class _GameViewState extends State<GameView> {
   }
 
   Widget _timer() {
-    return CircularCountDownTimer(
-      height: 8.h,
-      width: 8.h,
-      duration: widget.duration,
-      initialDuration: 0,
-      controller: _timerController,
-      ringColor: ColorsTones2.azure3,
-      fillColor: ColorsTones2.fail,
-      backgroundColor: ColorsTones2.pass,
-      strokeWidth: 10,
-      strokeCap: StrokeCap.butt,
-      textStyle: TextStyle(
-        fontSize: 25,
-        color: ColorsTones2.azure,
-        fontWeight: FontWeight.bold,
-      ),
-      textFormat: CountdownTextFormat.SS,
-      isReverse: true,
-      isReverseAnimation: true,
-      isTimerTextShown: true,
-      autoStart: false,
-      onStart: () {},
-      onComplete: () {},
-      onChange: (timeStamp) {},
+    return BlocBuilder<GameBloc, GameState>(
+      builder: (context, state) {
+        return CircularCountDownTimer(
+          height: 8.h,
+          width: 8.h,
+          duration: widget.duration,
+          initialDuration: 0,
+          controller: _timerController,
+          ringColor: ColorsTones2.azure3,
+          fillColor: ColorsTones2.fail,
+          backgroundColor: ColorsTones2.pass,
+          strokeWidth: 10,
+          strokeCap: StrokeCap.butt,
+          textStyle: TextStyle(
+            fontSize: 25,
+            color: ColorsTones2.azure,
+            fontWeight: FontWeight.bold,
+          ),
+          textFormat: CountdownTextFormat.SS,
+          isReverse: true,
+          isReverseAnimation: true,
+          isTimerTextShown: true,
+          autoStart: false,
+          onStart: () {},
+          onComplete: () {
+            context.read<GameBloc>().add(const EndOfRound());
+          },
+          onChange: (timeStamp) {},
+        );
+      },
     );
   }
 
@@ -380,7 +400,8 @@ class _GameViewState extends State<GameView> {
                 badgeCounter: BlocBuilder<GameBloc, GameState>(
                   builder: (context, state) {
                     return AutoSizeText(
-                        state.tabooData.word!.length.toString());
+                      state.skipCount.toString(),
+                    );
                   },
                 ),
               ),
@@ -411,18 +432,6 @@ class _GameViewState extends State<GameView> {
             icon: Icons.close_outlined,
             buttonSize: 1.75,
           ),
-          // CustomIconButton(
-          //   onPressed: () {
-          //     context.read<GameBloc>().add(
-          //           EndOfRound(),
-          //         );
-          //   },
-          //   color: ColorsTones2.fail,
-          //   shadowLightColor: Colors.transparent,
-          //   border: const NeumorphicBorder.none(),
-          //   icon: Icons.change_circle,
-          //   buttonSize: 1.75,
-          // ),
         ],
       ),
     );
