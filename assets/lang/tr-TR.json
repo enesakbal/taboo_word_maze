@@ -8,29 +8,45 @@
         "play" : "Oyna",
         "edit" : "Tabuları Düzenle",
         "settings" : "Ayarlar",
-        "rate":"Uygulamayı Değerlendirin",
-        "play_dialog": {
+        "rate":"Uygulamayı Değerlendirin"
+    },
+    "game":{
+        "start_dialog": {
             "header": "Takımlar",
             "team_1":"Takım 1",
             "placeholder_1":"örn. Gryffindor, Patronlar,...",
             "team_2":"Takım 2",
             "placeholder_2":"örn. Slytherin, Meteorlar,...",
             "start": "Başla",
-            "time":"Süre"
+            "time":"Süre",
+            "team_name_error_empty":"Takım adı boş bırakılamaz",
+            "team_name_error_lenght":"En az 3 karakterli bir takım ismi giriniz"
         },
         "pause_dialog":{
             "header":"Duraklatıldı",
+            "round":"Tur",
             "resume_button":"Devam Et",
-            "home_button":"Ana Sayfa"
+            "home_button":"Ana Sayfa",
+            "playing": "Oynanıyor",
+            "total": "Toplam"
         },
         "yes_no_dialog":{
             "header":"Çıkış",
             "content":"Oyunu bitirmek istediğine emin misin?",
             "yes":"Evet",
             "no":"Hayır"
+        },
+        "info_dialog":{
+            "header" : "Oyun Sırası",
+            "header2" : "Tur Sonu",
+            "content_1_part_1":"Oyuna ",
+            "content_1_part_2":" takımı başlayacak",
+            "content_2_part_1":"Yeni tura ",
+            "content_2_part_2":" takımı başlayacak",
+            "resume_button":"Başla"
         }
     },
-
+    
     "errors":{
         "an_error":"Bilinmeyen bir hata oluştu. Lütfen tekrar deneyiniz.",
         "no_data":"Verileri alırken bir hata oluştu. Lütfen tekrar deneyiniz.",

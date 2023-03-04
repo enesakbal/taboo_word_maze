@@ -8,26 +8,44 @@
         "play" : "Play",
         "edit" : "Edit Taboos",
         "settings" : "Settings",
-        "rate":"Rate Me",
-        "play_dialog": {
+        "rate":"Rate Me"
+       
+    },
+    "game":{
+        "start_dialog": {
             "header": "Teams",
             "team_1":"Team 1",
             "placeholder_1":"etc. Gryffindor, Stingrays,...",
             "team_2":"Team 2",
             "placeholder_2":"etc. Slytherin, Meteors,...",
             "start": "Start",
-            "time":"Time"
+            "time":"Time",
+            "team_name_error_empty":"Team name cannot be left blank",
+            "team_name_error_lenght":"Enter a team name of at least 3 characters"
         },
         "pause_dialog":{
             "header":"Paused",
+            "round":"Round",
             "resume_button":"Resume",
-            "home_button":"Home"
+            "home_button":"Home",
+            "playing": "Playing Now",
+            "total": "Total"
+
         },
         "yes_no_dialog":{
             "header":"Exit",
             "content":"Are you sure you want to finish the game?",
             "yes":"Yes",
             "no":"No"
+        },
+        "info_dialog":{
+            "header" : "Play",
+            "header2": "End Of Round",
+            "content_1_part_1":"Team ",
+            "content_1_part_2":" will start the game",
+            "content_2_part_1":"Team ",
+            "content_2_part_2":" will start the new round.",
+            "resume_button":"Go"
         }
     },
 

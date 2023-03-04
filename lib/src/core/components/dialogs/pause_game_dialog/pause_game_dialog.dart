@@ -1,41 +1,37 @@
-import 'dart:math';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../config/router/app_router.dart';
+import '../../../../domain/entities/team.dart';
 import '../../../init/lang/locale_keys.g.dart';
 import '../../../theme/colors_tones.dart';
 import '../../button/custom_text_button.dart';
+import '../dialog_interface.dart';
 
-extension Show on PauseGameDialog {
-  Future<T?> show<T>(BuildContext context) {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return this;
-      },
-    );
-  }
-}
-
-class PauseGameDialog extends StatelessWidget {
+class PauseGameDialog extends IDialog {
   const PauseGameDialog({
     super.key,
     required this.onPressedHome,
     required this.onPressedResume,
+    required this.team1,
+    required this.team2,
   });
 
   final void Function() onPressedHome;
   final void Function() onPressedResume;
 
+  final Team team1;
+  final Team team2;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => true,
+      onWillPop: () async {
+        onPressedResume.call();
+        return true;
+      },
       child: AlertDialog(
         insetPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
         titlePadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
@@ -64,7 +60,7 @@ class PauseGameDialog extends StatelessWidget {
             width: 35.w,
             height: 6.h,
             onPressed: onPressedHome,
-            text: LocaleKeys.home_pause_dialog_home_button.tr(),
+            text: LocaleKeys.game_pause_dialog_home_button.tr(),
             backgroundColor: ColorsTones2.pass,
           ),
           CustomTextButton(
@@ -72,9 +68,9 @@ class PauseGameDialog extends StatelessWidget {
             height: 6.h,
             onPressed: () async {
               await router.pop();
-              onPressedResume.call();
+              // onPressedResume.call();
             },
-            text: LocaleKeys.home_pause_dialog_resume_button.tr(),
+            text: LocaleKeys.game_pause_dialog_resume_button.tr(),
             backgroundColor: ColorsTones2.success,
           ),
         ],
@@ -98,9 +94,8 @@ class PauseGameDialog extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 15.w,
-                  // ignore: prefer_const_constructors
                   child: AutoSizeText(
-                    'Round',
+                    LocaleKeys.game_pause_dialog_round.tr(),
                     maxLines: 1,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
@@ -109,7 +104,7 @@ class PauseGameDialog extends StatelessWidget {
                 ),
                 Expanded(
                   child: AutoSizeText(
-                    LocaleKeys.home_play_dialog_team_1.tr(),
+                    team1.teamName!,
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
@@ -118,7 +113,7 @@ class PauseGameDialog extends StatelessWidget {
                 ),
                 Expanded(
                   child: AutoSizeText(
-                    LocaleKeys.home_play_dialog_team_2.tr(),
+                    team2.teamName!,
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
@@ -134,31 +129,34 @@ class PauseGameDialog extends StatelessWidget {
                 shrinkWrap: true,
                 primary: false,
                 physics: const AlwaysScrollableScrollPhysics(),
-                itemCount: 14,
+                itemCount: roundCount,
                 itemBuilder: (context, index) {
-                  final num = Random().nextInt(15);
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
                         width: 15.w,
                         child: Text(
-                          index.toString(),
+                          (index + 1).toString(),
                           textAlign: TextAlign.center,
                         ),
                       ),
                       Expanded(
                         child: AutoSizeText(
-                          num.toString(),
+                          team1.roundList![index]!.score.toString(),
                           textAlign: TextAlign.center,
+                          maxLines: 1,
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
                       ),
                       Expanded(
                         child: AutoSizeText(
-                          index.toString(),
+                          team2.roundList!.length > index
+                              ? team2.roundList![index]!.score.toString()
+                              : LocaleKeys.game_pause_dialog_playing.tr(),
                           textAlign: TextAlign.center,
+                          maxLines: 1,
                           style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),
@@ -173,25 +171,36 @@ class PauseGameDialog extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 15.w,
-                  child: Text(
-                    15.toString(),
+                  child: AutoSizeText(
+                    LocaleKeys.game_pause_dialog_total.tr(),
+                    maxLines: 1,
                     textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: AutoSizeText(
-                    15.toString(),
+                    team1.totalScore.toString(),
+                    maxLines: 1,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w600),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 Expanded(
                   child: AutoSizeText(
-                    15.toString(),
+                    team2.totalScore.toString(),
+                    maxLines: 1,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w600),
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ],
@@ -214,7 +223,7 @@ class PauseGameDialog extends StatelessWidget {
       ),
       alignment: Alignment.topCenter,
       child: Text(
-        LocaleKeys.home_pause_dialog_header.tr(),
+        LocaleKeys.game_pause_dialog_header.tr(),
         style: TextStyle(
           fontSize: 25.sp,
           fontWeight: FontWeight.bold,
@@ -223,4 +232,13 @@ class PauseGameDialog extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  Future<T?> show<T>(BuildContext context, {bool isDissmissible = false}) {
+    return super.show(context, isDissmissible: isDissmissible);
+  }
+
+  int get roundCount => team1.roundList!.length > team2.roundList!.length
+      ? team1.roundList!.length
+      : team2.roundList!.length;
 }

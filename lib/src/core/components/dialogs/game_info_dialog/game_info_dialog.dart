@@ -7,8 +7,8 @@ import '../../../theme/colors_tones.dart';
 import '../../button/custom_text_button.dart';
 import '../dialog_interface.dart';
 
-class EndGameDialog extends IDialog {
-  const EndGameDialog({
+class GameInfoDialog extends IDialog {
+  const GameInfoDialog({
     super.key,
     required this.onPressed,
     required this.headerText,

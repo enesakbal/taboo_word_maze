@@ -105,6 +105,7 @@ class MyApp extends StatelessWidget {
         routerDelegate: AutoRouterDelegate(
           router,
           navigatorObservers: () => [
+            
             observer,
           ],
         ),

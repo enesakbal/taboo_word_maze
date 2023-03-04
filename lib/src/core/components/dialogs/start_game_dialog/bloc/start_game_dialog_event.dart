@@ -16,3 +16,10 @@ class ChangeSelectedTime extends StartGameDialogEvent {
   @override
   List<Object> get props => [time];
 }
+
+class ChangeHasPressedState extends StartGameDialogEvent {
+  const ChangeHasPressedState();
+
+  @override
+  List<Object> get props => [];
+}

@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../domain/entities/round.dart';
 import '../../../domain/entities/taboo.dart';
+import '../../../domain/entities/team.dart';
 import '../../../domain/usecaces/taboo_usecase.dart';
 
 part 'game_event.dart';
@@ -14,83 +16,165 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   GameBloc(
     this.tabooUsecase,
-  ) : super(const GameInitial()) {
+  ) : super(GameInitial(
+          isVisible: false,
+          tabooData: const Taboo(word: '', forbiddenWords: ',,,,'),
+          team: Team(),
+        )) {
+    //*
     var dataList = <Taboo>[];
 
-    var currentPoint = 0;
+    late int roundNumber;
+    late Round currentRound;
 
-    var isVisible = true;
+    late Team team1;
+    late Team team2;
+
+    late Team currentTeam;
+
+    final seed = Random.secure();
+
+    late int skipCount;
 
     on<StartGame>(
       (event, emit) async {
         try {
-          currentPoint = 0;
-          emit(const GameInitial());
-          //* reset state
+          team1 = event.team1;
+          team2 = event.team2;
+
+          roundNumber = 1;
+          skipCount = 3;
+
+          currentRound = Round(roundNumber: roundNumber);
+          currentTeam = team1;
 
           if (dataList.isEmpty) {
             dataList = await tabooUsecase.getAllTaboos();
-            final seed = Random.secure();
+
             dataList.shuffle(seed);
           }
 
           print(dataList.first);
-          emit(GameStarted(taboo: dataList.first, point: currentPoint));
-        } on Exception catch (_) {}
+          emit(GameStarted(tabooData: dataList.first, team: currentTeam));
+        } on Exception catch (e) {
+          print(e);
+        }
       },
     );
 
     on<SkipTaboo>(
       (event, emit) async {
         try {
-          final seed = Random.secure();
+          if (skipCount == 0) {
+            return;
+          }
           dataList.shuffle(seed);
 
-          emit(GameUpdatedStatus(taboo: dataList.first, point: currentPoint));
-        } on Exception catch (_) {}
+          currentRound.increasePass();
+          skipCount -= 1;
+
+          emit(GameUpdatedStatus(
+            tabooData: dataList.first,
+            team: currentTeam,
+            skipCount: skipCount,
+          ));
+        } on Exception catch (e) {
+          print(e);
+        }
       },
     );
 
     on<IncreaseAPoint>(
       (event, emit) async {
         try {
-          final seed = Random.secure();
           dataList.shuffle(seed);
-          currentPoint += 1;
-          emit(GameUpdatedStatus(taboo: dataList.first, point: currentPoint));
-        } on Exception catch (_) {}
+
+          currentTeam.increaseAPoint();
+          currentRound.increaseSuccess();
+
+          emit(GameUpdatedStatus(
+            tabooData: dataList.first,
+            team: currentTeam,
+            skipCount: skipCount,
+          ));
+        } on Exception catch (e) {
+          print(e);
+        }
       },
     );
 
     on<DecreaseAPoint>(
       (event, emit) async {
         try {
-          final seed = Random.secure();
           dataList.shuffle(seed);
-          currentPoint -= 1;
-          emit(GameUpdatedStatus(taboo: dataList.first, point: currentPoint));
-        } on Exception catch (_) {}
+
+          currentTeam.decreaseAPoint();
+          currentRound.increaseFail();
+
+          emit(GameUpdatedStatus(
+            tabooData: dataList.first,
+            team: currentTeam,
+            skipCount: skipCount,
+          ));
+        } on Exception catch (e) {
+          print(e);
+        }
       },
     );
 
     on<PauseGame>((event, emit) {
-      isVisible = false;
-      emit(GamePaused(
-        taboo: dataList.first,
-        point: currentPoint,
-        isVisible: isVisible,
-      ));
+      try {
+        emit(GamePaused(
+          tabooData: dataList.first,
+          team: currentTeam,
+          isVisible: false,
+          team1: team1,
+          team2: team2,
+          skipCount: skipCount,
+        ));
+      } on Exception catch (e) {
+        print(e);
+      }
     });
 
     on<ResumeGame>((event, emit) {
-      isVisible = true;
-      emit(
-        GameResumed(
-          taboo: dataList.first,
-          point: currentPoint,
-          isVisible: isVisible,
-        ),
-      );
+      try {
+        emit(GameResumed(
+          tabooData: dataList.first,
+          team: currentTeam,
+          skipCount: skipCount,
+        ));
+      } on Exception catch (e) {
+        print(e);
+      }
+    });
+
+    on<EndOfRound>((event, emit) {
+      currentTeam.roundList!.add(currentRound);
+      currentRound = Round(roundNumber: roundNumber);
+      skipCount = 3;
+
+      try {
+        if (currentTeam == team1) {
+          currentTeam = team2;
+        } else if (currentTeam == team2) {
+          roundNumber += 1;
+          currentTeam = team1;
+        }
+
+        dataList.shuffle(seed);
+
+        emit(
+          GameRoundEnded(
+            tabooData: dataList.first,
+            team: currentTeam,
+            isVisible: false,
+            skipCount: skipCount,
+          ),
+        );
+      } on Exception catch (e) {
+        print(e);
+      }
     });
   }
 }
