@@ -118,7 +118,10 @@ Future<void> init({required EnvModes mode}) async {
   final messaging = FirebaseMessaging.instance;
   final firestore = FirebaseFirestore.instance;
 
-  await firestore.clearPersistence();
+  try {
+    await firestore.clearPersistence();
+    //* Clears any persisted data for the current instance.
+  } on Exception catch (_) {}
   // firestore.settings = const Settings(persistenceEnabled: false,);
 
   injector.registerLazySingleton<FirebaseMessaging>(() => messaging);
@@ -132,8 +135,8 @@ Future<void> init({required EnvModes mode}) async {
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
 
-  injector.registerLazySingleton<PushNotificationHandler>(
-      () => PushNotificationHandler(flutterLocalNotificationsPlugin, localManager));
+  injector.registerLazySingleton<PushNotificationHandler>(() =>
+      PushNotificationHandler(flutterLocalNotificationsPlugin, localManager));
   await injector<PushNotificationHandler>().initialize();
 
   //*-------------------------------------------------------------------*/
