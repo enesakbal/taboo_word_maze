@@ -44,6 +44,7 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
+      initiallyExpanded: widget.initiallyExpanded,
       onExpansionChanged: widget.onExpansionChanged,
       tilePadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 1.h),
       childrenPadding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 6.w),

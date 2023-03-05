@@ -10,9 +10,10 @@ part 'edit_state.dart';
 class EditBloc extends Bloc<EditEvent, EditState> {
   final TabooUsecase tabooUsecase;
   EditBloc(this.tabooUsecase)
-      : super(const EditInitial(dataList: [
-          Taboo(word: '', forbiddenWords: ',,,,'),
-        ])) {
+      : super(
+          const EditInitial(
+              dataList: [Taboo(word: '', forbiddenWords: ',,,,')]),
+        ) {
     late List<Taboo> dataList;
 
     on<GetAllData>((event, emit) async {
@@ -40,7 +41,11 @@ class EditBloc extends Bloc<EditEvent, EditState> {
 
       emit(FilteredAllData(dataList: searchLaunchRocket));
     });
+
     on<RemoveTaboo>((event, emit) async {
+      emit(const EditInitial(dataList: []));
+      await Future.delayed(const Duration(milliseconds: 100));
+
       await tabooUsecase.deleteTaboo(deleteTaboo: event.taboo);
       dataList.remove(event.taboo);
 

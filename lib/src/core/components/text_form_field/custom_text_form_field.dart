@@ -17,6 +17,7 @@ class CustomTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIconColor,
     this.suffixIcon,
+    this.readOnly = false
   });
 
   final String? hintText;
@@ -35,6 +36,8 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
 
+  final bool readOnly;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -42,6 +45,7 @@ class CustomTextFormField extends StatelessWidget {
       height: 10.h,
       child: Center(
         child: TextFormField(
+          readOnly: readOnly,
           controller: controller,
           validator: validator,
           textAlign: TextAlign.start,

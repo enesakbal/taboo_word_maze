@@ -25,21 +25,25 @@ class StartGameDialog extends IDialog {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      insetPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
-      titlePadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
-      contentPadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 2.h),
-      actionsAlignment: MainAxisAlignment.center,
-      actionsPadding: EdgeInsets.only(bottom: 2.h),
-      iconPadding: EdgeInsets.zero,
-      buttonPadding: EdgeInsets.zero,
-      backgroundColor: ColorsTones.lightSkyBlue,
-      iconColor: Colors.black,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      alignment: Alignment.center,
-      title: _title(),
-      content: _content(),
-      actions: _actions(),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      behavior: HitTestBehavior.opaque,
+      child: AlertDialog(
+        insetPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
+        titlePadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
+        contentPadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 2.h),
+        actionsAlignment: MainAxisAlignment.center,
+        actionsPadding: EdgeInsets.only(bottom: 2.h),
+        iconPadding: EdgeInsets.zero,
+        buttonPadding: EdgeInsets.zero,
+        backgroundColor: ColorsTones.lightSkyBlue,
+        iconColor: Colors.black,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        alignment: Alignment.center,
+        title: _title(),
+        content: _content(),
+        actions: _actions(),
+      ),
     );
   }
 
@@ -52,10 +56,10 @@ class StartGameDialog extends IDialog {
               context.read<StartGameDialogBloc>().add(
                     const ChangeHasPressedState(),
                   );
-              //*
-              _team1Controller.text = 'Enes';
-              _team2Controller.text = 'Akbal';
-              //*
+              // //*
+              // _team1Controller.text = 'Tea';
+              // _team2Controller.text = 'Akbal';
+              // //*
 
               if (_formKey.currentState!.validate()) {
                 await router.replace(

@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:taboo_word_maze/src/presentation/bloc/edit/edit_bloc.dart';
 
 import 'src/config/router/app_router.dart';
 import 'src/core/components/dialogs/start_game_dialog/bloc/start_game_dialog_bloc.dart';
@@ -19,6 +18,7 @@ import 'src/core/init/lang/language_manager.dart';
 import 'src/core/init/notifier/theme_notifier.dart';
 import 'src/core/theme/app_theme.dart';
 import 'src/injector.dart' as di;
+import 'src/presentation/bloc/edit/edit_bloc.dart';
 import 'src/presentation/bloc/game/game_bloc.dart';
 import 'src/presentation/bloc/home/home_bloc.dart';
 import 'src/presentation/bloc/splash/splash_bloc.dart';

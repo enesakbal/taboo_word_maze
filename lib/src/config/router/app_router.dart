@@ -16,14 +16,14 @@ part 'app_router.gr.dart';
     AutoRoute(
       page: SplashView,
       path: '/splash',
-      // initial: true,
+      initial: true,
     ),
     CustomRoute(
       page: HomeView,
       path: '/home',
       transitionsBuilder: zoomInTransition,
       durationInMilliseconds: 1500,
-      initial: true,
+      // initial: true,
     ),
     CustomRoute(
       page: GameView,

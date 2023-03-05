@@ -77,7 +77,7 @@ class CustomTextButton extends StatelessWidget {
                 //   color: borderSideColor,
                 //   width: borderWidth,
                 // ),
-                color: ColorsTones2.black26,
+                color: Colors.black45,
                 shadowLightColor: shadowLightColor,
                 depth: 0,
                 disableDepth: false,

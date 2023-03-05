@@ -99,6 +99,8 @@ class YesNoDialog extends IDialog {
       alignment: Alignment.topCenter,
       child: Text(
         headerText,
+        textAlign: TextAlign.center,
+        maxLines: 1,
         style: TextStyle(
           fontSize: 25.sp,
           fontWeight: FontWeight.bold,
