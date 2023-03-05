@@ -193,7 +193,7 @@ class StartGameDialog extends IDialog {
             .add(ChangeSelectedTime(time: (int.parse(time) + 1).toString()));
       },
       text: time,
-      maxLines: 2,
+      maxLines: 1,
       fontWeight: FontWeight.w900,
       fontSize: 50,
       backgroundColor: color,
