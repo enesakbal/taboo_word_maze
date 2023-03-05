@@ -43,6 +43,15 @@ abstract class  LocaleKeys {
   static const game_info_dialog_resume_button = 'game.info_dialog.resume_button';
   static const game_info_dialog = 'game.info_dialog';
   static const game = 'game';
+  static const edit_save = 'edit.save';
+  static const edit_remove = 'edit.remove';
+  static const edit_search = 'edit.search';
+  static const edit_yes_no_dialog_header = 'edit.yes_no_dialog.header';
+  static const edit_yes_no_dialog_content = 'edit.yes_no_dialog.content';
+  static const edit_yes_no_dialog_yes = 'edit.yes_no_dialog.yes';
+  static const edit_yes_no_dialog_no = 'edit.yes_no_dialog.no';
+  static const edit_yes_no_dialog = 'edit.yes_no_dialog';
+  static const edit = 'edit';
   static const errors_an_error = 'errors.an_error';
   static const errors_no_data = 'errors.no_data';
   static const errors_has_update = 'errors.has_update';

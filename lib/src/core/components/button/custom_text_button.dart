@@ -3,6 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../theme/app_theme.dart';
+import '../../theme/colors_tones.dart';
 
 class CustomTextButton extends StatelessWidget {
   final void Function() onPressed;
@@ -24,6 +25,8 @@ class CustomTextButton extends StatelessWidget {
 
   final FontWeight? fontWeight;
 
+  final bool isEnabled;
+
   const CustomTextButton({
     super.key,
     required this.onPressed,
@@ -39,6 +42,7 @@ class CustomTextButton extends StatelessWidget {
     this.borderSideColor = Colors.transparent,
     this.shadowLightColor = Colors.transparent,
     this.fontWeight,
+    this.isEnabled = true,
   });
 
   @override
@@ -59,14 +63,26 @@ class CustomTextButton extends StatelessWidget {
             ),
           ),
         ),
-        style: AppTheme.neumorphicStyle.copyWith(
-          color: backgroundColor,
-          border: NeumorphicBorder(
-            color: borderSideColor,
-            width: borderWidth,
-          ),
-          shadowLightColor: shadowLightColor,
-        ),
+        style: isEnabled
+            ? AppTheme.neumorphicStyle.copyWith(
+                color: backgroundColor,
+                border: NeumorphicBorder(
+                  color: borderSideColor,
+                  width: borderWidth,
+                ),
+                shadowLightColor: shadowLightColor,
+              )
+            : NeumorphicStyle(
+                // border: NeumorphicBorder(
+                //   color: borderSideColor,
+                //   width: borderWidth,
+                // ),
+                color: Colors.black45,
+                shadowLightColor: shadowLightColor,
+                depth: 0,
+                disableDepth: false,
+                intensity: 0,
+              ),
       ),
     );
   }

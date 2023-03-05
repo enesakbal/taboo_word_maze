@@ -18,6 +18,7 @@ import 'src/core/init/lang/language_manager.dart';
 import 'src/core/init/notifier/theme_notifier.dart';
 import 'src/core/theme/app_theme.dart';
 import 'src/injector.dart' as di;
+import 'src/presentation/bloc/edit/edit_bloc.dart';
 import 'src/presentation/bloc/game/game_bloc.dart';
 import 'src/presentation/bloc/home/home_bloc.dart';
 import 'src/presentation/bloc/splash/splash_bloc.dart';
@@ -81,6 +82,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.injector<SplashBloc>()),
         BlocProvider(create: (_) => di.injector<HomeBloc>()),
         BlocProvider(create: (_) => di.injector<GameBloc>()),
+        BlocProvider(create: (_) => di.injector<EditBloc>()),
         BlocProvider(create: (_) => di.injector<StartGameDialogBloc>()),
       ],
       child: MaterialApp.router(
@@ -105,7 +107,6 @@ class MyApp extends StatelessWidget {
         routerDelegate: AutoRouterDelegate(
           router,
           navigatorObservers: () => [
-            
             observer,
           ],
         ),

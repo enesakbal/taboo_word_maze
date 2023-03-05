@@ -46,6 +46,17 @@
             "resume_button":"Başla"
         }
     },
+    "edit":{
+        "save":"Kaydet",
+        "remove":"Kaldır",
+        "search":"Tabu Ara",
+        "yes_no_dialog":{
+            "header":"Tabuyu Sil",
+            "content":"Bu Tabuyu silmek istediğinizden emin misiniz?",
+            "yes":"Evet",
+            "no":"Hayır"
+        }
+    },
     
     "errors":{
         "an_error":"Bilinmeyen bir hata oluştu. Lütfen tekrar deneyiniz.",
