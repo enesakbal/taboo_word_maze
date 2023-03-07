@@ -7,28 +7,20 @@ abstract class SplashState extends Equatable {
   List<Object> get props => [];
 }
 
-class SplashInitial extends SplashState {}
+class SplashInitial extends SplashState {
+  const SplashInitial();
+}
 
 class SplashLoading extends SplashState {
   const SplashLoading();
 }
 
 class SplashLocalDBHasData extends SplashState {
-  final List<Taboo> data;
-
-  const SplashLocalDBHasData({required this.data});
-
-  @override
-  List<Object> get props => [data];
+  const SplashLocalDBHasData();
 }
 
 class SplashFetchedDataFromFirebase extends SplashState {
-  final List<Taboo> data;
-
-  const SplashFetchedDataFromFirebase({required this.data});
-
-  @override
-  List<Object> get props => [data];
+  const SplashFetchedDataFromFirebase();
 }
 
 class SplashError extends SplashState {

@@ -11,10 +11,12 @@ TabooModel _$TabooModelFromJson(Map<String, dynamic> json) => TabooModel(
       forbiddenWords: (json['forbidden_words'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      language: json['_language'] as String?,
     );
 
 Map<String, dynamic> _$TabooModelToJson(TabooModel instance) =>
     <String, dynamic>{
       'word': instance.word,
       'forbidden_words': instance.forbiddenWords,
+      '_language': instance.language,
     };

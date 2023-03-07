@@ -287,13 +287,13 @@ Future<void> init({required EnvModes mode}) async {
     log('*****************INITIAL STATES******************');
 
     if (mode == EnvModes.developmentMode) {
+      log('MODE : Development');
       final fcmToken = await messaging.getToken();
       if (fcmToken == null) {}
-      log('null', level: 4);
-
       log('FCM TOKEN : $fcmToken');
+    } else {
+      log('MODE : Product');
     }
-
     final notificationStatus = localManager.getCurrentAlertAdapter();
     log('NOTIFICATION STATUS : ${notificationStatus.runtimeType}');
 

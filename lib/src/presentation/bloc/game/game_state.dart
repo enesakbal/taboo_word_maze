@@ -20,11 +20,17 @@ abstract class GameState extends Equatable {
 class GameInitial extends GameState {
   const GameInitial(
       {required super.tabooData, required super.team, super.isVisible = false});
+
+  @override
+  List<Object> get props => [tabooData, team, isVisible, skipCount];
 }
 
 class GameStarted extends GameState {
   const GameStarted(
       {required super.tabooData, required super.team, super.isVisible = false});
+
+  @override
+  List<Object> get props => [tabooData, team, isVisible, skipCount];
 }
 
 class GameUpdatedStatus extends GameState {
@@ -65,6 +71,7 @@ class GameResumed extends GameState {
   @override
   List<Object> get props => [tabooData, team, isVisible, skipCount];
 }
+
 class GameRoundEnded extends GameState {
   const GameRoundEnded({
     required super.tabooData,

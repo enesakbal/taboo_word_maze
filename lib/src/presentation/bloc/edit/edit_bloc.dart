@@ -12,7 +12,8 @@ class EditBloc extends Bloc<EditEvent, EditState> {
   EditBloc(this.tabooUsecase)
       : super(
           const EditInitial(
-              dataList: [Taboo(word: '', forbiddenWords: ',,,,')]),
+            dataList: [Taboo(word: '', forbiddenWords: ',,,,', language: '')],
+          ),
         ) {
     late List<Taboo> dataList;
 

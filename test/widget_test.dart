@@ -5,26 +5,48 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+void main() async {
 
-import 'package:taboo_word_maze/main.dart';
+  //   List<Map<String, dynamic>> input = Words.map;
+  // for (int i = 0; i < input.length; i++) {
+  //   var word = input[i]['word'].toString().toUpperCase();
+  //   var language = input[i]['_language'].toString().toUpperCase();
+  //   var forbidden_words = (input[i]['forbidden_words'] as List)
+  //       .map((e) => e.toString().toUpperCase()).toList().asMap();
 
-void main() {
-  testWidgets('Counter increments smoke test', (tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  //   var map = {
+  //     "_language": language,
+  //     "forbidden_words": forbidden_words,
+  //     "word": word,
+  //   };
+  //   print(map);
+  //   // await firestore
+  //   //     .collection('deneme')
+  //   //     .doc(input[i]['word'].toString().toUpperCase())
+  //   //     .set(input[i]);
+  // }
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  // var map = jsonDecode(input);
+  // for (var i = 0; i < input.length; i++) {
+  //   print(input[i]['word']);
+  // }
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  // for (var i = 0; i < (map as List).length; i++) {
+  //   print(map[i] as Map<String, dynamic>);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+  //   await FirebaseFirestore.instance
+  //       .collection('deneme')
+  //       .add(map[i] as Map<String, dynamic>);
+  // }
+
+  // print((map as List).length);
+
+  // (map as List<dynamic>).map((e) {
+  //   print(e);
+  // });
+
+  // final database =
+  //     FirebaseFirestore.instance.collection('deneme');
+
+  // await database.add(map);
 }

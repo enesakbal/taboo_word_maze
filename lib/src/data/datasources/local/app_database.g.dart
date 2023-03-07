@@ -87,7 +87,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Taboo` (`word` TEXT, `forbiddenWords` TEXT, PRIMARY KEY (`word`))');
+            'CREATE TABLE IF NOT EXISTS `Taboo` (`WORD` TEXT, `FORBIDDEN_WORDS` TEXT, `LANGUAGE` TEXT, PRIMARY KEY (`WORD`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -110,24 +110,27 @@ class _$TabooDao extends TabooDao {
             database,
             'Taboo',
             (item) => <String, Object?>{
-                  'word': item.word,
-                  'forbiddenWords': item.forbiddenWords
+                  'WORD': item.word,
+                  'FORBIDDEN_WORDS': item.forbiddenWords,
+                  'LANGUAGE': item.language
                 }),
         _tabooUpdateAdapter = UpdateAdapter(
             database,
             'Taboo',
-            ['word'],
+            ['WORD'],
             (item) => <String, Object?>{
-                  'word': item.word,
-                  'forbiddenWords': item.forbiddenWords
+                  'WORD': item.word,
+                  'FORBIDDEN_WORDS': item.forbiddenWords,
+                  'LANGUAGE': item.language
                 }),
         _tabooDeletionAdapter = DeletionAdapter(
             database,
             'Taboo',
-            ['word'],
+            ['WORD'],
             (item) => <String, Object?>{
-                  'word': item.word,
-                  'forbiddenWords': item.forbiddenWords
+                  'WORD': item.word,
+                  'FORBIDDEN_WORDS': item.forbiddenWords,
+                  'LANGUAGE': item.language
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -143,16 +146,28 @@ class _$TabooDao extends TabooDao {
   final DeletionAdapter<Taboo> _tabooDeletionAdapter;
 
   @override
-  Future<List<Taboo>> getAllTaboo() async {
-    return _queryAdapter.queryList('SELECT * FROM Taboo',
+  Future<List<Taboo>> getAllTabooTR() async {
+    return _queryAdapter.queryList(
+        "SELECT * FROM Taboo WHERE LANGUAGE = 'TR'",
         mapper: (row) => Taboo(
-            word: row['word'] as String?,
-            forbiddenWords: row['forbiddenWords'] as String?));
+            word: row['WORD'] as String?,
+            forbiddenWords: row['FORBIDDEN_WORDS'] as String?,
+            language: row['LANGUAGE'] as String?));
+  }
+
+  @override
+  Future<List<Taboo>> getAllTabooEN() async {
+    return _queryAdapter.queryList(
+        "SELECT * FROM Taboo WHERE LANGUAGE = 'EN'",
+        mapper: (row) => Taboo(
+            word: row['WORD'] as String?,
+            forbiddenWords: row['FORBIDDEN_WORDS'] as String?,
+            language: row['LANGUAGE'] as String?));
   }
 
   @override
   Future<void> deleteAllTaboos() async {
-    await _queryAdapter.queryNoReturn('DElETE FROM Taboo');
+    await _queryAdapter.queryNoReturn('DELETE FROM Taboo');
   }
 
   @override

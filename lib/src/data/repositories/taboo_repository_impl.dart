@@ -2,6 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import '../../core/init/lang/adapter/language_adapter.dart';
+import '../../core/init/lang/language_manager.dart';
 import '../../core/init/lang/locale_keys.g.dart';
 import '../../domain/entities/taboo.dart';
 import '../../domain/repositories/taboo_repository.dart';
@@ -12,8 +14,10 @@ class TabooRepositoryImpl extends TabooRepository {
   final AppDatabase appDatabase;
   final TabooRemoteDataSource remoteDataSource;
 
-  TabooRepositoryImpl(
-      {required this.appDatabase, required this.remoteDataSource});
+  TabooRepositoryImpl({
+    required this.appDatabase,
+    required this.remoteDataSource,
+  });
 
   //* REMOTE
 
@@ -61,7 +65,13 @@ class TabooRepositoryImpl extends TabooRepository {
 
   @override
   Future<List<Taboo>> getAllTaboos() async {
-    return appDatabase.tabooDao.getAllTaboo();
+    final currentLocale = LanguageManager.getCurrentAdapter();
+    if (currentLocale is EnglishLocale) {
+      return appDatabase.tabooDao.getAllTabooEN();
+    } else if (currentLocale is TurkishLocale) {
+      return appDatabase.tabooDao.getAllTabooTR();
+    }
+    return appDatabase.tabooDao.getAllTabooTR();
   }
 
   @override

@@ -11,8 +11,10 @@ class TabooModel extends Equatable {
   final String? word;
   @JsonKey(name: 'forbidden_words')
   final List<String>? forbiddenWords;
+  @JsonKey(name: '_language')
+  final String? language;
 
-  const TabooModel({this.word, this.forbiddenWords});
+  const TabooModel({this.word, this.forbiddenWords, this.language});
 
   factory TabooModel.fromJson(Map<String, dynamic> json) {
     return _$TabooModelFromJson(json);
@@ -34,7 +36,8 @@ class TabooModel extends Equatable {
       //* and split it with a comma and use it in future operations.
     }
 
-    return Taboo(word: word, forbiddenWords: buffer.toString());
+    return Taboo(
+        word: word, forbiddenWords: buffer.toString(), language: language);
   }
 
   @override

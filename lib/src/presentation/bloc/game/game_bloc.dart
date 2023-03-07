@@ -18,7 +18,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     this.tabooUsecase,
   ) : super(GameInitial(
           isVisible: false,
-          tabooData: const Taboo(word: '', forbiddenWords: ',,,,'),
+          tabooData:
+              const Taboo(word: '', forbiddenWords: ',,,,', language: ''),
           team: Team(),
         )) {
     //*
@@ -38,6 +39,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
     on<StartGame>(
       (event, emit) async {
+        dataList = <Taboo>[];
+        //* empty data list
+        
         try {
           team1 = event.team1;
           team2 = event.team2;

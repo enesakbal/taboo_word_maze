@@ -19,6 +19,9 @@ class StartGame extends GameEvent {
     required this.team1,
     required this.team2,
   });
+
+   @override
+  List<Object> get props => [team1, team2];
 }
 
 class SkipTaboo extends GameEvent {
