@@ -23,3 +23,9 @@ class ChangeHasPressedState extends StartGameDialogEvent {
   @override
   List<Object> get props => [];
 }
+class ResetState extends StartGameDialogEvent {
+  const ResetState();
+
+  @override
+  List<Object> get props => [];
+}

@@ -4,7 +4,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../core/init/lang/locale_keys.g.dart';
-import '../../../domain/entities/taboo.dart';
 import '../../../domain/usecaces/firebase_document_usecase.dart';
 import '../../../domain/usecaces/taboo_usecase.dart';
 
@@ -15,7 +14,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final TabooUsecase tabooUsecase;
   final FirebaseDocumentUsecase firebaseDocumentUsecase;
   SplashBloc(this.tabooUsecase, this.firebaseDocumentUsecase)
-      : super(SplashInitial()) {
+      : super(const SplashInitial()) {
           
 
 

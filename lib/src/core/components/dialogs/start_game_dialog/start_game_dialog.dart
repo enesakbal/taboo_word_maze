@@ -28,21 +28,28 @@ class StartGameDialog extends IDialog {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       behavior: HitTestBehavior.opaque,
-      child: AlertDialog(
-        insetPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
-        titlePadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
-        contentPadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 2.h),
-        actionsAlignment: MainAxisAlignment.center,
-        actionsPadding: EdgeInsets.only(bottom: 2.h),
-        iconPadding: EdgeInsets.zero,
-        buttonPadding: EdgeInsets.zero,
-        backgroundColor: ColorsTones.lightSkyBlue,
-        iconColor: Colors.black,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        alignment: Alignment.center,
-        title: _title(),
-        content: _content(),
-        actions: _actions(),
+      child: WillPopScope(
+        onWillPop: () async {
+          context.read<StartGameDialogBloc>().add(const ResetState());
+          return true;
+        },
+        child: AlertDialog(
+          insetPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0.h),
+          titlePadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
+          contentPadding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 2.h),
+          actionsAlignment: MainAxisAlignment.center,
+          actionsPadding: EdgeInsets.only(bottom: 2.h),
+          iconPadding: EdgeInsets.zero,
+          buttonPadding: EdgeInsets.zero,
+          backgroundColor: ColorsTones.lightSkyBlue,
+          iconColor: Colors.black,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          alignment: Alignment.center,
+          title: _title(),
+          content: _content(),
+          actions: _actions(),
+        ),
       ),
     );
   }
@@ -62,6 +69,8 @@ class StartGameDialog extends IDialog {
               // //*
 
               if (_formKey.currentState!.validate()) {
+                context.read<StartGameDialogBloc>().add(const ResetState());
+
                 await router.replace(
                   GameRoute(
                     duration: int.parse(state.time),

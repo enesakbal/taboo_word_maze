@@ -7,8 +7,9 @@ part 'start_game_dialog_state.dart';
 class StartGameDialogBloc
     extends Bloc<StartGameDialogEvent, StartGameDialogState> {
   StartGameDialogBloc()
-      : super(const StartGameDialogInitial()) {
-        
+      : super(const StartGameDialogInitial(
+          hasPressed: false,
+        )) {
     var time = '91';
     var hasPressed = false;
 
@@ -19,6 +20,11 @@ class StartGameDialogBloc
 
     on<ChangeHasPressedState>((event, emit) {
       hasPressed = true;
+      emit(StartGameDialogInitial(time: time, hasPressed: hasPressed));
+    });
+
+    on<ResetState>((event, emit) {
+      hasPressed = false;
       emit(StartGameDialogInitial(time: time, hasPressed: hasPressed));
     });
   }

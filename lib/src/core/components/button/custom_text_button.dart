@@ -3,7 +3,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../theme/app_theme.dart';
-import '../../theme/colors_tones.dart';
 
 class CustomTextButton extends StatelessWidget {
   final void Function() onPressed;
