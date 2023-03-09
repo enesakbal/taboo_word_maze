@@ -36,7 +36,7 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
 
-  await di.init(mode: EnvModes.developmentMode);
+  await di.init(mode: EnvModes.productMode);
   runApp(
     MultiProvider(
       providers: [
