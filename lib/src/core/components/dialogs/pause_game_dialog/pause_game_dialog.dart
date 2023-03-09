@@ -61,7 +61,7 @@ class PauseGameDialog extends IDialog {
             height: 6.h,
             onPressed: onPressedHome,
             text: LocaleKeys.game_pause_dialog_home_button.tr(),
-            backgroundColor: ColorsTones2.pass,
+            backgroundColor: ColorsTones.pass,
           ),
           CustomTextButton(
             width: 35.w,
@@ -71,7 +71,7 @@ class PauseGameDialog extends IDialog {
               // onPressedResume.call();
             },
             text: LocaleKeys.game_pause_dialog_resume_button.tr(),
-            backgroundColor: ColorsTones2.success,
+            backgroundColor: ColorsTones.success,
           ),
         ],
       )
@@ -216,7 +216,7 @@ class PauseGameDialog extends IDialog {
       width: 100.w,
       padding: EdgeInsets.symmetric(vertical: 2.h),
       decoration: BoxDecoration(
-        color: ColorsTones2.softBlue,
+        color: ColorsTones.softBlue,
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(12),
         ),
@@ -227,7 +227,7 @@ class PauseGameDialog extends IDialog {
         style: TextStyle(
           fontSize: 25.sp,
           fontWeight: FontWeight.bold,
-          color: ColorsTones2.azure,
+          color: ColorsTones.azure,
         ),
       ),
     );

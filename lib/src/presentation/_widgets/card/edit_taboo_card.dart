@@ -23,7 +23,7 @@ class EditTabooCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomExpansionTile(
-      textColor: ColorsTones2.black,
+      textColor: ColorsTones.black,
       expansionTitle: taboo.word!,
       children: [
         Column(
@@ -36,16 +36,16 @@ class EditTabooCard extends StatelessWidget {
                   text: taboo.forbiddenWords!.split(',')[i],
                 ),
                 readOnly: true,
-                focusedColor: ColorsTones2.black,
-                enabledColor: ColorsTones2.azure,
-                fillColor: ColorsTones2.azure3,
+                focusedColor: ColorsTones.black,
+                enabledColor: ColorsTones.azure,
+                fillColor: ColorsTones.azure3,
                 validator: null,
                 onChanged: onChanged,
               ),
             CustomTextButton(
               onPressed: onPressedRemove,
               text: LocaleKeys.edit_remove.tr(),
-              backgroundColor: ColorsTones2.fail,
+              backgroundColor: ColorsTones.fail,
             ),
           ],
         )

@@ -4,21 +4,20 @@ import 'package:sizer/sizer.dart';
 import '../../theme/colors_tones.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({
-    super.key,
-    required this.controller,
-    required this.validator,
-    this.onChanged,
-    this.hintText,
-    this.enabledColor,
-    this.focusedColor,
-    this.fillColor,
-    this.prefixIconColor,
-    this.prefixIcon,
-    this.suffixIconColor,
-    this.suffixIcon,
-    this.readOnly = false
-  });
+  const CustomTextFormField(
+      {super.key,
+      required this.controller,
+      required this.validator,
+      this.onChanged,
+      this.hintText,
+      this.enabledColor,
+      this.focusedColor,
+      this.fillColor,
+      this.prefixIconColor,
+      this.prefixIcon,
+      this.suffixIconColor,
+      this.suffixIcon,
+      this.readOnly = false});
 
   final String? hintText;
 
@@ -65,12 +64,12 @@ class CustomTextFormField extends StatelessWidget {
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: enabledColor ?? ColorsTones2.black,
+                color: enabledColor ?? ColorsTones.black,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: focusedColor ?? ColorsTones2.black,
+                color: focusedColor ?? ColorsTones.black,
               ),
             ),
             border: const OutlineInputBorder(
@@ -79,15 +78,15 @@ class CustomTextFormField extends StatelessWidget {
               ),
             ),
             errorStyle: TextStyle(
-              color: ColorsTones2.fail,
+              color: ColorsTones.fail,
             ),
             errorBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: ColorsTones2.fail,
+                color: ColorsTones.fail,
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: ColorsTones2.fail, width: 2.5),
+              borderSide: BorderSide(color: ColorsTones.fail, width: 2.5),
             ),
             prefixIcon: prefixIcon,
             prefixIconColor: prefixIconColor,

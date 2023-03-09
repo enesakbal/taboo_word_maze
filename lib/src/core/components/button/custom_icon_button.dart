@@ -59,7 +59,7 @@ class CustomIconButton extends StatelessWidget {
                 )
               : Icon(
                   icon,
-                  color: ColorsTones2.azure2,
+                  color: ColorsTones.azure2,
                   size: 27.5.sp,
                 ),
         ),
@@ -73,7 +73,7 @@ class CustomIconButton extends StatelessWidget {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: ColorsTones2.azure,
+                  color: ColorsTones.azure,
                 ),
                 child: badgeCounter,
               )),

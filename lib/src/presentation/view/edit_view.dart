@@ -108,11 +108,11 @@ class _EditViewState extends State<EditView> {
       controller: searchBarController,
       validator: null,
       hintText: LocaleKeys.edit_search.tr(),
-      enabledColor: ColorsTones2.azure,
-      focusedColor: ColorsTones2.black,
-      fillColor: ColorsTones2.success.withOpacity(1),
+      enabledColor: ColorsTones.azure,
+      focusedColor: ColorsTones.black,
+      fillColor: ColorsTones.success.withOpacity(1),
       prefixIcon: const Icon(Icons.search),
-      prefixIconColor: ColorsTones2.azure,
+      prefixIconColor: ColorsTones.azure,
       suffixIcon: GestureDetector(
         onTap: () {
           context.read<EditBloc>().add(const FilterAllData(''));
@@ -120,7 +120,7 @@ class _EditViewState extends State<EditView> {
         },
         child: const Icon(Icons.close),
       ),
-      suffixIconColor: ColorsTones2.azure,
+      suffixIconColor: ColorsTones.azure,
       onChanged: (text) => context.read<EditBloc>().add(FilterAllData(text)),
     );
   }

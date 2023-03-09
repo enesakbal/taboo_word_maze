@@ -13,15 +13,15 @@ class AppTheme {
   static ThemeData get _theme {
     return ThemeData(
       fontFamily: ApplicationConstants.FONT_FAMILY_CONTENT,
-      primaryColor: ColorsTones2.primaryColor,
-      scaffoldBackgroundColor: ColorsTones2.primaryColor,
+      primaryColor: ColorsTones.primaryColor,
+      scaffoldBackgroundColor: ColorsTones.primaryColor,
       textTheme: TextTheme(
         displayLarge: TextStyle(
-          color: ColorsTones2.azure,
+          color: ColorsTones.azure,
           fontSize: 20,
         ),
         labelMedium: TextStyle(
-          color: ColorsTones2.azure,
+          color: ColorsTones.azure,
           fontSize: 20,
         ),
       ),
@@ -32,18 +32,17 @@ class AppTheme {
 
   static NeumorphicStyle _neumorphicStyle() {
     return NeumorphicStyle(
-      color: ColorsTones2.secondaryColor,
-      shadowLightColor: ColorsTones2.secondaryColor,
+      color: ColorsTones.secondaryColor,
+      shadowLightColor: ColorsTones.secondaryColor,
       shadowDarkColor: Colors.black,
       depth: 1,
       boxShape: NeumorphicBoxShape.roundRect(
         BorderRadius.circular(12),
       ),
       border: NeumorphicBorder(
-        color: ColorsTones2.secondaryColor,
+        color: ColorsTones.secondaryColor,
         width: 1,
       ),
     );
   }
-
 }

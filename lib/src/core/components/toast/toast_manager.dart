@@ -77,7 +77,7 @@ class ToastManager {
         padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
-          color: isDarkTheme ? Colors.grey : Colors.yellow,
+          color: ColorsTones.pass,
         ),
         child: Container(
           height: 5.h,
@@ -107,7 +107,7 @@ class ToastManager {
         padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
-          color: isDarkTheme ? Colors.grey : Colors.redAccent,
+          color: ColorsTones.fail,
         ),
         child: Row(
           children: [
@@ -117,7 +117,7 @@ class ToastManager {
               child: Icon(
                 Icons.close_outlined,
                 size: 20,
-                color: isDarkTheme ? Colors.black : ColorsTones.azure,
+                color: ColorsTones.azure,
               ),
             ),
             Container(
@@ -130,7 +130,7 @@ class ToastManager {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  color: isDarkTheme ? Colors.black : ColorsTones.azure,
+                  color: ColorsTones.azure,
                 ),
               ),
             ),

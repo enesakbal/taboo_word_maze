@@ -139,7 +139,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
         text: LocaleKeys.splash_title.tr(),
         fontSize: 70,
         fontWeight: FontWeight.w900,
-        strokeColor: ColorsTones2.secondaryColor,
+        strokeColor: ColorsTones.secondaryColor,
         strokeWidth: 6,
       ),
     );

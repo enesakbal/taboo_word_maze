@@ -170,11 +170,11 @@ class StartGameDialog extends IDialog {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       _timeButton(context, state,
-                          time: '30', color: ColorsTones2.fail),
+                          time: '30', color: ColorsTones.fail),
                       _timeButton(context, state,
-                          time: '60', color: ColorsTones2.pass),
+                          time: '60', color: ColorsTones.pass),
                       _timeButton(context, state,
-                          time: '90', color: ColorsTones2.success),
+                          time: '90', color: ColorsTones.success),
                     ],
                   );
                 },
@@ -217,7 +217,7 @@ class StartGameDialog extends IDialog {
       width: 100.w,
       padding: EdgeInsets.symmetric(vertical: 2.h),
       decoration: BoxDecoration(
-        color: ColorsTones2.pass,
+        color: ColorsTones.pass,
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(12),
         ),
@@ -228,7 +228,7 @@ class StartGameDialog extends IDialog {
         style: TextStyle(
           fontSize: 25.sp,
           fontWeight: FontWeight.bold,
-          color: ColorsTones2.black,
+          color: ColorsTones.black,
         ),
       ),
     );

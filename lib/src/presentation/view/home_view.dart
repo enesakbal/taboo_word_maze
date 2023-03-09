@@ -80,7 +80,7 @@ class _HomeViewState extends State<HomeView> {
       text: LocaleKeys.splash_title.tr(),
       fontSize: 85,
       fontWeight: FontWeight.w900,
-      strokeColor: ColorsTones2.secondaryColor,
+      strokeColor: ColorsTones.secondaryColor,
       strokeWidth: 6,
     );
   }

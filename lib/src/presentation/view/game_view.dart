@@ -214,10 +214,10 @@ class _GameViewState extends State<GameView> {
       width: 9.h,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: ColorsTones2.success,
+        color: ColorsTones.success,
         borderRadius: BorderRadius.circular(50),
         border: Border.all(
-          color: ColorsTones2.azure2,
+          color: ColorsTones.azure2,
           width: 5,
         ),
       ),
@@ -228,7 +228,7 @@ class _GameViewState extends State<GameView> {
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
-              color: ColorsTones2.azure2,
+              color: ColorsTones.azure2,
             ),
           );
         },
@@ -245,14 +245,14 @@ class _GameViewState extends State<GameView> {
           duration: widget.duration,
           initialDuration: 0,
           controller: _timerController,
-          ringColor: ColorsTones2.azure3,
-          fillColor: ColorsTones2.fail,
-          backgroundColor: ColorsTones2.pass,
+          ringColor: ColorsTones.azure3,
+          fillColor: ColorsTones.fail,
+          backgroundColor: ColorsTones.pass,
           strokeWidth: 10,
           strokeCap: StrokeCap.butt,
           textStyle: TextStyle(
             fontSize: 25,
-            color: ColorsTones2.azure,
+            color: ColorsTones.azure,
             fontWeight: FontWeight.bold,
           ),
           textFormat: CountdownTextFormat.SS,
@@ -276,7 +276,7 @@ class _GameViewState extends State<GameView> {
         height: 55.h,
         width: 75.w,
         decoration: BoxDecoration(
-          color: ColorsTones2.azure2,
+          color: ColorsTones.azure2,
           borderRadius: const BorderRadius.all(Radius.circular(25)),
         ),
         child: BlocBuilder<GameBloc, GameState>(
@@ -317,7 +317,7 @@ class _GameViewState extends State<GameView> {
     return Container(
       width: 100.w,
       decoration: BoxDecoration(
-        color: ColorsTones2.pass,
+        color: ColorsTones.pass,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
       ),
       child: Center(
@@ -379,7 +379,7 @@ class _GameViewState extends State<GameView> {
               //* start success animation
               _success.fire();
             },
-            color: ColorsTones2.success,
+            color: ColorsTones.success,
             shadowLightColor: Colors.transparent,
             border: const NeumorphicBorder.none(),
             icon: Icons.check_outlined,
@@ -394,7 +394,7 @@ class _GameViewState extends State<GameView> {
                   //* get new data
                   context.read<GameBloc>().add(const SkipTaboo());
                 },
-                color: ColorsTones2.pass,
+                color: ColorsTones.pass,
                 shadowLightColor: Colors.transparent,
                 border: const NeumorphicBorder.none(),
                 icon: Icons.forward_sharp,
@@ -412,7 +412,7 @@ class _GameViewState extends State<GameView> {
                   //* pause game
                   context.read<GameBloc>().add(const PauseGame());
                 },
-                color: ColorsTones2.softBlue,
+                color: ColorsTones.softBlue,
                 shadowLightColor: Colors.transparent,
                 border: const NeumorphicBorder.none(),
                 icon: Icons.pause,
@@ -428,7 +428,7 @@ class _GameViewState extends State<GameView> {
               //* start fail animation
               _fail.fire();
             },
-            color: ColorsTones2.fail,
+            color: ColorsTones.fail,
             shadowLightColor: Colors.transparent,
             border: const NeumorphicBorder.none(),
             icon: Icons.close_outlined,

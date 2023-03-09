@@ -61,7 +61,7 @@ class GameInfoDialog extends IDialog {
               await router.pop();
             },
             text: buttonText,
-            backgroundColor: ColorsTones2.success,
+            backgroundColor: ColorsTones.success,
           ),
         ],
       )
@@ -80,7 +80,7 @@ class GameInfoDialog extends IDialog {
           style: TextStyle(
             fontSize: 20.sp,
             fontWeight: FontWeight.w400,
-            color: ColorsTones2.black,
+            color: ColorsTones.black,
           ),
         ),
       ),
@@ -92,7 +92,7 @@ class GameInfoDialog extends IDialog {
       width: 100.w,
       padding: EdgeInsets.symmetric(vertical: 2.h),
       decoration: BoxDecoration(
-        color: ColorsTones2.softBlue,
+        color: ColorsTones.softBlue,
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(12),
         ),
@@ -103,7 +103,7 @@ class GameInfoDialog extends IDialog {
         style: TextStyle(
           fontSize: 25.sp,
           fontWeight: FontWeight.bold,
-          color: ColorsTones2.azure,
+          color: ColorsTones.azure,
         ),
       ),
     );

@@ -51,8 +51,8 @@ class _CustomExpansionTileState extends State<CustomExpansionTile> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       collapsedShape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      backgroundColor: ColorsTones2.softBlue.withOpacity(0.6),
-      collapsedBackgroundColor: ColorsTones2.pass,
+      backgroundColor: ColorsTones.softBlue.withOpacity(0.6),
+      collapsedBackgroundColor: ColorsTones.pass,
       collapsedTextColor: widget.collapsedTextColor,
       textColor: widget.textColor,
       title: AutoSizeText(

@@ -15,9 +15,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final FirebaseDocumentUsecase firebaseDocumentUsecase;
   SplashBloc(this.tabooUsecase, this.firebaseDocumentUsecase)
       : super(const SplashInitial()) {
-          
-
-
     on<BusinessDesicion>(
       (event, emit) async {
         try {
@@ -70,8 +67,8 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         } else {
           if (event.hasInternetConnection == false) {
             /** if has not local data and internet conn */
-            emit(const SplashError(
-                message: LocaleKeys.errors_no_internet_first_open));
+            emit(SplashError(
+                message: LocaleKeys.errors_no_internet_first_open.tr()));
             return;
           } else {
             /** if has not local data but has internet conn */

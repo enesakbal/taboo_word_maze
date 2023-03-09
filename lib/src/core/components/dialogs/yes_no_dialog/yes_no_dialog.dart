@@ -54,7 +54,7 @@ class YesNoDialog extends IDialog {
             width: 35.w,
             onPressed: onPressedYes,
             text: LocaleKeys.game_yes_no_dialog_yes.tr(),
-            backgroundColor: ColorsTones2.fail,
+            backgroundColor: ColorsTones.fail,
             fontSize: 40,
           ),
           CustomTextButton(
@@ -63,7 +63,7 @@ class YesNoDialog extends IDialog {
               await router.pop();
             },
             text: LocaleKeys.game_yes_no_dialog_no.tr(),
-            backgroundColor: ColorsTones2.success,
+            backgroundColor: ColorsTones.success,
           ),
         ],
       )
@@ -80,7 +80,7 @@ class YesNoDialog extends IDialog {
           contentText,
           textAlign: TextAlign.center,
           maxLines: 3,
-          style: TextStyle(fontSize: 25, color: ColorsTones2.black),
+          style: TextStyle(fontSize: 25, color: ColorsTones.black),
         ),
       ),
     );
@@ -91,7 +91,7 @@ class YesNoDialog extends IDialog {
       width: 100.w,
       padding: EdgeInsets.symmetric(vertical: 2.h),
       decoration: BoxDecoration(
-        color: ColorsTones2.fail,
+        color: ColorsTones.fail,
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(12),
         ),
@@ -104,7 +104,7 @@ class YesNoDialog extends IDialog {
         style: TextStyle(
           fontSize: 25.sp,
           fontWeight: FontWeight.bold,
-          color: ColorsTones2.azure2,
+          color: ColorsTones.azure2,
         ),
       ),
     );
