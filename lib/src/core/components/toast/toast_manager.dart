@@ -34,17 +34,17 @@ class ToastManager {
         padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
-          color: isDarkTheme ? Colors.grey : Colors.greenAccent,
+          color: ColorsTones.success,
         ),
         child: Row(
           children: [
             Container(
               height: 5.h,
               width: 10.w,
-              child: const Icon(
+              child: Icon(
                 Icons.check_outlined,
                 size: 20,
-                color: Colors.black,
+                color: ColorsTones.white,
               ),
             ),
             Container(
@@ -55,9 +55,9 @@ class ToastManager {
                 text,
                 maxLines: 1,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w400,
-                  color: Colors.black,
+                  color: ColorsTones.white,
                 ),
               ),
             ),

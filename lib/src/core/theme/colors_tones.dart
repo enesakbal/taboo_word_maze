@@ -15,6 +15,7 @@ class ColorsTones {
   static Color get black26 => Colors.black26;
   static Color get lightSkyBlue => const Color(0XFF87CEFA);
   static Color get softBlue2 => const Color(0XFF48b5f1);
+  static Color get white => const Color(0xFFFFFFFF);
 
   // static Color get orange => Color.fromARGB(255, 159, 107, 255);
 }

@@ -7,10 +7,18 @@ import '../../../config/router/app_router.dart';
 import '../../rive/rive_constants.dart';
 import '../../theme/colors_tones.dart';
 import '../button/custom_text_button.dart';
+import 'dialog_interface.dart';
 
-class ErrorDialog extends StatelessWidget {
+class ErrorDialog extends IDialog {
   final String text;
-  const ErrorDialog({super.key, required this.text});
+  final String buttonText;
+  final void Function()? onPressed;
+  const ErrorDialog({
+    super.key,
+    required this.text,
+    required this.buttonText,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +63,11 @@ class ErrorDialog extends StatelessWidget {
                 ),
               ),
               CustomTextButton(
-                onPressed: () => router.pop,
-                text: 'data',
+                onPressed: () async {
+                  await router.pop();
+                  (onPressed ?? () {}).call();
+                },
+                text: buttonText,
               )
             ],
           ),
@@ -64,16 +75,9 @@ class ErrorDialog extends StatelessWidget {
       ),
     );
   }
-}
 
-extension Error on ErrorDialog {
-  Future<T?> show<T>(BuildContext context) {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return this;
-      },
-    );
+  @override
+  Future<T?> show<T>(BuildContext context, {bool isDissmissible = false}) {
+    return super.show(context, isDissmissible: isDissmissible);
   }
 }

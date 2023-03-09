@@ -92,6 +92,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
         if (state is NeedUpdate) {
           await ErrorDialog(
             text: state.message,
+            buttonText: LocaleKeys.errors_has_update.tr(),
           ).show(context);
         } else if (state is SplashLocalDBHasData ||
             state is SplashFetchedDataFromFirebase) {
@@ -100,7 +101,12 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
           });
           //* wait for the animation to finish
         } else if (state is SplashError) {
-          await ErrorDialog(text: state.message).show(context);
+          await ErrorDialog(
+            text: state.message,
+            buttonText: LocaleKeys.errors_try_again.tr(),
+            onPressed: () =>
+                context.read<SplashBloc>().add(const BusinessDesicion()),
+          ).show(context);
         }
       },
       child: Scaffold(

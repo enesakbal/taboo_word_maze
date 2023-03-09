@@ -65,7 +65,8 @@
         "no_data":"Error occurred while retrieving data. Please try again.",
         "has_update":"We published a new version!. Please download it.",
         "no_internet_first_open":"Need an internet connection for first open. Please check your internet connection. ",
-        "no_internet":"Please check your internet connection."
+        "no_internet":"Please check your internet connection.",
+        "try_again":"Try Again"
 
     },
     "toast_messages":{

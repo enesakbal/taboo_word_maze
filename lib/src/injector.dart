@@ -286,14 +286,6 @@ Future<void> init({required EnvModes mode}) async {
   try {
     log('*****************INITIAL STATES******************');
 
-    if (mode == EnvModes.developmentMode) {
-      log('MODE : Development');
-      final fcmToken = await messaging.getToken();
-      if (fcmToken == null) {}
-      log('FCM TOKEN : $fcmToken');
-    } else {
-      log('MODE : Product');
-    }
     final notificationStatus = localManager.getCurrentAlertAdapter();
     log('NOTIFICATION STATUS : ${notificationStatus.runtimeType}');
 
@@ -304,5 +296,14 @@ Future<void> init({required EnvModes mode}) async {
     log('LANGUAGE : ${currentLang.runtimeType}');
 
     log('*****************INITIAL STATES******************');
+
+    if (mode == EnvModes.developmentMode) {
+      log('MODE : Development');
+      final fcmToken = await messaging.getToken();
+      if (fcmToken == null) {}
+      log('FCM TOKEN : $fcmToken');
+    } else {
+      log('MODE : Product');
+    }
   } on Exception catch (_) {}
 }

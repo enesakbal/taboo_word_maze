@@ -57,6 +57,7 @@ abstract class  LocaleKeys {
   static const errors_has_update = 'errors.has_update';
   static const errors_no_internet_first_open = 'errors.no_internet_first_open';
   static const errors_no_internet = 'errors.no_internet';
+  static const errors_try_again = 'errors.try_again';
   static const errors = 'errors';
   static const toast_messages_notification_activated = 'toast_messages.notification_activated';
   static const toast_messages_notification_deactivated = 'toast_messages.notification_deactivated';
