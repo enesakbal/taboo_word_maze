@@ -67,6 +67,11 @@ class StartGameDialog extends IDialog {
               // _team1Controller.text = 'Tea';
               // _team2Controller.text = 'Akbal';
               // //*
+              if (_team1Controller.text.isEmpty && _team2Controller.text.isEmpty)
+              {
+                _team1Controller.text = LocaleKeys.game_start_dialog_team_1.tr();
+                _team2Controller.text = LocaleKeys.game_start_dialog_team_2.tr();
+              }
 
               if (_formKey.currentState!.validate()) {
                 context.read<StartGameDialogBloc>().add(const ResetState());
