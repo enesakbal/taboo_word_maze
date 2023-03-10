@@ -1,1 +1,1 @@
-flutter build appbundle --build-name=1.0 --build-number=1
+flutter build appbundle --build-name=1.0 --build-number=3
