@@ -87,9 +87,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _playButton() {
     return CustomTextButton(
-      onPressed: () async {
-        await StartGameDialog().show(context);
-      },
+      onPressed: () => StartGameDialog().show(context),
       text: LocaleKeys.home_play.tr(),
       height: 7.5.h,
       width: 60.w,
@@ -98,7 +96,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _editButton() {
     return CustomTextButton(
-      onPressed: () async => router.push(const EditRoute()),
+      onPressed: () => router.push(const EditRoute()),
       text: LocaleKeys.home_edit.tr(),
       height: 7.5.h,
       width: 60.w,
@@ -124,9 +122,8 @@ class _HomeViewState extends State<HomeView> {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return CustomIconButton(
-          onPressed: () async {
-            context.read<HomeBloc>().add(ChangeNotification(context));
-          },
+          onPressed: () =>
+              context.read<HomeBloc>().add(ChangeNotification(context)),
           icon: state.notificationAdapter.model.iconData, //on
         );
       },
@@ -137,9 +134,7 @@ class _HomeViewState extends State<HomeView> {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return CustomIconButton(
-          onPressed: () async {
-            context.read<HomeBloc>().add(ChangeTheme(context));
-          },
+          onPressed: () => context.read<HomeBloc>().add(ChangeTheme(context)),
           icon: state.themeAdapter.model.iconData,
         ); //on
       },
@@ -148,7 +143,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _rateMeButton() {
     return CustomIconButton(
-      onPressed: () async {},
+      onPressed: () => context.read<HomeBloc>().add(OpenStore()),
       icon: Icons.star_border_outlined,
     );
   }
@@ -157,9 +152,7 @@ class _HomeViewState extends State<HomeView> {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return CustomIconButton(
-          onPressed: () async {
-            context.read<HomeBloc>().add(ChangeLocale(context));
-          },
+          onPressed: () => context.read<HomeBloc>().add(ChangeLocale(context)),
           svgData: state.localeAdapter.model.imagePath,
         );
       },

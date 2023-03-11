@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 import '../../../core/init/lang/locale_keys.g.dart';
 import '../../../domain/usecaces/firebase_document_usecase.dart';
@@ -13,7 +14,8 @@ part 'splash_state.dart';
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final TabooUsecase tabooUsecase;
   final FirebaseDocumentUsecase firebaseDocumentUsecase;
-  SplashBloc(this.tabooUsecase, this.firebaseDocumentUsecase)
+  final InAppReview inAppReview;
+  SplashBloc(this.tabooUsecase, this.firebaseDocumentUsecase, this.inAppReview)
       : super(const SplashInitial()) {
     on<BusinessDesicion>(
       (event, emit) async {
@@ -30,7 +32,10 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
             },
             (hasUpdate) async {
               if (hasUpdate) {
-                emit(NeedUpdate(message: LocaleKeys.errors_has_update.tr()));
+                emit(NeedUpdate(
+                  message: LocaleKeys.errors_has_update.tr(),
+                  onPressed: inAppReview.openStoreListing,
+                ));
                 /** If has an internet connection and need update */
                 await firebaseDocumentUsecase.saveToken();
                 return;

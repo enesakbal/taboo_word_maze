@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -199,8 +200,8 @@ Future<void> init({required EnvModes mode}) async {
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
 
-  injector.registerFactory(() => SplashBloc(injector(), injector()));
-  injector.registerFactory(() => HomeBloc(injector(), injector(), injector()));
+  injector.registerFactory(() => SplashBloc(injector(), injector(),injector()));
+  injector.registerFactory(() => HomeBloc(injector(), injector(), injector(),injector()));
   injector.registerFactory(() => GameBloc(injector()));
   injector.registerFactory(() => EditBloc(injector()));
   injector.registerFactory(StartGameDialogBloc.new);
@@ -282,6 +283,17 @@ Future<void> init({required EnvModes mode}) async {
   //*-------------------------------------------------------------------*/
   //*-------------------------------------------------------------------*/
   //**************************- DEVICE INFO -***************************//
+
+  //*************************- IN APP REVIEW -**************************//
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  final inAppReview = InAppReview.instance;
+
+  injector.registerLazySingleton<InAppReview>(() => inAppReview);
+
+  //*-------------------------------------------------------------------*/
+  //*-------------------------------------------------------------------*/
+  //*************************- IN APP REVIEW -**************************//
 
   try {
     log('*****************INITIAL STATES******************');

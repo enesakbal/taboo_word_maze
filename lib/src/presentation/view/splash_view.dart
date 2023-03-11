@@ -93,6 +93,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
           await ErrorDialog(
             text: state.message,
             buttonText: LocaleKeys.errors_update.tr(),
+            onPressed: state.onPressed,
           ).show(context);
         } else if (state is SplashLocalDBHasData ||
             state is SplashFetchedDataFromFirebase) {

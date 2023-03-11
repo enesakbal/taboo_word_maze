@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 import '../../../core/init/lang/adapter/language_adapter.dart';
 import '../../../core/init/notifications/local/adapter/notification_adapter.dart';
@@ -17,8 +18,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   final NotificationSetting<NotificationAdapter> notificationSetting;
 
+  final InAppReview inAppReview;
 
-  HomeBloc(this.langSetting, this.themeSetting, this.notificationSetting)
+  HomeBloc(this.langSetting, this.themeSetting, this.notificationSetting,this.inAppReview)
       : super(HomeInitial(
           themeAdapter: themeSetting.currentAdapter,
           localeAdapter: langSetting.currentAdapter,
@@ -40,6 +42,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     on<ChangeNotification>((event, emit) async {
       await notificationSetting.changeState(event.context);
+      add(const UpdateState());
+    });
+
+    on<OpenStore>((event, emit) async {
+      if (await inAppReview.isAvailable()) {
+        await inAppReview.requestReview();
+      }
+
       add(const UpdateState());
     });
 

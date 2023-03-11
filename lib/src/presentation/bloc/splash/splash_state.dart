@@ -34,8 +34,9 @@ class SplashError extends SplashState {
 
 class NeedUpdate extends SplashState {
   final String message;
+  final void Function() onPressed;
 
-  const NeedUpdate({required this.message});
+  const NeedUpdate({required this.message,required this.onPressed});
 
   @override
   List<Object> get props => [message];

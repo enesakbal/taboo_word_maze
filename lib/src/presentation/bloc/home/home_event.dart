@@ -7,7 +7,7 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ClearAlertsAndSetAgain  extends HomeEvent {
+class ClearAlertsAndSetAgain extends HomeEvent {
   const ClearAlertsAndSetAgain();
   
 }
@@ -35,6 +35,13 @@ class ChangeLocale extends HomeEvent {
 class ChangeNotification extends HomeEvent {
   final BuildContext context;
   const ChangeNotification(this.context);
+
+  @override
+  List<Object> get props => [];
+}
+
+class OpenStore extends HomeEvent {
+  const OpenStore();
 
   @override
   List<Object> get props => [];
