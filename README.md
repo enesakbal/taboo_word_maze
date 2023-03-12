@@ -38,7 +38,7 @@ You can get all Taboo Data from my [Taboo Data](https://github.com/enesakbal/tab
 - [Sizer](https://pub.dev/packages/sizer) and [AutoSizeText](https://pub.dev/packages/auto_size_text)(or Responsive)
 - [Easy Localization](https://pub.dev/packages/easy_localization) (for Localization)
 - [Flutter Local Notifications](https://pub.dev/packages/flutter_local_notifications) (for Local Notifications)
-- [Firebase Messasing](https://pub.dev/packages/firebase_messaging)(for Push Notifications)
+- [Firebase Messaging](https://pub.dev/packages/firebase_messaging)(for Push Notifications)
 
 
 
