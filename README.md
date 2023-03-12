@@ -6,11 +6,20 @@ This app made with Flutter(3.7.7).
 Taboo Word Maze containing more than 700 English and 500 Turkish taboos is waiting for you with its user-friendly interface and animations. You can access and review all the codes of this project
 
 
-## Clone
+## Clone This Project
 
 ```bash
   git clone https://github.com/enesakbal/taboo_word_maze.git
 ```
+
+## Get All Data
+
+You can get all Taboo Data from my [Taboo Data](https://github.com/enesakbal/taboo_data) Repository.
+
+```bash
+  git clone https://github.com/enesakbal/taboo_data.git
+```
+
 ## Features
 
 - Local Notifications and Push Notifications (FCM)
@@ -26,8 +35,11 @@ Taboo Word Maze containing more than 700 English and 500 Turkish taboos is waiti
 - Adapter Pattern
 - [Bloc](https://pub.dev/packages/flutter_bloc) and [Provider](https://pub.dev/packages/provider) (for State Managment)
 - [SQFLITE](https://pub.dev/packages/sqflite) and [Floor](https://pub.dev/packages/floor)(for Local DB)
-- [Sizer](https://pub.dev/packages/sizer) and [AutoSizeText](https://pub.dev/packages/auto_size_text)(for Responsive)
-- [Easy Localization](https://pub.dev/packages/easy_localization) (for localization)
+- [Sizer](https://pub.dev/packages/sizer) and [AutoSizeText](https://pub.dev/packages/auto_size_text)(or Responsive)
+- [Easy Localization](https://pub.dev/packages/easy_localization) (for Localization)
+- [Flutter Local Notifications](https://pub.dev/packages/flutter_local_notifications) (for Local Notifications)
+- [Firebase Messasing](https://pub.dev/packages/firebase_messaging)(for Push Notifications)
+
 
 
 ## Screenshots
