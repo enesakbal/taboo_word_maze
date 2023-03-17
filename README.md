@@ -35,7 +35,7 @@ You can get all Taboo Data from my [Taboo Data](https://github.com/enesakbal/tab
 - Adapter Pattern
 - [Bloc](https://pub.dev/packages/flutter_bloc) and [Provider](https://pub.dev/packages/provider) (for State Managment)
 - [SQFLITE](https://pub.dev/packages/sqflite) and [Floor](https://pub.dev/packages/floor)(for Local DB)
-- [Sizer](https://pub.dev/packages/sizer) and [AutoSizeText](https://pub.dev/packages/auto_size_text)(or Responsive)
+- [Sizer](https://pub.dev/packages/sizer) and [AutoSizeText](https://pub.dev/packages/auto_size_text)(for Responsive)
 - [Easy Localization](https://pub.dev/packages/easy_localization) (for Localization)
 - [Flutter Local Notifications](https://pub.dev/packages/flutter_local_notifications) (for Local Notifications)
 - [Firebase Messaging](https://pub.dev/packages/firebase_messaging)(for Push Notifications)
