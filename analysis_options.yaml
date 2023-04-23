@@ -27,7 +27,7 @@ dart_code_metrics:
     maintainability-index: 50
     maximum-nesting: 5
     number-of-parameters: 5
-    source-lines-of-code: 50
+    source-lines-of-code: 100
     technical-debt:
       threshold: 16
       todo-cost: 4
